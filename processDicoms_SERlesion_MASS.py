@@ -819,11 +819,11 @@ def create_SER(selectMethod, numberS, img_folder, LesionID, SeriesID, eID, Study
 		for nameFile in list_files:
 			if( nameFile=='DIRCONTENTS.txt'):
 				path_filenameID = abspath_PhaseID+os.sep+list_files[kfile+1]			
-				path_filenameID = path_filenameID[0:-9]+'01.MR.dcm'
+				path_filenameID = path_filenameID[0:-10]+'001.MR.dcm'
 				kfile+=1
 		if(path_filenameID==[]):
-			path_filenameID = abspath_PhaseID+os.sep+list_files[1]
-			path_filenameID = path_filenameID[0:-9]+'01.MR.dcm'
+			path_filenameID = abspath_PhaseID+os.sep+list_files[0]
+			path_filenameID = path_filenameID[0:-10]+'001.MR.dcm'
 			print path_filenameID
 			
 		dicomInfo_series = dicom.read_file(os.path.abspath(path_filenameID)) 
@@ -882,11 +882,11 @@ def create_SER(selectMethod, numberS, img_folder, LesionID, SeriesID, eID, Study
 		for nameFile in list_files:
 			if( nameFile=='DIRCONTENTS.txt'):
 				path_filenameID = abspath_PhaseID+os.sep+list_files[kfile+1]			
-				path_filenameID = path_filenameID[0:-9]+'01.MR.dcm'
+				path_filenameID = path_filenameID[0:-10]+'001.MR.dcm'
 				kfile+=1
 		if(path_filenameID==[]):
 			path_filenameID = abspath_PhaseID+os.sep+list_files[1]
-			path_filenameID = path_filenameID[0:-9]+'01.MR.dcm'
+			path_filenameID = path_filenameID[0:-10]+'001.MR.dcm'
 			print path_filenameID
 		
 		# Get DICOM header information
@@ -958,11 +958,11 @@ def create_SER(selectMethod, numberS, img_folder, LesionID, SeriesID, eID, Study
 		for nameFile in list_files:
 			if( nameFile=='DIRCONTENTS.txt'):
 				path_filenameID = abspath_PhaseID+os.sep+list_files[kfile+1]			
-				path_filenameID = path_filenameID[0:-9]+'01.MR.dcm'
+				path_filenameID = path_filenameID[0:-10]+'001.MR.dcm'
 				kfile+=1
 		if(path_filenameID==[]):
 			path_filenameID = abspath_PhaseID+os.sep+list_files[1]
-			path_filenameID = path_filenameID[0:-9]+'01.MR.dcm'
+			path_filenameID = path_filenameID[0:-10]+'001.MR.dcm'
 			print path_filenameID
 						
 		# Get dicom header			
@@ -1704,11 +1704,11 @@ try:
 				for nameFile in list_files:
 					if( nameFile=='DIRCONTENTS.txt'):
 						path_filenameID = chosen_folderID+os.sep+list_files[kfile+1]			
-						path_filenameID = path_filenameID[0:-9]+'01.MR.dcm'
+						path_filenameID = path_filenameID[0:-10]+'001.MR.dcm'
 						kfile+=1
 				if(path_filenameID==[]):
 					path_filenameID = chosen_folderID+os.sep+list_files[1]
-					path_filenameID = path_filenameID[0:-9]+'01.MR.dcm'
+					path_filenameID = path_filenameID[0:-10]+'001.MR.dcm'
 					print path_filenameID
 				
 				dicomInfo_visual_SerieID = dicom.read_file(os.path.abspath(path_filenameID)) 
