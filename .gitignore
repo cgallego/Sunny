@@ -1,0 +1,8 @@
+
+.DS_Store
+
+# on windows
+# undo files from python, VIM
+.*.py~
+.*.un~
+
