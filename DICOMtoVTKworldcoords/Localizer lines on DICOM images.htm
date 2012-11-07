@@ -1,0 +1,770 @@
+<HTML>
+<HEAD>
+<TITLE>Medical Image Format FAQ - Part 2</TITLE>
+</HEAD>
+<BODY BGCOLOR="#FFFFFF" LINK="#FF0000" TEXT="#000000" ALINK="#000000"  VLINK="#52188C">
+<H1><IMG SRC="title.gif"> Medical Image Format FAQ - Part 2</H1>
+
+<HR>
+
+<H1>Standard Formats (Continued)</H1>
+
+<HR>
+
+<H2>Access to other parts ...</H2>
+
+<UL>
+<LI> <A HREF="index.html">preface</A></LI>
+<LI> <A HREF="changes.html">latest changes</A>
+<LI> <A HREF="toc.html">table of contents</A>
+<LI> <A HREF="part1.html">part1 - general information &amp; standard formats</A>
+<LI> <A HREF="part2.html">part2 - standard formats (continued)</A>
+<LI> <A HREF="part3.html">part3 -  proprietary CT formats</A>
+<LI> <A HREF="part4.html">part4 -  proprietary MR formats</A>
+<LI> <A HREF="part5.html">part5 -  proprietary other formats</A>
+<LI> <A HREF="part6.html">part6 -  hosts &amp; compression</A>
+<LI> <A HREF="part7.html">part7 - general information sources</A>
+<LI> <A HREF="part8.html">part8 - DICOM information sources</A>
+<LI> <A HREF="keyword.html">index by keyword</A>
+
+</UL>
+<BR>
+START OF PART 2<BR>
+
+    <H3>2.2 <A NAME="DICOM">ACR/NEMA DICOM 3.0</A></H3>
+
+<PRE>
+        ACR/NEMA Standards Publications
+
+            PS 3.1   &lt;- DICOM 3 - Introduction &amp; Overview
+            PS 3.8   &lt;- DICOM 3 - Network Communication Support
+
+            PS 3.2   &lt;- DICOM 3 - Conformance
+            PS 3.3   &lt;- DICOM 3 - Information Object Definitions
+            PS 3.4   &lt;- DICOM 3 - Service Class Specifications
+            PS 3.5   &lt;- DICOM 3 - Data Structures &amp; Encoding
+            PS 3.6   &lt;- DICOM 3 - Data Dictionary
+            PS 3.7   &lt;- DICOM 3 - Message Exchange
+            PS 3.9   &lt;- DICOM 3 - Point-to-Point Communication
+
+            PS 3.10  &lt;- DICOM 3 - Media Storage &amp; File Format
+            PS 3.11  &lt;- DICOM 3 - Media Storage Application Profiles
+            PS 3.12  &lt;- DICOM 3 - Media Formats &amp; Physical Media
+
+            PS 3.13  &lt;- DICOM 3 - Print Management Point-to-Point Communication Support
+            PS 3.14  &lt;- DICOM 3 - Grayscale Standard Display Function
+            PS 3.15  &lt;- DICOM 3 - Security Profiles
+            PS 3.16  &lt;- DICOM 3 - Content Mapping Resource (DCMR)
+</PRE>
+<P>
+        DICOM (Digital Imaging and Communications in Medicine) standards are of course the hot topic at every radiological trade show. Unlike previous attempts at developing a standard, this one seems to have the potential to actually achieve its objective, which in a nutshell, is to allow vendors to produce a piece of equipment or software that has a high probability of communicating with devices from other vendors.
+</P>
+<P>
+        Where DICOM differs substantially from other attempts, is in defining so called Service-Object Pairs. For instance if a vendor's MR DICOM conformance statement says that it supports an MR Storage Class as a Service Class Provider, and another vendor's workstation says that it supports an MR Storage Class as a Service Class User, and both can connect via TCP/IP over Ethernet, then the two devices will almost certainly be able to talk to each other once they are setup with each others network addresses and so on.
+</P>
+<P>
+        The keys to the success of DICOM are the use of standard network facilities for interconnection (TCP/IP and ISO-OSI), a mechanism of association establishment that allows for negotiation of how messages are to be transferred, and an object-oriented specification of Information Objects (ie. data sets) and Service Classes.
+</P>
+<P>
+        Of course all this makes for a huge and difficult to read standard, but once the basic concepts are grasped, the standard itself just provides a detailed reference. From the users' and equipment purchasers' points of view the important thing is to be able to read and match up the Conformance Statements from each vendor to see if two pieces of equipment will talk.
+</P>
+<P>
+        Just being able to communicate and transfer information is of course not sufficient - these are only tools to help construct a total system with useful functionality. Because a workstation can pull an image off an MRI scanner doesn't mean it knows when to do it, when the image has become available, to which patient it belongs, and where it is subsequently archived, not to mention notifying the Radiology or Hospital Information System (RIS/HIS) when such a task has been performed. In other words DICOM Conformance does not guarantee functionality, it only facilitates connectivity.
+</P>
+<P>
+        In otherwords, don't get too carried away with espousing the virtues of DICOM, demanding it from vendors, and expecting it to be the panacea to create a useful multi-vendor environment.
+</P>
+<P>
+        To get more information about DICOM:
+</P>
+<UL>
+           <LI> Purchase the standards from <A HREF="part8.html#NEMA">NEMA</A>.
+
+           <LI> Ftp the final versions of the drafts in electronic form
+              one of the <A HREF="part8.html#DICOMDrafts">sites</A> described below.
+
+           <LI> Follow the Usenet group <A HREF="news:comp.protocols.dicom">comp.protocols.dicom</A>.
+
+           <LI> Get a copy of <A HREF="part8.html#KodakUnderstandingDICOM">"Understanding DICOM 3.0"</A> $12.50 from Kodak.
+
+           <LI> Insist that your existing and potential vendors supply you
+              with DICOM conformance statements before you upgrade or
+              purchase, and don't buy until you know what they mean. Don't
+              take no for an answer!!!!
+</UL>
+<P>
+        What is all this doing in an FAQ about medical image formats you ask ? Well first of all, in many ways DICOM 3.0 will solve future connectivity problems, if not provide functional solutions to common problems. Hence actually getting the images from point A to B is going to be easier if everyone conforms. Furthermore, for those of us with old equipment, interfacing it to new DICOM conforming equipment is going to be a problem. In otherwords old network solutions and file formats are going to have to be transformed if they are going to communicate unidirectionally or bidirectionally with DICOM 3.0 nodes. One is still faced with the same old questions of how does one move the data and how does one interpret it.
+</P>
+<P>
+        The specifics of the DICOM message format are very similar to the previous versions of ACR/NEMA on which it is based. The data dictionary is greatly extended, and certain data elements have been "retired" but can be ignored gracefully if present. The message itself can now be transmitted as a byte stream over networks, rather than using a point-to-point paradigm excusively (though the old point-to-point interface is available). This message can be encoded in various different Transfer Syntaxes for transmission.
+</P>
+<P>
+        When two devices ("Application Entities" or AE) begin to establish an "Association", they negotiate an appropriate transfer syntax. They may choose an Explicit Big-Endian Transfer Syntax in which integers are encoded as big-endian and where each data element includes a specific field that says "I am an unsigned 16 bit integer" or "I am an ascii floating-point number", or alternatively they can fall back on the default transfer syntax which every AE must support, the Implicit Little-Endian Transfer Syntax which is just the same as an old ACR/NEMA message with the byte order defined once and for all.
+</P>
+<P>
+        This is all very well if you are using DICOM as it was originally envisaged - talking over a network, negotiating an association, and determining what Transfer Syntax to use. What if one wants to store a DICOM message in a file though ? Who is to say which transfer syntax one will use to encode it offline ? One approach, used for example by the Central Test Node software produced by Mallinkrodt and used in the RSNA Inforad demonstrations, is just to store it in the default little-endian implicit syntax and be done with it. This is obviously not good enough if one is going to be mailing tapes, floppies and optical disks between sites and vendors though, and hence the DICOM group decided to define a "Media Storage &amp; File Format" part of the standard, the new Parts 10, 11 and 12 which have recently passed their ballot and should be available in final form from NEMA soon.
+</P>
+<P>
+        Amongst other things, Part 10 defines a generic DICOM file format that contains a brief header, the "DICOM File Meta Information Header" which contains a 128 byte preamble (that the user can fill with anything), a 4 byte DICOM prefix "DICM", then a short DICOM format message that contains newly defined elements of group 0002 in a specified Transfer Syntax, which uniquely identify the data set as well as specifying the Transfer Syntax for the rest of the file. The rest of the message must specify a single SOP instance. The length of the brief message in the Meta Information Header is specified in the first data element as usual, the group length.
+</P>
+<P>
+        Originally the draft of Part 10 specified the default Implicit Value Representation Little Endian Transfer Syntax as the DICOM File Meta Information Header Transfer Syntax, which is in keeping with the concept that it is the default for all other parts of the standard. The final text fortunately changed this to Explicit Value Representation Little Endian Transfer Syntax.
+</P>
+<P>
+        So what choices of Transfer Syntax does one have and why all the fuss ? Well the biggest distinction is between implicit and explicit value representation which allows for multiple possible representations for a single element, in theory at least, and perhaps allows one to make more of an unknown data element than one otherwise could perhaps. Some purists (and Interfile people) would argue that the element should be identified descriptively, and there is nothing to stop someone from defining their own private Transfer Syntax that does just that (what a heretical thought, wash my mouth out with soap). With regard to the little vs. big endian debate I can't see what the fuss is about, as it can't really be a serious performance issue.
+</P>
+<P>
+        Perhaps more importantly in the long run, the Transfer Syntax mechanism provides a means for encapsulating compressed data streams, without having to deal with the vagaries and mechanics of compression in the standard itself. For example, if DICOM version 3.0, in addition to the "normal" Transfer Syntaxes, a series are defined to correspond to each of the Joint Photographic Experts Group (JPEG) processes. Each one of these Transfer Syntaxes encodes data elements in the normal way, except for the image pixel data, which is defined to be encoded as a valid and self-contained JPEG byte stream. Both reversible and irreversible processes of various types are provided for, without having to mess with the intricacies of encoding the various tables and parameters that JPEG processes require. Presumably a display application that supports such a Transfer Syntax will just chop out the byte stream, pass it to the relevant JPEG decode, and get an uncompressed image back.
+</P>
+<P>
+        Contrast this approach with that taken by those defining the TIFF (Tagged Image File Format) for general imaging and page layout applications. In their version 6.0 standard they attempted to disassemble the JPEG stream into its various components and assign each to a specific tag. Unfortunately this proved to be unworkable after the standard was disseminated and they have gone back to the drawing board.
+</P>
+<P>
+        Now one may not like the JPEG standard, but one cannot argue with the fact that the scheme is workable, and a readily available means of reversible compression has been incorporated painlessly. How effective a compression scheme this is remains to be determined, and whether or not the irreversible modes gain wide acceptance will be dictated by the usual medico-legal paranoia that prevails in the United States, but the option is there for those who want to take it up. Though originally every conceivable JPEG (ISO 10918-1) compression process was defined in the standard, recently all but the most commonly used (8 and 12 bit DCT lossy huffman and 16 bit lossless huffman) have been retired. There is of course no reason why private compression schemes cannot be readily incorporated using this "encapsulation" mechanism, and to preserve bandwidth this will undoubtedly occur. This will not compromise compatibility though, as one can always fall back to a default, uncompressed Transfer Syntax. More recently, JPEG-LS and JPEG 2000 have also been added to the standard. RLE (Run Length Encoded) compression, using the TIFF PackBits mechanism, is also present in the standard and is used for Ultrasound applications (only, as far as I know).
+</P>
+<P>
+        In order to identify all these various syntaxes, information objects, and so on, DICOM has adopted the ISO concept of the Unique Identifier (<A NAME="UID">UID</A>), which is
+		a text string of numbers and periods with a unique root for each organization that is registered with ISO and various organizations that in turn register others in a
+		hierarchical fashion. For example 1.2.840.10008.1.2 is defined as the Implicit VR Little Endian Transfer Syntax. The 1 identifies ISO, the 2 is the ISO member body branch,
+		the 840 is the specific member body country code, in this case ANSI, and the 10008 is registered by ANSI to NEMA for DICOM.  UID's are also used to uniqely identify non-DICOM
+		specific things, such as information objects. What DICOM calls a "UID" is referred to in the ISO OSI world as an <A HREF="http://en.wikipedia.org/wiki/Object_identifier">Object Identifier</A> (<A NAME="OID">OID</A>),
+		and the same terminology is now used in HL7.
+</P>
+<P>
+        UIDs are constructed from a prefix registered to the supplier or vendor or site, and a unique suffix that may be generated from say a date and time stamp (which is not to be parsed). For
+		example an instance of a CT information object might have a UID of 1.2.840.123456.2.999999.940623.170717 where a (presumably US) vendor registered 123456, and the modality generated a
+		unique suffix based on its device number, patient hospital id, date and time, which have no other significance other than to create a unique suffix. Each vendor of a DICOM implementation
+		needs a UID root from which to begin generating their own UIDs. See <A HREF="part8.html#UIDRegistration">UID - Getting a Registered Organization Number for a DICOM UID Root</A> for details.
+		It is said that <A HREF="http://www.alvestrand.no/objectid/2.html">Joint ISO-ITU</A> root form of "2.16.country" is currently preferred over the "1.country" form of the root, which is
+		something to bear in mind when building your own root once you are a registered number. Picker for example uses "2.16.840.1.113662" as their root. GE uses "1.2.840.113619". The "840" is
+		the country code for US (there is an assumption that there is one member body per country responsible for registration)
+		using <A HREF="ftp://ftp.fu-berlin.de/doc/iso/iso3166-countrycodes.txt">ISO 3166</A> numeric country codes. I am not sure why there is a "1" after the "2.16.840", but one does not seem
+		to need to add a "1" after "1.2.840" using the ISO registration scheme. I am also not sure if the "1" after the "840" is a US thing only for joint registrations, or whether other
+		countries use the "1" also. Note that one does NOT zero-pad UID components, hence the three-letter ISO 3166 code for Brazil of "076" would actually be used as "76", e.g. "1.2.76.xxxxxx". This
+		is something to take great care with when generating the unique suffix for a particular UID (e.g. don't use serial number "002456" but "2456" instead).
+</P>
+<P>
+        Each implementer (vendor) only needs to obtain a single UID root; they can then follow internal procedures to sub-delegate parts of the "range" below that root, e.g., to a particular team
+		or product or purpose. Extreme care needs to be taken, obviously, to assure that the same UID sub-root is never reused within the company or any of its products for a different purpose. In
+		other words, a single UID root is all that is needed for any organization that then takes responsibility for how it is then used (i.e., it is very similar to a
+		DNS <A HREF= "http://en.wikipedia.org/wiki/Domain_name">domain name</A>).
+</P>
+<P>
+		Another approach to generating UIDs that does not require obtaining one&apos;s own root prefix can take advantage of a standard prefix established for using a <A HREF="http://en.wikipedia.org/wiki/Universally_Unique_Identifier">Universally Unique Identifier</A> (<A NAME="UUID">UUID</A>), which are
+		used in many libraries and applications as identifiers for distributed objects. The procedure is described in <a href="http://www.itu.int/ITU-T/studygroups/com17/oid/X.667-E.pdf">ITU X.667 Information technology - Open Systems Interconnection - Procedures for the operation of OSI Registration Authorities: Generation and registration of Universally Unique Identifiers (UUIDs) and their use as ASN.1 Object Identifier components</a>;
+		in essence it involves converting the normal hyphenated hexadecimal string form of a UUID into a single large decimal number and appending it to the prefix "2.25.". E.g., the UUID "f81d4fae-7dec-11d0-a765-00a0c91e6bf6" becomes the DICOM UID (OID) "2.25.329800735698586629295641978511506172918". Since this process involves a very large number, it is most easily done with a language or library that supports unlimited length
+		integers (e.g., <A HREF="http://java.sun.com/javase/6/docs/api/java/math/BigInteger.html">java.math.BigInteger</A>), and which provides tools to generate and parse UUIDs (e.g., <A HREF="http://java.sun.com/javase/6/docs/api/java/util/UUID.html">java.util.UUID</A>).
+		Fortunately, the maximum size of the decimal integer to represent a UUID plus the prefix fits into the DICOM 64 character limit for UIDs.
+</P>
+<P>
+        Another important new concept that DICOM introduced was the concept of Information Objects. In the previous ACR/NEMA standard, though modalities were identified by a specific data element, and though there were rules about which data elements were mandatory, conditional or optional in ceratin settings, the concept was relatively loosely defined. Presumably in order to provide a mechanism to allow conformance to be specified and hence ensure interoperability, various Information Objects are defined that are composed of sets of Modules, each module containing a specific set of data elements that are present or absent according to specific rules.
+</P>
+<P>
+        For example, a CT Image Information Object contains amongst others, a Patient module, a General Equipment module, a CT Image module, and an Image Pixel module. An MR Image Information module would contain all of these except the CT Image module which would be replaced by an MR Image module. Clearly one needs descriptive information about a CT image that is different from an MR image, yet the commonality of the image pixel data and the patient information is recognized by this model.
+</P>
+<P>
+        Hence, as described earlier, one can define pairs of Information Objects and Services that operate on such objects (Storage, Query/Retrieve, etc.) and one gets SOP classes and instances. All very object oriented and initially confusing perhaps, but it provides a mechanism for specifying conformance. From the point of view of an interpreters of a DICOM compatible data stream this means that for a certain instance of an Information Object, certain information is guaranteed to be in there, which is nice. As a creator of such a data stream, one must ensure that one follows all the rules to make sure that all the data elements from all the necessary modules are present.
+</P>
+<P>
+        Having done so one then just throws all the data elements together, sorts them into ascending order by group and element order, and pumps them out. It is a shame that the data stream itself doesn't reflect the underlying order in the Information Objects, but I guess they had to maintain backward compatibility, hence this little bit of ugliness. This gets worse when one considers how to put more than one object in a folder inside another object.
+</P>
+<P>
+        At this point I am tempted to include more details of various different modules, data elements and transfer syntaxes, as well as the TCP/IP mechanism for connection. However all this information is in the standard itself, copies of which are readily available electronically from ftp sites, and in the interests of brevity I will not succumb to temptation at this time.
+</P>
+
+        <H4>2.2.1 <A NAME="DICOMLocalizers">Localizer lines on DICOM images</A></H4>
+<P>
+          A specific topic that is frequently asked in <A HREF="news:comp.protocols.dicom">comp.protocols.dicom</A> is how to use display an image
+of a "localizer" (or "scout" or "scanogram" or "topogram" depending on your vendor) that has the "lines" corresponding to orthogonal images
+displayed on it. This applies both in the case where the orthogonal images were "graphically prescribed" from the localizer as well as when one
+just wants to see the location of images that happen to be orthogonal. In the case of CT images, the localizer is usually a specific image that
+is not really a cross-section but a projection image. In the case of MR one or more sagittal or coronal images are usually obtained from which
+axial images are prescribed, and so on. The problem of "posting" the location of the orthogonal images on a localizer involves:
+</P>
+      <UL>
+      <LI>Determining which image or images is/are the localizer for a particular set of images: some vendors send this information
+      in the "Referenced Image Sequence" attribute, in the case of CT it may simply be an image with an "Image Type" value 3 of
+      "LOCALIZER" (this doesn't apply to MR) and the same Frame of Reference UID, and in other cases one just has to search the
+      entire set of images and find other likely candidates that are orthogonal or close to it based on "Image Orientation(Patient)".
+      <LI>Having identified a localizer and a list of images whose locations are to be "posted", drawing the appropriate lines: there are two
+      approaches that are fundamentally different conceptually. One can either determine the intersection between the planes and extents
+      of the localizer and the orthogonal image, or one can project the boundaries of the orthogonal image onto the plane of the localizer.
+      </UL>
+<P>
+      The problem with the "intersection" approach is that no such intersection may exist. For example, CT localizers are theoretically
+      of infinite thickness, they are projections not slices, and hence the concept of intersection does not apply. Even in the case of
+      orthogonal slices, the boundaries of one slice may not intersect the orthogonal slice at all. The users requirement is really not
+      to show the intersection, but rather to "project" the boundaries of a slice onto the plane of the localizer, as if it were viewed
+      from a position along the normal to the plane of the localizer. For the purposes of simplicity, perspective is ignored. Strictly
+      speaking, the projected boundaries form a polygon, but if the slices are truly orthogonal the polygon will appear as a straight
+      line (which is what most users expect to see).
+</P>
+<P>
+      The approach I use is to perform a parallel projection of the plane and extent of the source slice onto the plane of the target
+ localizer image. One can think of various ways of calculating angles between planes, dropping normals, etc., but there is a
+ simple approach ...
+ </P>
+<P>
+       If one considers the localizer plane as a "viewport" onto the DICOM 3D coordinate space, then that viewport is described by
+ its origin, its row unit vector, column unit vector and a normal unit vector (derived from the row and column vectors by
+ taking the cross product). Now if one moves the origin to 0,0,0 and rotates this viewing plane such that the row vector is
+ in the +X direction, the column vector the +Y direction, and the normal in the +Z direction, then one has a situation where
+ the X coordinate now represents a column offset in mm from the localizer's top left hand corner, and the Y coordinate now
+ represents a row offset in mm from the localizer's top left hand corner, and the Z coordinate can be ignored. One can then
+ convert the X and Y mm offsets into pixel offsets using the pixel spacing of the localizer image.
+ </P>
+<P>
+       This trick is neat, because the actual rotations can be specified entirely using the direction cosines that are the row,
+ column and normal unit vectors, without having to figure out any angles, arc cosines and sines, which octant of the 3D
+ space one is dealing with, etc. Indeed, simplified it looks like: 
+ </P>
+<PRE>
+dst_nrm_dircos_x = dst_row_dircos_y * dst_col_dircos_z - dst_row_dircos_z * dst_col_dircos_y; 
+dst_nrm_dircos_y = dst_row_dircos_z * dst_col_dircos_x - dst_row_dircos_x * dst_col_dircos_z; 
+dst_nrm_dircos_z = dst_row_dircos_x * dst_col_dircos_y - dst_row_dircos_y * dst_col_dircos_x; 
+
+src_pos_x -= dst_pos_x;
+src_pos_y -= dst_pos_y;
+src_pos_z -= dst_pos_z;
+
+dst_pos_x = dst_row_dircos_x * src_pos_x
+          + dst_row_dircos_y * src_pos_y
+          + dst_row_dircos_z * src_pos_z;
+
+dst_pos_y = dst_col_dircos_x * src_pos_x
+          + dst_col_dircos_y * src_pos_y
+          + dst_col_dircos_z * src_pos_z;
+
+dst_pos_z = dst_nrm_dircos_x * src_pos_x
+          + dst_nrm_dircos_y * src_pos_y
+          + dst_nrm_dircos_z * src_pos_z;
+ </PRE>
+<P>
+       The traditional homogeneous transformation matrix form of this is: 
+ </P>
+<PRE>
+[ dst_row_dircos_x  dst_row_dircos_y  dst_row_dircos_z  -dst_pos_x ] 
+[ dst_col_dircos_x  dst_col_dircos_y  dst_col_dircos_z  -dst_pos_y ]
+[ dst_nrm_dircos_x  dst_nrm_dircos_y  dst_nrm_dircos_z  -dst_pos_z ]
+[ 0                 0                 0                 1          ] 
+</PRE>
+<P>
+       So this tells you how to transform arbitrary 3D points into localizer pixel offset space (which then obviously need to be
+ clipped to the localizer boundaries for drawing), but which points to draw ?
+ </P>
+<P>
+       My approach is to project the square that is the bounding box of the source image (i.e. lines joining the TLHC,
+ TRHC,BRHC and BLHC of the slice). That way, if the slice is orthogonal to the localizer the square will project as a single
+ line (i.e. all four lines will pile up on top of each other), and if it is not, some sort of rectangle or trapezoid will be drawn.
+ I rather like the effect and it provides a general solution, though looks messy with a lot of slices with funky angulations.
+ Other possibilities are just draw the longest projected side, draw a diagonal, etc.</P>
+<P>
+      Do not get too carried away with the precision of the resulting image. There is some controversy as to whether or not
+      the coordinates in Image Position (Patient) represent the center of the slice or the edge of it, and if the edge which edge
+      (leading or trailing with respect to scan "direction", top or bottom with respect to some axis, etc.). Obviously the center
+      is the most sensible choice but you cannot guarantee this (though a recent CP to the standard specifies that it is in fact
+      the center of the slice - see CP 212). Just be aware that the displayed lines (and recorded location)
+      may be +/- the slice thickness (or perhaps spacing) with respect to the orthogonal localizer image.
+</P>
+<P>
+      Do not forget to check that the Frame of Reference UID is the same for both the localizer and the orthogonal images to
+      be posted. If they are different one cannot assume the coordinates and vectors are using the same coordinate space.
+</P>
+<P>
+      Finally, some vendors (especially on older scanners) provide the user with an ability to post the localizer on the acquisition
+      device and to save that image, either as a secondary capture object with the lines burned into the pixel data, or using some
+      form of overlay. There is considerable variation in the choice of overlay mechanism to use, and not very consistent support
+      for overlays in other vendors workstations. This leads to frustrated users who can't see the lines on third party workstations
+      even though they are supposed to be there. Hopefully in future vendors will consistently make use of the new Grayscale Softcopy
+      Presentation State Storage objects to store such graphics, and to fill in "Referenced Image Sequence" to allow workstations
+      to post the localizers themselves without hunting for plausible candidates. The IHE Technical Framework for Year 3 specifies
+      that Referenced Image Sequence shall be used and burned in lines shall not, which hopefully provides direction for new
+      devices.
+</P>
+<P>
+      There are various implementations of this and other algorithms that may be of interest at the following sites:
+ </P>
+      <UL>
+      <LI> <A HREF="http://www.dclunie.com/dicom3tools.html">http://www.dclunie.com/dicom3tools.html</A> in my dicom3tools: look for "appsrc/dctools/dcpost.cc"<BR>
+      <LI> <A HREF="http://www.dclunie.com/dicom3tools/workinprogress/dcpost.cc">http://www.dclunie.com/dicom3tools/workinprogress/dcpost.cc</A> dcpost.cc (won't compile by itself, but shows the algorithm)
+      <LI> <A HREF="ftp://ftp.charm.net/pub/usr/home2/dcsipo/slices.ZIP">ftp://ftp.charm.net/pub/usr/home2/dcsipo/slices.ZIP</A> from Dee Csipo<BR>
+      <LI> <A HREF="http://www.tiani.com/JDicom/out/scouts4j.zip">http://www.tiani.com/JDicom/out/scouts4j.zip</A> from Gunter Zeilinger (Java)<BR>
+      <LI> <A HREF="http://www.tiani.com/JDicom/out/scouts4cxx.zip">http://www.tiani.com/JDicom/out/scouts4cxx.zip</A> from Gunter Zeilinger (C++)<BR>
+      </UL>
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+         <H4>2.2.2 <A NAME="DICOMOrientation">Orientation of DICOM images</A></H4>
+<P>
+          Another question that is frequently asked in <A HREF="news:comp.protocols.dicom">comp.protocols.dicom</A> is how to determine which side
+          of an image is which (e.g. left, right) and so on. The short answer is that for projection radiographs this is specified explicitly using
+          the Patient Orientation attribute, and for cross-sectional images it needs to be derived from the Image Orientation (Patient) direction
+          cosines. In the standard these are explained as follows:
+</P>
+      <UL>
+      <LI>"C.7.6.1.1.1	Patient Orientation.
+The Patient Orientation (0020,0020) relative to the image plane shall be
+specified by two values that designate the anatomical direction of the 
+positive row axis (left to right) and the positive column axis (top to 
+bottom). The first entry is the direction of the rows, given by the 
+direction of the last pixel in the first row from the first pixel in 
+that row. The second entry is the direction of the columns, given by 
+the direction of the last pixel in the first column from the first 
+pixel in that column.
+
+Anatomical direction shall be designated by the capital letters:  
+A (anterior), P (posterior), R (right), L (left), H (head), 
+F (foot). Each value of the orientation attribute shall contain 
+at least one of these characters. If refinements in the orientation 
+descriptions are to be specified, then they shall be designated by 
+one or two additional letters in each value. Within each value, the 
+letters shall be ordered with the principal orientation designated 
+in the first character."
+      <LI>"C.7.6.2.1.1	Image Position And Image Orientation.
+The Image Position (0020,0032) specifies the x, y, and z coordinates 
+of the upper left hand corner of the image; it is the center of the 
+first voxel transmitted. Image Orientation  (0020,0037) specifies the 
+direction cosines of the first row and the first column with respect 
+to the patient. These Attributes shall be provide as a pair. Row value 
+for the x, y, and z axes respectively followed by the Column value for 
+
+the x, y, and z axes respectively.
+
+The direction of the axes is defined fully by the patient's orientation. 
+The x-axis is increasing to the left hand side of the patient. The y-axis 
+is increasing to the posterior side of the patient. The z-axis is 
+increasing toward the head of the patient.
+
+The patient based coordinate system is a right handed system, i.e. the
+ vector cross product of a unit vector along the positive x-axis and a 
+unit vector along the positive y-axis is equal to a unit vector along 
+the positive z-axis."
+      </UL>
+<P>
+      Some simple code to take one of the direction cosines (vectors) from the Image Orientation (Patient)
+      attribute and generate strings equivalent to one of the values of Patient Orientation looks like
+      this (noting that if the vector is not aligned exactly with one of the major axes,  the resulting
+      string will have multiple letters in as described under "refinements" in C.7.6.1.1.1): 
+ </P>
+<PRE>
+char *
+DerivedImagePlane::getOrientation(Vector3D vector)
+{
+        char *orientation=new char[4];
+        char *optr = orientation;
+        *optr='\0';
+
+        char orientationX = vector.getX() &lt; 0 ? 'R' : 'L';
+        char orientationY = vector.getY() &lt; 0 ? 'A' : 'P';
+        char orientationZ = vector.getZ() &lt; 0 ? 'F' : 'H';
+
+        double absX = fabs(vector.getX());
+        double absY = fabs(vector.getY());
+        double absZ = fabs(vector.getZ());
+
+        int i;
+        for (i=0; i&lt;3; ++i) {
+                if (absX&gt;.0001 &amp;&amp; absX&gt;absY &amp;&amp; absX&gt;absZ) {
+                        *optr++=orientationX;
+                        absX=0;
+                }
+                else if (absY&gt;.0001 &amp;&amp; absY&gt;absX &amp;&amp; absY&gt;absZ) {
+                        *optr++=orientationY;
+                        absY=0;
+                }
+                else if (absZ&gt;.0001 &amp;&amp; absZ&gt;absX &amp;&amp; absZ&gt;absY) {
+                        *optr++=orientationZ;
+                        absZ=0;
+                }
+                else break;
+                *optr='\0';
+        }
+        return orientation;
+}
+</PRE>
+
+ 
+ 
+ 
+         <H4>2.2.3 <A NAME="DICOMTransferSyntaxDetermination">Determining the Transfer Syntax of DICOM input Streams</A></H4>
+<P>
+          Another question that is frequently asked in <A HREF="news:comp.protocols.dicom">comp.protocols.dicom</A> is how to read a
+	  DICOM dataset from, for example, a file, whether or not there is a PS 3.10 style meta information header.
+</P>
+<P>
+	  Firstly, if a DICOMDIR is being, it is always written with explicit VR little endian transfer syntax, and a meta information
+	  header is always present. Note also that DICOMDIRs are never sent over the network; they are purely an interchange media
+	  object.
+</P>
+<P>
+	  The meta information header is preceeded by a 128 byte preamble and then the bytes 'DICM' as a magic number. 	  
+</P>
+<P>
+	  The meta-information that precedes the dataset of a PS 3.10 file is always written in explicit VR little endian transfer
+	  syntax, and contains within it tags which describe the succeeding dataset, including what transfer syntax it is encoded
+	  in, something that needs to be extracted and interpreted before proceeding to read past the end of the meta information
+	  header and into the dataset. Note that the group length of the meta information header elements is mandatory and can
+	  be used to determine the end of the meta information header (i.e., when to change transfer syntaxes). Note that a draft
+	  of PS 3.10 before the final text suggested implicit VR for the meta-information header, and some older applications
+	  may use that internally - these non-DICOM files should never see the light of day however, and you can probably
+	  forget about this.
+</P>
+<P>
+	  The dataset following the meta information header will have the specified transfer syntax, which obviously may be
+	  different from the explicit VR little endian transfer syntax of the meta information header itself. In the case
+	  of the most transfer syntaxes the encoding of the data elements will subtly change at this point. In the case
+	  of compressed pixel data transfer syntaxes everything will be the same as the explicit VR little endian transfer
+	  syntax until one reaches undefined length (7fe0,0010) elements. In the case of the deflated compression transfer
+	  syntax, the defalted (zipped without the zip header) bit stream will begin immediately after the last meta information
+	  header attribute.
+</P>
+<P>
+	  When one is unfortunate enough to encounter a file that has no preamble and meta information header, then one
+	  has to guess the transfer syntax, for example by assuming the object starts with low group numbered tags and
+	  using the values of the first 16 bits to guess big or little endian, and looking for upper case letters
+	  where an explicit VR might be, and determining explicit or implicit VR from that.
+</P>
+<P>
+	  Note however, that there is no random intermingling of implicit and explicit value representations. The
+	  transfer syntax dictates that either one or the other is used throughout, after the
+	  meta information header has been read.
+</P>
+<P>
+	  Having said that, if you are reading something encoded in implicit VR, then you can a) ignore the value by
+	  simply skipping it (using the VL field), or b) interpret the value if you need to use it for something. In the
+	  latter case you need to know in advance what the VR "should be", i.e. you need a dictionary. However, that dictionary
+	  only needs to be as long as the attributes you need to interpret ... all the others can be skipped passively.
+</P>
+<P>
+	  Note that it is NEVER necessary to test on the fly on a per-element basis whether or not the value representation
+	  is implicit or explicit. This is always decided before you start. Either you know the entire dataset is explicit or
+	  implicit because you read the meta-information, found the transfer syntax uid specified there and decided to switch
+	  to that transfer syntax after the meta-information (the length of which is always specified and tells you when to
+	  switch), or there was no meta-information and you used some heuristic (or command line switch) to decide what the
+	  transfer syntax is.
+</P>
+<P>Here is one approach to handling the meta information header and guessing the transfer syntax if none is present,
+written in C++, much as it is done in dicom3tools:</P>
+<PRE>
+void
+DicomInputStream::initializeTransferSyntax(const char *uid,bool meta)
+{
+	TransferSyntaxToReadMetaHeader = 0;
+	TransferSyntaxToReadDataSet = 0;
+	// First make use of command line parameters that override guesswork ...
+	if (uid) {
+		TransferSyntax *ts = new TransferSyntax(uid);
+		if (meta) {
+			TransferSyntaxToReadMetaHeader = ts;	// specified UID is transfer syntax to read metaheader
+		}
+		else {
+			TransferSyntaxToReadDataSet = ts;	// specified UID is transfer syntax to read dataset (there is no metaheader)
+		}
+	}
+	// else transfer syntax has to be determined by either guesswork or metaheader ...
+	char b[8];
+	if (meta) {
+		// test for metaheader prefix after 128 byte preamble
+		seekg(128,ios::beg);
+		if (good() &amp;&amp; read(b,4) &amp;&amp; strncmp(b,"DICM",4) == 0) {
+			if (!TransferSyntaxToReadMetaHeader) TransferSyntaxToReadMetaHeader = 	// guess only if not specified on command line
+				read(b,6) &amp;&amp; isupper(b[4]) &amp;&amp; isupper(b[5])
+				? new TransferSyntax(ExplicitVRLittleEndianTransferSyntaxUID)	// standard
+				: new TransferSyntax(ImplicitVRLittleEndianTransferSyntaxUID);	// old draft (e.g. used internally on GE IOS platform)
+
+			// leaves positioned at start of metaheader
+			seekg(128+4,ios::beg);
+		}
+		else {
+			clear(); seekg(0,ios::beg);		// reset stream since metaheader was sought but not found
+			TransferSyntaxToReadDataSet=TransferSyntaxToReadMetaHeader;
+			TransferSyntaxToReadMetaHeader=0;
+		}
+	}
+	if (!TransferSyntaxToReadDataSet &amp;&amp; !TransferSyntaxToReadMetaHeader) {	// was not specified on the command line and there is no metaheader
+		bool bigendian = false;
+		bool explicitvr	= false;
+		clear();
+		seekg(0,ios::beg);
+		if (good() &amp;&amp; read(b,8)) {
+			// examine probable group number ... assume &lt;= 0x00ff
+			if (b[0] &lt; b[1]) bigendian=true;
+			else if (b[0] == 0 &amp;&amp; b[1] == 0) {
+				// blech ... group number is zero
+				// no point in looking at element number
+				// as it will probably be zero too (group length)
+				// try the 32 bit value length of implicit vr
+				if (b[4] &lt; b[7]) bigendian=true;
+			}
+			// else littleendian
+			if (isupper(b[4]) &amp;&amp; isupper(b[5])) explicitvr=true;
+		}
+		// else unrecognized ... assume default
+		if (bigendian)
+			if (explicitvr)
+				TransferSyntaxToReadDataSet = new TransferSyntax(ExplicitVRBigEndianTransferSyntaxUID);
+			else
+				TransferSyntaxToReadDataSet = new TransferSyntax(ImplicitVR,BigEndian);
+		else
+			if (explicitvr)
+				TransferSyntaxToReadDataSet = new TransferSyntax(ExplicitVRLittleEndianTransferSyntaxUID);
+			else
+				TransferSyntaxToReadDataSet = new TransferSyntax(ImplicitVRLittleEndianTransferSyntaxUID);
+		// leaves positioned at start of dataset
+		clear();
+		seekg(0,ios::beg);
+	}
+	TransferSyntaxInUse = TransferSyntaxToReadMetaHeader ? TransferSyntaxToReadMetaHeader : TransferSyntaxToReadDataSet;
+	Assert(TransferSyntaxInUse);
+	setEndian(TransferSyntaxInUse->getEndian());
+}
+</PRE>
+<P>Here is the same sort of thing in Java, paraphrasing the PixelMed Java DICOM toolkit:</P>
+<PRE>
+private void initializeTransferSyntax(String uid,boolean tryMeta) throws IOException {
+	TransferSyntaxToReadMetaHeader = null;
+	TransferSyntaxToReadDataSet = null;
+	byte b[] = new byte[8];
+	// First make use of argument that overrides guesswork at transfer syntax ...
+	if (uid != null) {
+		TransferSyntax ts = new TransferSyntax(uid);
+		if (tryMeta) {
+			TransferSyntaxToReadMetaHeader = ts;	// specified UID is transfer syntax to read metaheader
+		}
+		else {
+			TransferSyntaxToReadDataSet = ts;	// specified UID is transfer syntax to read dataset (there is no metaheader)
+		}
+	}
+	// else transfer syntax has to be determined by either guesswork or metaheader ...
+	if (tryMeta) {
+		// test for metaheader prefix after 128 byte preamble
+		if (markSupported()) mark(140);
+		if (skip(128) == 128 &amp;&amp; read(b,0,4) == 4 &amp;&amp; new String(b,0,4).equals("DICM")) {
+			if (TransferSyntaxToReadMetaHeader == null) {		// guess only if not specified as an argument
+				if (markSupported()) {
+					mark(8);
+					if (read(b,0,6) == 6) {				// the first 6 bytes of the first attribute tag in the metaheader
+						TransferSyntaxToReadMetaHeader =
+							Character.isUpperCase((char)(b[4])) &amp;&amp; Character.isUpperCase((char)(b[5]))
+							? new TransferSyntax(TransferSyntax.ExplicitVRLittleEndian)	// standard
+							: new TransferSyntax(TransferSyntax.ImplicitVRLittleEndian);	// old draft (e.g. used internally on GE IOS platform)
+					}
+					else {
+						TransferSyntaxToReadMetaHeader = new TransferSyntax(TransferSyntax.ExplicitVRLittleEndian);
+					}
+					reset();
+				}
+				else {
+					// can't guess since can't rewind ... insist on standard transfer syntax
+					TransferSyntaxToReadMetaHeader = new TransferSyntax(TransferSyntax.ExplicitVRLittleEndian);
+				}
+			}
+			byteOffsetOfStartOfData=132;
+		}
+		else {
+			// no preamble, so rewind and try using the specified transfer syntax (if any) for the dataset instead
+			if (markSupported()) {
+				reset();
+				TransferSyntaxToReadDataSet = TransferSyntaxToReadMetaHeader;	// may be null anyway if no uid argument specified
+				byteOffsetOfStartOfData=0;
+			}
+			else {
+				throw new IOException("Not a DICOM PS 3.10 file - no DICM after preamble in metaheader, and can't rewind input");
+			}
+		}
+	}
+	// at this point either we have succeeded or failed at finding a metaheader, or we didn't look
+	// so we either have a detected or specified transfer syntax for the metaheader, or the dataset, or nothing at all
+	if (TransferSyntaxToReadDataSet == null &amp;&amp; TransferSyntaxToReadMetaHeader == null) {	// was not specified as an argument and there is no metaheader
+		boolean bigendian = false;
+		boolean explicitvr = false;
+		if (markSupported()) {
+			mark(10);
+			if (read(b,0,8) == 8) {
+				// examine probable group number ... assume &lt;= 0x00ff
+				if (b[0] &lt; b[1]) bigendian=true;
+				else if (b[0] == 0 &amp;&amp; b[1] == 0) {
+					// blech ... group number is zero
+					// no point in looking at element number
+					// as it will probably be zero too (group length)
+					// try the 32 bit value length of implicit vr
+					if (b[4] &lt; b[7]) bigendian=true;
+				}
+				// else little endian
+				if (Character.isUpperCase((char)(b[4])) &amp;&amp; Character.isUpperCase((char)(b[5]))) explicitvr=true;
+			}
+			// go back to start of dataset
+			reset();
+		}
+		// else can't guess or unrecognized ... assume default ImplicitVRLittleEndian (most common without metaheader due to Mallinckrodt CTN default)
+		if (bigendian)
+			if (explicitvr)
+				TransferSyntaxToReadDataSet = new TransferSyntax(TransferSyntax.ExplicitVRBigEndian);
+			else
+				throw new IOException("Not a DICOM file (masquerades as explicit VR big endian)");
+		else
+			if (explicitvr)
+				TransferSyntaxToReadDataSet = new TransferSyntax(TransferSyntax.ExplicitVRLittleEndian);
+			else
+				TransferSyntaxToReadDataSet = new TransferSyntax(TransferSyntax.ImplicitVRLittleEndian);
+	}
+
+	TransferSyntaxInUse = TransferSyntaxToReadMetaHeader != null ? TransferSyntaxToReadMetaHeader : TransferSyntaxToReadDataSet;
+	if (TransferSyntaxInUse == null) throw new IOException("Not a DICOM file (or can't detect Transfer Syntax)");
+	setEndian(TransferSyntaxInUse.isBigEndian());
+	// leaves us positioned at start of group and element tags (for either metaheader or dataset)
+}
+</PRE>
+
+ 
+ 
+ 
+ 
+    <H3>2.3 <A NAME="Papyrus">Papyrus</A></H3>
+
+<P>
+        Papyrus is an image file format based on ACR/NEMA version 2.0. It was developed by the Digital Imaging Unit of the University Hospital of Geneva for the European project on telemedicine (TELEMED project of the RACE program), under the leadership of Dr. Osman Ratib <A HREF="mailto:osman@cih.hcuge.ch">(osman@cih.hcuge.ch)</A>. The University Hospital of Geneva uses Papyrus for their hospital-wide PACS.
+</P>
+<P>
+        The medical file format component of Papyrus version 2 extended the ACR/NEMA format, particularly in order to reference multiple images by placing folder information referencing ACR-NEMA data sets in a shadow (private) group. Contributing to the development of DICOM 3, the team are updating their format to be compatible with the offline file format provisions of the draft Part 10 of DICOM 3 in Papyrus version 3.
+</P>
+<P>
+        The specifications, toolkit and image manipulation software that is Papyrus aware, Osiris, is available for the Mac, Windows, and Unix/X11/Motif by ftp from <A HREF="ftp://expasy.hcuge.ch/pub/Osiris">ftp://expasy.hcuge.ch/pub/Osiris</A>.
+</P>
+<P>
+        See also <A HREF="part7.html#PapyrusOsiris">Papyrus and Osiris</A>.
+</P>
+<P>
+        Further information is available in printed form. Contact <A HREF="mailto:yves@cih.hcuge.ch">yves@cih.hcuge.ch</A> (Yves Ligier).
+</P>
+    <H3>2.4 <A NAME="Interfile">Interfile V3.3</A></H3>
+
+<P>
+        Interfile is a "file format for the exchange of nuclear medicine image data" created I gather to satisfy the needs of the European COST B2 Project for the transfer of images of quality control phantoms, and incorporates the AAPM (American Association of Physicists in Medicine) Report No. 10, and has been subsequently used for clinical work.
+</P>
+<P>
+        It specifies a file format composed of ascii "key-value" pairs and a data dictionary of keys. The binary image data may be contained in the same file as the "administrative information", or in a separate file pointed to by a "name of data file" key. Image data may be binary integers, IEEE floating point values, or ascii and the byte order is specified by a key "imagedata byte order". The order of keys is defined by the Interfile syntax which is more sophisticated than a simple list of keys, allowing for groups, conditionals and loops to dictate the order of key-value pairs.
+</P>
+<P>
+        Conformance to the Interfile standard is informally described in terms of which types of image data types, pixel types, multiple windows, special Interfile features including curves, and restriction to various maximum recommended limits.
+</P>
+<P>
+        Interfile is specifically NOT a communications protocol and strictly deals with offline files. There are efforts to extend Interfile to include modalities other than nuclear medicine, as well as to keep ACR/NEMA and Interfile data dictionaries in some kind of harmony.
+</P>
+<P>
+        A sample list of Interfile 3.3 key-value pairs is shown here to give you some idea of the flavor of the format. The example is culled from part of a Static study in the Interfile standard document and is not complete:
+</P>
+<PRE>
+                !INTERFILE :=
+                !imaging modality :=nucmed 
+                !version of keys :=3.3
+                data description :=static
+                patient name :=joe doe
+                !patient ID  :=12345
+                patient dob :=1968:08:21
+                patient sex :=M
+                !study ID :=test
+                exam type :=test
+                data compression :=none
+                !image number :=1
+                !matrix size [1] :=64
+                !matrix size [2] :=64
+                !number format :=signed integer
+                !number of bytes per pixel :=2
+                !image duration (sec) :=100
+                image start time :=10:20: 0
+                total counts :=8512
+                !END OF INTERFILE :=
+</PRE>
+<P>
+        One can see how easy such a format would be to extend, as well as how it is readable and almost useable without reference to any standard document or data dictionary.
+</P>
+<P>
+        Undoubtedly ACR/NEMA DICOM 3.0 to Interfile translators will soon proliferate in view of the fact that many Nuclear Medicine vendors supply Interfile translators at present.
+</P>
+<P>
+        To get hold of the Interfile 3.3 standard, see the <A HREF="part7.html#InterfileSources">Interfile sources</A>, <A HREF="part7.html#InterfileContacts">Interfile information contacts</A> and <A HREF="part7.html#InterfileList">Interfile mailing list</A> described later in this document.
+</P>
+
+    <H3>2.5 <A NAME="Qsh">Qsh</A></H3>
+
+<P>
+        Qsh is a family of programs for manipulating images, and it defines an intermediate file format. The following information was derived with the help of one of the authors <A HREF="mailto:maguire@it.kth.se">maguire@it.kth.se</A>(Chip Maguire):
+</P>
+<P>
+        Uses an ASCII key-value-pair (KVP sic.) system, based on the AAPM Report #10 proposal. This format influenced both Interfile and ACR-NEMA (DICOM). The file format is referred to as "IMAGE" in some of their articles (see references). The header and the image data  are stored as two separate files with extensions *.qhd and *.qim respectively.
+</P>
+<P>
+        Qsh is available by anonymous ftp from the <A HREF="part7.html#QshFtpSite">Qsh ftp site</A>. This is a seriously large tar file, including as it does some sample images, and lots of source code, as well as some post-script documents. Subtrees are available as separate tar files.
+</P>
+<P>
+        QSH's Motif-based menu system (qmenu) will work with OpenWindows 3.0 if SUN patch number 100444-54 for SUNOS 4.1.3 rev. A is applied. The patch is available from <A HREF="ftp://sunsolve1.sun.com">ftp://sunsolve1.sun.com</A> (192.9.9.24).
+</P>
+<P>
+        The image access subroutines take the same parameters as the older /usr/image package from UNC, however, the actual subroutines support the qsh KVP and image data files.
+</P>
+<P>
+        The frame buffer access subroutines take the same parameters as the Univ. of Utah software (of the mid.  1970s). The design is based on the use of a virtual frame buffer which is then implemented via a library for a specific frame buffer.  There exists a version of the the display routines for X11.
+</P>
+<P>
+        Conversions are not supported any longer, instead there is a commercial product called InterFormat. InterFormat includes a qsh to Interfile conversion, along with DICOM to qsh, and many others. Information is available from <A HREF="mailto:reddy@nucmed.med.nyu.edu">reddy@nucmed.med.nyu.edu</A> (David Reddy) (see <A HREF="part7.html#InterFormatSource">InterFormat</A> in the Sources section).
+</P>
+<P>
+        [Editorial note: this seems a bit of a shame to me - the old distribution included lots of handy bits of information, particularly on driving tape drives. I am advised however that the conversion stuff was pulled out because people wanted it supported, the authors were worried they were disclosing things perhaps they ought not to be, and NYU had switched to using InterFormat themselves anyway. DAC.]
+</P>
+<P>
+        The authors of the qsh package are:
+</P>
+<UL>
+               <LI> <A HREF="mailto:maguire@it.kth.se">maguire@it.kth.se</A> (Gerald Q. (Chip) Maguire)
+               <LI> <A HREF="mailto:noz@nucmed.NYU.EDU">noz@nucmed.NYU.EDU</A> (Marilyn E Noz)
+</UL>
+<P>
+        The following references are helpful in understanding the philosophy behind the file format, and are included in postscript form in the qsh ftp distribution:
+</P>
+<PRE>
+        @Article[noz88b,
+                Key=&lt;noz88b&gt;,
+                Author=&lt;M. E. Noz and G. Q. Maguire Jr.&gt;,
+                Title=&lt;QSH: A Minimal but Highly Portable Image Display
+                       and Processing Toolkit&gt;,
+                Journal=&lt;Computer Methods and Programs in Biomedicine&gt;,
+                volume=&lt;27&gt;,
+                month=&lt;November&gt;,
+                Year=&lt;1988&gt;,
+                Pages=&lt;229-240&gt;
+        ]
+        @Article[maguire89e,
+                Key=&lt;maguire&gt;,
+                Author=&lt;G.Q. Maguire Jr., and M.E. Noz&gt;, 
+                Title=&lt;Image Formats: Five Years after the AAPM Standard Format 
+                for Digital Image Interchange&gt;, 
+                Journal=&lt;Medical Physics&gt;,
+                volume=&lt;16&gt;,
+                month=&lt;September/October&gt;,
+                year=&lt;1989&gt;,
+                pages=&lt;818-823&gt;,
+                comment=&lt;Also as CUCS-369-88&gt;
+        ]
+</PRE>
+    <H3>2.6 <A NAME="DEFF">DEFF</A></H3>
+
+<P>
+        DEFF (Data Exchange File Format) is a portable image file format designed for the exchange, printing and archiving of ultrasound images. It was written by John Bono of ATL (now part of Philips). A copy of the specification may be obtained at <A HREF="part7.html#DEFFSpecification">DEFF Specification</A>. The latest version is 2.5, March 25, 1994. It is based on the <A HREF="part7.html#TIFF5SpecificationSource">TIFF 5.0</A> specification, though a more recent version of TIFF, <A HREF="part7.html#TIFF6SpecificationSource">TIFF 6.0</A> is available.
+</P>
+<P>
+        Theoretically, any TIFF reader should be able to read the standard tags from a DEFF image, so long as only 8 bit images are in use, as in the Camera Ready class of DEFF images for instance. Additional support is provided for multi-frame images, and 9 to 16 bit images by extending the TIFF format. Because Aldus only allocates a small number of unique registered tags to each vendor, ATL have defined their own extensive set of additional tags, which are referenced by using one of the registered tags ExtendedTagsOffset. Hence these additional tags will not be visible to a conventional TIFF reader.
+</P>
+<P>
+The next part is <A HREF="part3.html">part3 -  proprietary CT formats</A>.
+</P>
+END OF PART 2<BR>
+<HR>
+<CENTER><A HREF="../../index.html">Home</A>|<A HREF="mailto:dclunie@dclunie.com">Feedback</A></CENTER>
+<H1>END</H1>
+</BODY>
+</HTML>

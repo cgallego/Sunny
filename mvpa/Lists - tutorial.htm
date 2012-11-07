@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>List</title><link rel="stylesheet" href="byte.css" type="text/css" /><meta name="generator" content="DocBook XSL Stylesheets V1.67.2" /><link rel="start" href="index.html" title="A Byte of Python" /><link rel="up" href="data-structures.html" title="Chapter 9. Data Structures" /><link rel="prev" href="data-structures.html" title="Chapter 9. Data Structures" /><link rel="next" href="tuple.html" title="Tuple" /></head><body>
+<div class="header">
+<strong><a href="http://www.byteofpython.info/" class="header-link">A Byte of Python</a></strong>
+</div>
+<div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">List</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="data-structures.html"><img src="images/prev.gif" alt="Prev" /></a> </td><th width="60%" align="center">Chapter 9. Data Structures</th><td width="20%" align="right"> <a accesskey="n" href="tuple.html"><img src="images/next.gif" alt="Next" /></a></td></tr></table><hr /></div><div class="section" lang="en" xml:lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="list"></a>List</h2></div></div></div><p>
+		
+		A <code class="literal">list</code> is a data structure that holds an ordered collection of items
+		i.e. you can store a <span class="emphasis"><em>sequence</em></span> of items in a list. This is easy to
+		imagine if you can think of a shopping list where you have a list of items to buy,
+		except that you probbly have each item on a separate line in your shopping list whereas
+		in Python you put commas in between them.
+		
+		</p><p>
+		
+		The list of items should be enclosed in square brackets so that Python understands that
+		you are specifying a list. Once you have created a list, you can add, remove or search
+		for items in the list. Since, we can add and remove items, we say that a list is a
+		<span class="emphasis"><em>mutable</em></span> data type i.e. this type can be altered.
+		
+		</p><div class="section" lang="en" xml:lang="en"><div class="titlepage"><div><div><h3 class="title"><a id="list-objects-classes"></a>Quick introduction to Objects and Classes</h3></div></div></div><p>
+			
+			Although, I've been generally delaying the discussion of objects and classes
+			till now, a little explanation is needed right now so that you can understand
+			lists better. We will still explore this topic in detail in its own
+			<a href="oops.html" title="Chapter 11. Object-Oriented Programming">chapter</a>.
+			
+			</p><p>
+			
+			A list is an example of usage of objects and classes. When you use a variable
+			<code class="varname">i</code> and assign a value to it, say integer <code class="literal">5</code>
+			to it, you can think of it as creating an <span class="bold"><strong>object</strong></span>
+			(instance) <code class="varname">i</code> of <span class="bold"><strong>class</strong></span> (type)
+			<code class="classname">int</code>. In fact, you can see <code class="literal">help(int)</code>
+			to understand this better.
+			
+			</p><p>
+			
+			A class can also have <span class="bold"><strong>methods</strong></span> i.e. functions
+			defined for use with respect to that class only. You can use these pieces of
+			functionality only when you have an object of that class. For example, Python
+			provides an <code class="function">append</code> method for the <code class="classname">list</code>
+			class which allows you to add an item to the end of the list. For example,
+			<code class="literal">mylist.append('an item')</code> will add that string to the list
+			<code class="varname">mylist</code>. Note the use of dotted notation for accessing methods
+			of the objects.
+			
+			</p><p>
+			
+			A class can also have <span class="bold"><strong>fields</strong></span> which are nothing
+			but variables defined for use with respect to that class only. You can use these
+			variables/names only when you have an object of that class. Fields are also
+			accessed by the dotted notation, for example, <code class="varname">mylist.field</code> .
+			
+			</p></div><div class="section" lang="en" xml:lang="en"><div class="titlepage"><div><div><h3 class="title"><a id="using-lists"></a>Using Lists</h3></div></div></div><div class="example"><a id="id3066103"></a><p class="title"><b>Example 9.1. Using lists</b></p><pre class="programlisting">
+				
+<span class="py-comment">#!/usr/bin/python</span>
+<span class="py-comment"># Filename: using_list.py</span>
+
+<span class="py-comment"># This is my shopping list</span>
+shoplist = [<span class="py-string">'apple'</span>, <span class="py-string">'mango'</span>, <span class="py-string">'carrot'</span>, <span class="py-string">'banana'</span>]
+
+<span class="py-statement">print</span> <span class="py-string">'I have'</span>, <span class="py-builtin">len</span>(shoplist), <span class="py-string">'items to purchase.'</span>
+
+<span class="py-statement">print</span> <span class="py-string">'These items are:'</span>, <span class="py-comment"># Notice the comma at end of the line</span>
+<span class="py-statement">for</span> item <span class="py-statement">in</span> shoplist:
+	<span class="py-statement">print</span> item,
+
+<span class="py-statement">print</span> <span class="py-string">'\nI also have to buy rice.'</span>
+shoplist.append(<span class="py-string">'rice'</span>)
+<span class="py-statement">print</span> <span class="py-string">'My shopping list is now'</span>, shoplist
+
+<span class="py-statement">print</span> <span class="py-string">'I will sort my list now'</span>
+shoplist.sort()
+<span class="py-statement">print</span> <span class="py-string">'Sorted shopping list is'</span>, shoplist
+
+<span class="py-statement">print</span> <span class="py-string">'The first item I will buy is'</span>, shoplist[<span class="py-number">0</span>]
+olditem = shoplist[<span class="py-number">0</span>]
+<span class="py-statement">del</span> shoplist[<span class="py-number">0</span>]
+<span class="py-statement">print</span> <span class="py-string">'I bought the'</span>, olditem
+<span class="py-statement">print</span> <span class="py-string">'My shopping list is now'</span>, shoplist
+				
+				</pre></div><div class="section" lang="en" xml:lang="en"><div class="titlepage"><div><div><h4 class="title"><a id="id3066116"></a>Output</h4></div></div></div><pre class="screen">
+				
+$ python using_list.py
+I have 4 items to purchase.
+These items are: apple mango carrot banana
+I also have to buy rice.
+My shopping list is now ['apple', 'mango', 'carrot', 'banana', 'rice']
+I will sort my list now
+Sorted shopping list is ['apple', 'banana', 'carrot', 'mango', 'rice']
+The first item I will buy is apple
+I bought the apple
+My shopping list is now ['banana', 'carrot', 'mango', 'rice']
+				
+				</pre></div><div class="section" lang="en" xml:lang="en"><div class="titlepage"><div><div><h4 class="title"><a id="id3066150"></a>How It Works</h4></div></div></div><p>
+				
+				The variable <code class="varname">shoplist</code> is a shopping list for someone
+				who is going to the market. In <code class="varname">shoplist</code>, we only store
+				strings of the names of the items to buy but remember you can add
+				<span class="emphasis"><em>any kind of object</em></span> to a list including numbers and
+				even other lists.
+				
+				</p><p>
+				
+				We have also used the <code class="literal">for..in</code> loop to iterate through
+				the items of the list. By now, you must have realised that a list is
+				also a sequence. The speciality of sequences will be discussed in a later
+				<a href="sequences.html" title="Sequences">section</a>
+				
+				</p><p>
+				
+				Notice that we use a <span class="emphasis"><em>comma</em></span> at the end of the
+				<code class="literal">print</code> statement to suppress the automatic printing of
+				a line break after every <code class="literal">print</code> statement. This is a bit
+				of an ugly way of doing it, but it is simple and gets the job done.
+				
+				</p><p>
+				
+				Next, we add an item to the list using the <code class="methodname">append</code>
+				method of the list object, as already discussed before. Then, we check that
+				the item has been indeed added to the list by printing the contents of the
+				list by simply passing the list to the <code class="literal">print</code> statement
+				which prints it in a neat manner for us.
+				
+				</p><p>
+				
+				Then, we sort the list by using the <code class="methodname">sort</code> method
+				of the list. Understand that this method affects the list itself and does
+				not return a modified list - this is different from the way strings
+				work. This is what we mean by saying that lists are <span class="emphasis"><em>mutable</em></span>
+				and that strings are <span class="emphasis"><em>immutable</em></span>.
+				
+				</p><p>
+				
+				Next, when we finish buying an item in the market, we want to remove it
+				from the list. We achieve this by using the <code class="literal">del</code>
+				statement. Here, we mention which item of the list we want to remove and
+				the <code class="literal">del</code> statement removes it fromt he list for us.
+				We specify that we want to remove the first item from the list and hence
+				we use <code class="literal">del shoplist[0]</code> (remember that Python starts
+				counting from 0).
+				
+				</p><p>
+				
+				If you want to know all the methods defined by the list object, see
+				<code class="literal">help(list)</code> for complete details.
+				
+				</p></div></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="data-structures.html"><img src="images/prev.gif" alt="Prev" /></a> </td><td width="20%" align="center"><a accesskey="u" href="data-structures.html"><img src="images/up.gif" alt="Up" /></a></td><td width="40%" align="right"> <a accesskey="n" href="tuple.html"><img src="images/next.gif" alt="Next" /></a></td></tr><tr><td width="40%" align="left" valign="top">Chapter 9. Data Structures </td><td width="20%" align="center"><a accesskey="h" href="index.html"><img src="images/home.gif" alt="Home" /></a></td><td width="40%" align="right" valign="top"> Tuple</td></tr></table></div></body></html>

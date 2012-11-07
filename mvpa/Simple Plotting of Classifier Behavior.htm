@@ -1,0 +1,326 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Simple Plotting of Classifier Behavior &mdash; PyMVPA 2.1.0 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/pymvpa.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '2.1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="PyMVPA 2.1.0 documentation" href="../index.html" />
+    <link rel="up" title="Example Analyses and Scripts" href="../examples.html" />
+    <link rel="next" title="Generating Topography plots" href="topo_plot.html" />
+    <link rel="prev" title="kNN – Model Flexibility in Pictures" href="knn_plot.html" />
+  <meta name="keywords" content="mvpa, pymvpa, python, classifier, machine learning, neuroscience">
+  <link REL="icon" HREF="/_images/favicon.png" TYPE="image/png">
+
+  </head>
+  <body>
+<div id="header">
+<div id="hdrsubtitle">Multivariate Pattern Analysis in Python</div>
+</div>
+
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="topo_plot.html" title="Generating Topography plots"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="knn_plot.html" title="kNN – Model Flexibility in Pictures"
+             accesskey="P">previous</a> |</li>
+  <li><a href="../index.html">PyMVPA Home</a> |&nbsp;</li>
+  <li><a href="../sitemap.html">Sitemap</a> &raquo;</li>
+
+          <li><a href="../manual.html" >PyMVPA User Manual</a> &raquo;</li>
+          <li><a href="../examples.html" accesskey="U">Example Analyses and Scripts</a> &raquo;</li> 
+      </ul>
+    </div>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+<!-- HEADNOTES -->
+ <div class='admonition note'>
+
+  To provide the most recent news and documentation <A
+  HREF='http://www.pymvpa.org'>www.pymvpa.org</A> reflects the
+  development 2.0 series (renamed 0.6 series) of PyMVPA.  If you are interested in the
+  documentation of the previous stable 0.4 series of PyMVPA, please
+  visit <A HREF='http://v04.pymvpa.org'>v04.pymvpa.org</A>.</div>
+
+
+  <div class="section" id="simple-plotting-of-classifier-behavior">
+<span id="example-pylab-2d"></span><h1>Simple Plotting of Classifier Behavior<a class="headerlink" href="#simple-plotting-of-classifier-behavior" title="Permalink to this headline">¶</a></h1>
+<p id="index-0">This example runs a number of classifiers on a simple 2D dataset and plots the
+decision surface of each classifier.</p>
+<p>First compose some sample data &#8211; no PyMVPA involved.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+
+<span class="c"># set up the labeled data</span>
+<span class="c"># two skewed 2-D distributions</span>
+<span class="n">num_dat</span> <span class="o">=</span> <span class="mi">200</span>
+<span class="n">dist</span> <span class="o">=</span> <span class="mi">4</span>
+<span class="c"># Absolute max value allowed. Just to assure proper plots</span>
+<span class="n">xyamax</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="n">feat_pos</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">num_dat</span><span class="p">)</span>
+<span class="n">feat_pos</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="p">:]</span> <span class="o">*=</span> <span class="mf">2.</span>
+<span class="n">feat_pos</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="p">:]</span> <span class="o">*=</span> <span class="o">.</span><span class="mi">5</span>
+<span class="n">feat_pos</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="p">:]</span> <span class="o">+=</span> <span class="n">dist</span>
+<span class="n">feat_pos</span> <span class="o">=</span> <span class="n">feat_pos</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="o">-</span><span class="n">xyamax</span><span class="p">,</span> <span class="n">xyamax</span><span class="p">)</span>
+<span class="n">feat_neg</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">num_dat</span><span class="p">)</span>
+<span class="n">feat_neg</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="p">:]</span> <span class="o">*=</span> <span class="o">.</span><span class="mi">5</span>
+<span class="n">feat_neg</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="p">:]</span> <span class="o">*=</span> <span class="mf">2.</span>
+<span class="n">feat_neg</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="p">:]</span> <span class="o">-=</span> <span class="n">dist</span>
+<span class="n">feat_neg</span> <span class="o">=</span> <span class="n">feat_neg</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="o">-</span><span class="n">xyamax</span><span class="p">,</span> <span class="n">xyamax</span><span class="p">)</span>
+
+<span class="c"># set up the testing features</span>
+<span class="n">npoints</span> <span class="o">=</span> <span class="mi">101</span>
+<span class="n">x1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="n">xyamax</span><span class="p">,</span> <span class="n">xyamax</span><span class="p">,</span> <span class="n">npoints</span><span class="p">)</span>
+<span class="n">x2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="n">xyamax</span><span class="p">,</span> <span class="n">xyamax</span><span class="p">,</span> <span class="n">npoints</span><span class="p">)</span>
+<span class="n">x</span><span class="p">,</span><span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span> <span class="n">x2</span><span class="p">);</span>
+<span class="n">feat_test</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">ravel</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">ravel</span><span class="p">(</span><span class="n">y</span><span class="p">)))</span>
+</pre></div>
+</div>
+<p>Now load PyMVPA and convert the data into a proper
+<a class="reference internal" href="../generated/mvpa2.datasets.base.Dataset.html#mvpa2.datasets.base.Dataset" title="mvpa2.datasets.base.Dataset"><tt class="xref py py-class docutils literal"><span class="pre">Dataset</span></tt></a>.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">mvpa2.suite</span> <span class="kn">import</span> <span class="o">*</span>
+
+<span class="c"># create the pymvpa dataset from the labeled features</span>
+<span class="n">patternsPos</span> <span class="o">=</span> <span class="n">dataset_wizard</span><span class="p">(</span><span class="n">samples</span><span class="o">=</span><span class="n">feat_pos</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">targets</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">patternsNeg</span> <span class="o">=</span> <span class="n">dataset_wizard</span><span class="p">(</span><span class="n">samples</span><span class="o">=</span><span class="n">feat_neg</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">targets</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">ds_lin</span> <span class="o">=</span> <span class="n">vstack</span><span class="p">((</span><span class="n">patternsPos</span><span class="p">,</span> <span class="n">patternsNeg</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>Let&#8217;s add another dataset: XOR. This problem is not linear separable
+and therefore need a non-linear classifier to be solved. The dataset is
+provided by the PyMVPA dataset warehouse.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="c"># 30 samples per condition, SNR 2</span>
+<span class="n">ds_nl</span> <span class="o">=</span> <span class="n">pure_multivariate_signal</span><span class="p">(</span><span class="mi">30</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">l1</span> <span class="o">=</span> <span class="n">ds_nl</span><span class="o">.</span><span class="n">sa</span><span class="p">[</span><span class="s">&#39;targets&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+
+<span class="n">datasets</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;linear&#39;</span><span class="p">:</span> <span class="n">ds_lin</span><span class="p">,</span> <span class="s">&#39;non-linear&#39;</span><span class="p">:</span> <span class="n">ds_nl</span><span class="p">}</span>
+</pre></div>
+</div>
+<p>This demo utilizes a number of classifiers. The instantiation of a
+classifier involves almost no runtime costs, so it is easily possible
+compile a long list, if necessary.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="c"># set up classifiers to try out</span>
+<span class="n">clfs</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s">&#39;Ridge Regression&#39;</span><span class="p">:</span> <span class="n">RidgeReg</span><span class="p">(),</span>
+        <span class="s">&#39;Linear SVM&#39;</span><span class="p">:</span> <span class="n">LinearNuSVMC</span><span class="p">(</span><span class="n">probability</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+                      <span class="n">enable_ca</span><span class="o">=</span><span class="p">[</span><span class="s">&#39;probabilities&#39;</span><span class="p">]),</span>
+        <span class="s">&#39;RBF SVM&#39;</span><span class="p">:</span> <span class="n">RbfNuSVMC</span><span class="p">(</span><span class="n">probability</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+                      <span class="n">enable_ca</span><span class="o">=</span><span class="p">[</span><span class="s">&#39;probabilities&#39;</span><span class="p">]),</span>
+        <span class="s">&#39;SMLR&#39;</span><span class="p">:</span> <span class="n">SMLR</span><span class="p">(</span><span class="n">lm</span><span class="o">=</span><span class="mf">0.01</span><span class="p">),</span>
+        <span class="s">&#39;Logistic Regression&#39;</span><span class="p">:</span> <span class="n">PLR</span><span class="p">(</span><span class="n">criterion</span><span class="o">=</span><span class="mf">0.00001</span><span class="p">),</span>
+        <span class="s">&#39;3-Nearest-Neighbour&#39;</span><span class="p">:</span> <span class="n">kNN</span><span class="p">(</span><span class="n">k</span><span class="o">=</span><span class="mi">3</span><span class="p">),</span>
+        <span class="s">&#39;10-Nearest-Neighbour&#39;</span><span class="p">:</span> <span class="n">kNN</span><span class="p">(</span><span class="n">k</span><span class="o">=</span><span class="mi">10</span><span class="p">),</span>
+        <span class="s">&#39;GNB&#39;</span><span class="p">:</span> <span class="n">GNB</span><span class="p">(</span><span class="n">common_variance</span><span class="o">=</span><span class="bp">True</span><span class="p">),</span>
+        <span class="s">&#39;GNB(common_variance=False)&#39;</span><span class="p">:</span> <span class="n">GNB</span><span class="p">(</span><span class="n">common_variance</span><span class="o">=</span><span class="bp">False</span><span class="p">),</span>
+        <span class="s">&#39;LDA&#39;</span><span class="p">:</span> <span class="n">LDA</span><span class="p">(),</span>
+        <span class="s">&#39;QDA&#39;</span><span class="p">:</span> <span class="n">QDA</span><span class="p">(),</span>
+        <span class="p">}</span>
+
+<span class="c"># How many rows/columns we need</span>
+<span class="n">nx</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">ceil</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">clfs</span><span class="p">))))</span>
+<span class="n">ny</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">ceil</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">clfs</span><span class="p">)</span><span class="o">/</span><span class="nb">float</span><span class="p">(</span><span class="n">nx</span><span class="p">)))</span>
+</pre></div>
+</div>
+<p>Now we are ready to run the classifiers. The following loop trains
+and queries each classifier to finally generate a nice plot showing
+the decision surface of each individual classifier, both for the linear and
+the non-linear dataset.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">for</span> <span class="nb">id</span><span class="p">,</span> <span class="n">ds</span> <span class="ow">in</span> <span class="n">datasets</span><span class="o">.</span><span class="n">iteritems</span><span class="p">():</span>
+    <span class="c"># loop over classifiers and show how they do</span>
+    <span class="n">fig</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="c"># make a new figure</span>
+    <span class="n">pl</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="n">nx</span><span class="o">*</span><span class="mi">4</span><span class="p">,</span> <span class="n">ny</span><span class="o">*</span><span class="mi">4</span><span class="p">))</span>
+
+    <span class="k">print</span> <span class="s">&quot;Processing </span><span class="si">%s</span><span class="s"> problem...&quot;</span> <span class="o">%</span> <span class="nb">id</span>
+
+    <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">clfs</span><span class="p">):</span>
+        <span class="c"># tell which one we are doing</span>
+        <span class="k">print</span> <span class="s">&quot;Running </span><span class="si">%s</span><span class="s"> classifier...&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">c</span><span class="p">)</span>
+
+        <span class="c"># make a new subplot for each classifier</span>
+        <span class="n">fig</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="n">pl</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="n">ny</span><span class="p">,</span> <span class="n">nx</span><span class="p">,</span> <span class="n">fig</span><span class="p">)</span>
+
+        <span class="c"># select the clasifier</span>
+        <span class="n">clf</span> <span class="o">=</span> <span class="n">clfs</span><span class="p">[</span><span class="n">c</span><span class="p">]</span>
+
+        <span class="c"># enable saving of the estimates used for the prediction</span>
+        <span class="n">clf</span><span class="o">.</span><span class="n">ca</span><span class="o">.</span><span class="n">enable</span><span class="p">(</span><span class="s">&#39;estimates&#39;</span><span class="p">)</span>
+
+        <span class="c"># train with the known points</span>
+        <span class="n">clf</span><span class="o">.</span><span class="n">train</span><span class="p">(</span><span class="n">ds</span><span class="p">)</span>
+
+        <span class="c"># run the predictions on the test values</span>
+        <span class="n">pre</span> <span class="o">=</span> <span class="n">clf</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">feat_test</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
+
+        <span class="c"># if ridge, use the prediction, otherwise use the values</span>
+        <span class="k">if</span> <span class="n">c</span> <span class="o">==</span> <span class="s">&#39;Ridge Regression&#39;</span><span class="p">:</span>
+            <span class="c"># use the prediction</span>
+            <span class="n">res</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">pre</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="s">&#39;Nearest-Ne&#39;</span> <span class="ow">in</span> <span class="n">c</span><span class="p">:</span>
+            <span class="c"># Use the dictionaries with votes</span>
+            <span class="n">res</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">e</span><span class="p">[</span><span class="n">l1</span><span class="p">]</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">clf</span><span class="o">.</span><span class="n">ca</span><span class="o">.</span><span class="n">estimates</span><span class="p">])</span> \
+                  <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">([</span><span class="n">e</span><span class="o">.</span><span class="n">values</span><span class="p">()</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">clf</span><span class="o">.</span><span class="n">ca</span><span class="o">.</span><span class="n">estimates</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">c</span> <span class="o">==</span> <span class="s">&#39;Logistic Regression&#39;</span><span class="p">:</span>
+            <span class="c"># get out the values used for the prediction</span>
+            <span class="n">res</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">clf</span><span class="o">.</span><span class="n">ca</span><span class="o">.</span><span class="n">estimates</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">c</span> <span class="ow">in</span> <span class="p">[</span><span class="s">&#39;SMLR&#39;</span><span class="p">]:</span>
+            <span class="n">res</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">clf</span><span class="o">.</span><span class="n">ca</span><span class="o">.</span><span class="n">estimates</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">])</span>
+        <span class="k">elif</span> <span class="n">c</span> <span class="ow">in</span> <span class="p">[</span><span class="s">&#39;LDA&#39;</span><span class="p">,</span> <span class="s">&#39;QDA&#39;</span><span class="p">]</span> <span class="ow">or</span> <span class="n">c</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s">&#39;GNB&#39;</span><span class="p">):</span>
+            <span class="c"># Since probabilities are logprobs -- just for</span>
+            <span class="c"># visualization of trade-off just plot relative</span>
+            <span class="c"># &quot;trade-off&quot; which determines decision boundaries if an</span>
+            <span class="c"># alternative log-odd value was chosen for a cutoff</span>
+            <span class="n">res</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">clf</span><span class="o">.</span><span class="n">ca</span><span class="o">.</span><span class="n">estimates</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span>
+                             <span class="o">-</span> <span class="n">clf</span><span class="o">.</span><span class="n">ca</span><span class="o">.</span><span class="n">estimates</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">])</span>
+            <span class="c"># Scale and position around 0.5</span>
+            <span class="n">res</span> <span class="o">=</span> <span class="mf">0.5</span> <span class="o">+</span> <span class="n">res</span><span class="o">/</span><span class="nb">max</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">res</span><span class="p">))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c"># get the probabilities from the svm</span>
+            <span class="n">res</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">([(</span><span class="n">q</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">q</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span>
+                    <span class="k">for</span> <span class="n">q</span> <span class="ow">in</span> <span class="n">clf</span><span class="o">.</span><span class="n">ca</span><span class="o">.</span><span class="n">probabilities</span><span class="p">])</span>
+
+        <span class="c"># reshape the results</span>
+        <span class="n">z</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">res</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="n">npoints</span><span class="p">,</span> <span class="n">npoints</span><span class="p">))</span>
+
+        <span class="c"># plot the predictions</span>
+        <span class="n">pl</span><span class="o">.</span><span class="n">pcolor</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">shading</span><span class="o">=</span><span class="s">&#39;interp&#39;</span><span class="p">)</span>
+        <span class="n">pl</span><span class="o">.</span><span class="n">clim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">pl</span><span class="o">.</span><span class="n">colorbar</span><span class="p">()</span>
+        <span class="c"># plot decision surfaces at few levels to emphasize the</span>
+        <span class="c"># topology</span>
+        <span class="n">pl</span><span class="o">.</span><span class="n">contour</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="p">[</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.4</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.6</span><span class="p">,</span> <span class="mf">0.9</span><span class="p">],</span>
+                   <span class="n">linestyles</span><span class="o">=</span><span class="p">[</span><span class="s">&#39;dotted&#39;</span><span class="p">,</span> <span class="s">&#39;dashed&#39;</span><span class="p">,</span> <span class="s">&#39;solid&#39;</span><span class="p">,</span> <span class="s">&#39;dashed&#39;</span><span class="p">,</span> <span class="s">&#39;dotted&#39;</span><span class="p">],</span>
+                   <span class="n">linewidths</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">colors</span><span class="o">=</span><span class="s">&#39;black&#39;</span><span class="p">,</span> <span class="n">hold</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+
+        <span class="c"># plot the training points</span>
+        <span class="n">pl</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ds</span><span class="o">.</span><span class="n">samples</span><span class="p">[</span><span class="n">ds</span><span class="o">.</span><span class="n">targets</span> <span class="o">==</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+               <span class="n">ds</span><span class="o">.</span><span class="n">samples</span><span class="p">[</span><span class="n">ds</span><span class="o">.</span><span class="n">targets</span> <span class="o">==</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
+               <span class="s">&quot;r.&quot;</span><span class="p">)</span>
+        <span class="n">pl</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ds</span><span class="o">.</span><span class="n">samples</span><span class="p">[</span><span class="n">ds</span><span class="o">.</span><span class="n">targets</span> <span class="o">==</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+               <span class="n">ds</span><span class="o">.</span><span class="n">samples</span><span class="p">[</span><span class="n">ds</span><span class="o">.</span><span class="n">targets</span> <span class="o">==</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
+               <span class="s">&quot;b.&quot;</span><span class="p">)</span>
+
+        <span class="n">pl</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s">&#39;tight&#39;</span><span class="p">)</span>
+        <span class="c"># add the title</span>
+        <span class="n">pl</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="admonition-see-also admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last">The full source code of this example is included in the PyMVPA source distribution (<tt class="xref py py-obj docutils literal"><span class="pre">doc/examples/pylab_2d.py</span></tt>).</p>
+</div>
+</div>
+
+
+
+<div id="disqus_thread"></div>
+<script type="text/javascript" src="http://disqus.com/forums/pymvpa/embed.js"></script>
+<noscript><a href="http://disqus.com/forums/pymvpa/?url=ref">View the discussion thread.</a></noscript>
+</div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="knn_plot.html"
+                        title="previous chapter">kNN &#8211; Model Flexibility in Pictures</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="topo_plot.html"
+                        title="next chapter">Generating Topography plots</a></p>
+
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+<p><a href="http://neuro.debian.net"><img
+  src="_static/neurodebian.png" alt="NeuroDebian" /></a></p>
+<p><a href="http://www.nitrc.org/projects/pymvpa"><img
+  src="_static/nitrc.jpg" alt="NITRC-listed" /></a></p>
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="topo_plot.html" title="Generating Topography plots"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="knn_plot.html" title="kNN – Model Flexibility in Pictures"
+             >previous</a> |</li>
+  <li><a href="../index.html">PyMVPA Home</a> |&nbsp;</li>
+  <li><a href="../sitemap.html">Sitemap</a> &raquo;</li>
+
+          <li><a href="../manual.html" >PyMVPA User Manual</a> &raquo;</li>
+          <li><a href="../examples.html" >Example Analyses and Scripts</a> &raquo;</li> 
+      </ul>
+    </div>
+
+    <div class="footer">
+        &copy; Copyright 2006-2012, PyMVPA Authors.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+ <script type="text/javascript">
+ var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+ document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+ </script>
+ <script type="text/javascript">
+ var pageTracker = _gat._getTracker("UA-5958822-1");
+ pageTracker._trackPageview();
+ </script>
+
+  </body>
+</html>

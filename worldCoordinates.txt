@@ -1,0 +1,84 @@
+Processing DICOM images in VTK requires the following image coords transformations:
+1) I equate the VTK world coordinate system with the DICOM patient
+coordinate system
+2) I set the data-to-world transform from the information in the DICOM
+header
+3) I set up the camera in my viewer to display the image in the
+desired orientation
+
+The best way to work out coordinate transformation is to consider what
+happens to the position of a single pixel (I,J,K) in the image.
+
+DICOM transformations go like this: 
+first, there is a stack of images where each pixel identified by column and row, i.e. by (I,J,0) 
+indices (for now, I'm just considering a single slice so the Z index is zero).  These are then
+multiplied by the column and row spacing, to get (I*sx, J*sy, 0).  Then they
+are multiplied by the Orientation matrix, which is constructed by creating a
+3x3 matrix where the first two columns are from the ImageOrientationPatient
+tag in the header, and the third column (usually) the cross product of the
+first two columns.  Finally, the last step in creating (x,y,z) patient
+coordinates is to add the ImagePositionPatient to the stretched and rotated
+(I,J,0) pixel indices.  So, that is how patient coordinates are computed for
+DICOM images.
+
+In VTK, the (I,J,K) indices of the voxels are called the "structured coords"
+of the image.  To convert these to VTK's "data coords", i.e. what VTK uses
+for polydata and for the mappers, the IJK indices have to be multiplied by
+the image Spacing (just like they are multiplied by the spacing for DICOM)
+and then the Origin is added to these values to get VTK "data coordinates."
+ Finally, the data coordinates are multiplied by a 4x4 matrix (the
+vtkProp3D's matrix, i.e. the matrix that is composed of the position and
+rotation of the vtkVolume).  This results in VTK "world coordinates".
+
+In summary:
+DICOM -> scale by Spacing, rotate by Orientation, translate by Position
+VTK -> scale by Spacing, translate by Origin, then rotate and translate by a
+4x4 matrix
+
+There is nothing in DICOM that corresponds to the Origin of a VTK image
+data, i.e. in DICOM the scale operation is followed directly by the
+rotation.  So when dealing with pure DICOM patient coords in VTK, the image
+Origin should generally be set to (0,0,0).  Furthermore, the DICOM
+Orientation and Position become subsumed into a singe 4x4 VTK matrix
+transformation.  The 4x4 matrix is constructed from the 3x3 DICOM
+orientation matrix, and the last column is set to the DICOM Position.
+
+Now what I said about the Origin always being set to zero... that represents
+the "purest" way of expressing DICOM patient coords in VTK.  But it is not
+the only way.  Another choice would be to take the DICOM Position, multiply
+it by the inverse of the orientation matrix, and then set the Origin to
+that.  In that case, the "translation" part of the VTK 4x4 matrix would be
+zero.
+
+Finally, getting to your question about calling SetOrigin() and
+SetPosition() on the vtkVolume.  The vtkVolume, as I discussed, has an
+internal 4x4 matrix   (that you can get by calling volume->GetMatrix()), and
+this matrix is constructed from the Origin, Orientation, and Position of the
+vtkVolume.  The order of operations here is that the 4x4 matrix is
+constructed by translating by the _negative_ of the origin, rotating by the
+orientation, and translating once again by the position.  But the
+Orientation is a nasty issue here... there is no easy way to figure out the
+angles you would need to use for SetOrientation to achieve the correct
+ImageOrientationPatient for your DICOM.  However, it is straightforward to
+directly construct a 4x4 matrix as I discussed above.  So my recommendation
+is to _never, ever_ use the SetOrigin(), SetOrientation(), and SetPosition()
+methods when visualizing DICOM data.  Instead, build the 4x4
+rotation+position matrix yourself, and use SetUserMatrix() to attach it to
+your volume.
+
+The reason that SetOrigin() and SetPosition() worked for you is that, by
+setting both to the same value, you end up changing the center of rotation.
+ But heed my advice: if you want to do things quantitatively, the best way
+to do so is by building the 4x4 transformation matrix yourself.  Letting VTK
+build it for you is IMHO just adding a lot of extra unknowns into the mix.
+
+In VTK, image display works like this:
+
+VTK: scale by vtkImageData spacing, translate by vtkImageData origin, 
+rotate (3x3 part of 4x4 matrix), 
+translate (last column of 4x4 matrix)
+
+ - Extracted from Re: [vtkusers mailing list thread] vtk Coordinate system clarification 
+ by David Gobbi.
+ permanentlink: http://markmail.org/thread/x2ivffjgm35d5oob
+

@@ -1,0 +1,526 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Language" content="en-us">
+<meta name="GENERATOR" content="Microsoft FrontPage 6.0">
+<meta name="ProgId" content="FrontPage.Editor.Document">
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<title>Orientation and Voxel-Order Terminology: RAS, LAS, LPI, RPI, XYZ and All 
+That</title>
+<style>
+<!--
+.GWCell      { font-family: Arial; font-size: 8pt }
+.GWCommand   { font-family: Courier New; font-size: 8pt }
+-->
+</style>
+</head>
+
+<body bgcolor="#FFFFFF">
+
+<table border="0" cellpadding="4" width="100%">
+  <tr>
+    <td width="50%">&nbsp;<a href="http://www.grahamwideman.com/">
+    <img src="../common/gw_logo_08.gif" alt="gw_logo_08.gif (1982 bytes)" border="0" align="top" WIDTH="159" HEIGHT="22">
+    </a><em><small><small>&nbsp; </small></small><br>
+    <small><small>Last edit: 
+    <!--webbot bot="Timestamp" S-Type="EDITED" S-Format="%y-%m-%d" startspan -->05-08-29<!--webbot bot="Timestamp" i-checksum="13550" endspan --> Graham 
+    Wideman</small></small></em></td>
+    <td width="50%" valign="top" align="right">
+    <h3 align="right">Analyze Format</h3>
+    </td>
+  </tr>
+</table>
+<table border="1" cellpadding="2" width="100%">
+  <tr>
+    <td><strong><font size="5">Orientation and Voxel-Order Terminology: RAS, 
+    LAS, LPI, RPI, XYZ and All That</font></strong><br>
+    <em><small><small>Article created: 2003-06-22</small></small> </em></td>
+  </tr>
+</table>
+<h3>Overview</h3>
+<p>In dealing with MRI data it's necessary to be familiar with the conventions 
+and terminology used to describe orientation. It's also necessary to be aware of 
+a number of common differences of custom, and various traps for the unwary. </p>
+<p>The following is my effort to get all of this straight. It is a work in 
+progress. Even where something's correct in my mind, it's incredibly easy to 
+write it down backwards by mistake. Feel free to send rebuttals to 
+raslasxyz@wideman-one.com</p>
+<h3>Contents</h3>
+<ul>
+  <li>Basic Direction Terms</li>
+  <li>Axes for Spatial Coordinates</li>
+  <li>X, Y, Z for Spatial Axes</li>
+  <li>MRI Image File Voxel Ordering</li>
+  <li>&quot;Radiological&quot; vs &quot;Neurological&quot; Orientation in Viewers</li>
+  <li>Interpreting Voxel Order from Viewer -- Difficult</li>
+  <li>X, Y, Z MRI Array Indexes</li>
+  <li>MRI File vs In-Memory Array</li>
+  <li>Radiological vs Neurological Voxel Orders</li>
+  <li>Talairach Atlas</li>
+  <li>Caveat: More to the Story</li>
+</ul>
+<h3>Basic Direction Terms</h3>
+<p>If you're new to the field the first thing you'll need to know is some basic 
+vocabulary regarding directions.</p>
+<table border="1" cellpadding="3" cellspacing="0" style="border-collapse: collapse" bordercolor="#111111" id="AutoNumber1">
+  <tr>
+    <td colspan="2"><img border="0" src="rlapsi.gif" width="172" height="169"></td>
+    <td><img border="0" src="soc_orientation.jpg" width="155" height="192"></td>
+  </tr>
+  <tr>
+    <td>Right</td>
+    <td>Left</td>
+    <td rowspan="3" valign="top">Head orientation reference</td>
+  </tr>
+  <tr>
+    <td>Anterior</td>
+    <td>Posterior</td>
+  </tr>
+  <tr>
+    <td>Inferior</td>
+    <td>Superior</td>
+  </tr>
+</table>
+<p><b>Notes:</b></p>
+<ul>
+  <li><b>&quot;Up&quot;, &quot;down&quot;, &quot;front&quot;, &quot;back&quot;</b> are not used because they have 
+  confusing meanings when dealing with patients in different orientations (eg: 
+  lying down), or when dealing with other animals.<br>
+&nbsp;</li>
+  <li><b>Medial, Lateral: </b>Because the left and right halves of the brain are 
+  almost mirror images, it's useful to have:<br>
+  &quot;medial&quot;: towards the middle of the R-L axis, on either side, and<br>
+  &quot;lateral&quot;: away from the middle of the R-L axis on either side.<br>
+&nbsp;</li>
+  <li><b>Directions are given relative to the patient.</b> (&quot;Right&quot; is patient's 
+  right.) If we need to talk about location on a screen it's important to 
+  distinguish carefully -- so we might say that patient-right appears on 
+  screen-left.</li>
+</ul>
+<h3>Axes for Spatial Coordinates</h3>
+<p>To talk about locations in space in the neighborhood of the brain, we need to 
+be able to talk more precisely about sets of axes, including which direction is 
+positive, and which order we are going to list them when describing a point's 
+coordinates.&nbsp; There are three axes, which could be used in any order, and 
+where either direction could be positive, so that gives us a total of 3 * 2 * 1 
+* 2 ^ 3 = 48 possible axis schemes. </p>
+<p>In MRI practice it seems that two of these schemes are most popular:</p>
+<table border="1" cellpadding="3" cellspacing="0" style="border-collapse: collapse" bordercolor="#111111" id="AutoNumber1">
+  <tr>
+    <td><img border="0" src="RAS.gif" width="120" height="170"></td>
+    <td><img border="0" src="LAS.gif" width="165" height="170"></td>
+    <td><img border="0" src="soc_orientation.jpg" width="155" height="192"></td>
+  </tr>
+  <tr>
+    <td>&quot;Neurological&quot; convention for axes, aka &quot;RAS&quot;</td>
+    <td>&quot;Radiological&quot; convention for axes, aka &quot;LAS&quot;</td>
+    <td>Head orientation reference</td>
+  </tr>
+</table>
+<p><b>Subtle points:</b> </p>
+<ul>
+  <li><b>Direction <i>and</i> Order</b>:&nbsp; Note that each convention 
+  specifies not just the positive direction of three axes, but also the order 
+  for listing them (eg: LAS, but not ALS). <br>
+&nbsp;</li>
+  <li><b>Right-hand vs Left-hand:</b> Note that RAS is a right-hand coordinate 
+  system (thumb = R, 2nd finger = A, middle finger = S.), whereas LAS is a 
+  left-hand coordinate system. This is significant when performing matrix and 
+  vector math, where a right-hand coordinate system is customarily used (though 
+  a left-hand system can be used with appropriate adjustments).<br>
+&nbsp;</li>
+  <li><b>LSA? </b>The L, A and S axes <i>could</i> provide a right-hand 
+  coordinate system if used in the order LSA for example, but nobody seems in 
+  favor of this (but see the X, Y, Z topic below!).<br>
+&nbsp;</li>
+  <li><b>Viewing Direction:</b> In the figures above, I've shown them as viewed 
+  looking toward the patient's face. However there are also conventions for 
+  viewing, wherein the Neurological view would be from above/behind the patient, 
+  hence showing patient left on screen left. More on that below.</li>
+</ul>
+<h3>X, Y, Z for Spatial Axes</h3>
+<p>In some contexts, brain data is placed in an X, Y, Z coordinate system, 
+perhaps like this:</p>
+<table border="1" cellpadding="3" cellspacing="0" style="border-collapse: collapse" bordercolor="#111111" id="AutoNumber1">
+  <tr>
+    <td><img border="0" src="xyz_01.GIF" width="176" height="164"></td>
+    <td><img border="0" src="xyz_02.GIF" width="121" height="163"></td>
+    <td><img border="0" src="xyz_lh.GIF" width="176" height="163"></td>
+    <td><img border="0" src="soc_orientation.jpg" width="155" height="192"></td>
+  </tr>
+  <tr>
+    <td>1. Would be described as<b> LSA</b>:<br>
+    +X = L<br>
+    +Y = S<br>
+    +Z = A</td>
+    <td>2. Would be described as <b>RAS</b>:<br>
+    +X = R<br>
+    +Y = A<br>
+    +Z = S</td>
+    <td>3. Would be described as <b>LAS</b>:<br>
+    +X = L<br>
+    +Y = A<br>
+    +Z = S</td>
+    <td valign="top">Head orientation reference</td>
+  </tr>
+</table>
+<p><b>Notes:</b></p>
+<ul>
+  <li><b>LSA: </b>Attractive perhaps at first glance to a graphics programmer, 
+  and of course you can do whatever you want inside your own program -- but does 
+  not seem to enjoy wide use as a way to discuss brain coordinates.<br>
+&nbsp;</li>
+  <li><b>RAS: </b>Corresponds to the Neurologist-preferred RAS axes, and is a 
+  right-hand system<br>
+&nbsp;</li>
+  <li><b>LAS: </b>Corresponds to Radiologist-preferred LAS axes, and is a 
+  left-hand system (ie: don't automatically assume that if X, Y and Z are being 
+  used that you are looking at a right-hand coordinate system.)</li>
+</ul>
+<p>Why bother renaming perfectly good axes using X, Y, Z, why not just call them 
+R, A, S or whatever? A couple of possible reasons:</p>
+<ul>
+  <li>Some environments for manipulating points or images perhaps require you to 
+  state coordinates in X, Y, Z dimensions.</li>
+  <li>When labeled as X, Y, Z, it's obvious in what order you should state the 
+  coordinates (alphabetical), whereas with R, A and S floating around they might 
+  be more prone to listing in the wrong order.</li>
+</ul>
+<h3>MRI Image File Voxel Ordering</h3>
+<p>A number of MRI file formats involve storing voxel intensities as simply a 
+stream of intensity numbers in to a file in some agreed-upon manner.&nbsp; 
+(Examples: Analyze; AFNI).&nbsp; These formats require recording a number of 
+characteristics of the image file, including voxel order, type of number used 
+for intensity, and other attributes relating to conditions of image acquisition, 
+processing steps that have been performed and so on. </p>
+<p>In this discussion we are interested in the topic of voxel order.</p>
+<p>In general terms, voxels are stored in sequence traveling along a&nbsp; row, 
+one row after row another, one slice after slice another. But which directions 
+are the rows and slices?</p>
+<p>Like the case of the three axes, we again have a choice of 48 possible 
+different storage orders. Here are some: </p>
+<table border="1" cellpadding="3" cellspacing="0" style="border-collapse: collapse" bordercolor="#111111" id="AutoNumber1">
+  <tr>
+    <td valign="top"><b>Storage order in file</b></td>
+    <td valign="top"><b>Slice orientation <br>
+    (ambiguous)</b></td>
+    <td valign="top"><b>3-Letter <br>
+    &quot;from&quot; Name</b></td>
+    <td valign="top"><b>Increasing position in file is in <br>
+    direction of spatial axes...</b></td>
+  </tr>
+  <tr>
+    <td valign="top">R-L within P-A within I-S </td>
+    <td valign="top">&quot;Axial&quot;</td>
+    <td valign="top">RPI</td>
+    <td valign="top">LAS</td>
+  </tr>
+  <tr>
+    <td valign="top">L-R within P-A within I-S</td>
+    <td valign="top">&quot;Axial&quot;</td>
+    <td valign="top">LPI</td>
+    <td valign="top">RAS</td>
+  </tr>
+  <tr>
+    <td valign="top">R-L within S-I within P-A</td>
+    <td valign="top">&quot;Coronal&quot;</td>
+    <td valign="top">RSP</td>
+    <td valign="top">LIA</td>
+  </tr>
+</table>
+<p><b>Notes:</b></p>
+<ul>
+  <li><b>Storage Order: </b>R-L within P-A within I-S means:
+  <ul>
+    <li>Voxels ordered from right to left to store a row</li>
+    <li>Rows ordered from posterior to anterior to store a slice (corrected 
+    2004-02-13, thanks JR!)</li>
+    <li>Slices stored from inferior to superior to store a volume<br>
+&nbsp;</li>
+  </ul>
+  </li>
+  <li><b>Common 3-Letter Name vs Spatial Direction: </b>My current strong 
+  impression is that it's customary to refer to a particular voxel order by 
+  using the &quot;from&quot; letters of the three from-to pairs. This is not universal -- 
+  some people refer to a particular voxel ordering by stating the spatial 
+  direction of increasing index. This situation is error-inviting, as the two 
+  different naming scheme are opposite.<br>
+&nbsp; </li>
+  <li><b>Repeat: Terminology is Tricky! </b>For example, data files commonly 
+  described as using &quot;RPI&quot; voxel order store voxels in order of increasing LAS,
+  <i>not increasing RPI</i> as might be expected at first glance.<br>
+&nbsp;</li>
+  <li><b>Slice Orientation names:</b> There are names for the three possible 
+  slice planes, but these do no specify the +/- directions of their axes so are 
+  suggestive but&nbsp; insufficient to describe the order of voxels in a file:<ul>
+    <li>Axial (Transverse): R-L x A-P plane</li>
+    <li>Coronal: R-L x S-I plane</li>
+    <li>Sagittal: A-P x S-I plane<br>
+&nbsp;</li>
+  </ul>
+  </li>
+</ul>
+<h3>&quot;Radiological&quot; vs &quot;Neurological&quot; Orientation in Viewers</h3>
+<p>&quot;Radiological&quot; and &quot;Neurological&quot; identify two different conventions for the 
+orientation of <i>views</i> of MRI slices. So far as I can tell, they mean the 
+following:</p>
+<table border="1" cellpadding="2" cellspacing="0" style="border-collapse: collapse" bordercolor="#111111" id="AutoNumber2">
+  <tr>
+    <td valign="top" rowspan="2" bgcolor="#D4D4D4"><b>Convention</b></td>
+    <td valign="top" rowspan="2" bgcolor="#D4D4D4"><b>Glib descriptions seen 
+    everywhere</b></td>
+    <td valign="top" rowspan="2" bgcolor="#D4D4D4"><b>Slice orientation</b></td>
+    <td valign="top" bgcolor="#D4D4D4" colspan="3"><b>Viewer software displays 
+    [Note 1]</b></td>
+  </tr>
+  <tr>
+    <td valign="top" bgcolor="#D4D4D4"><b>Looking towards pt</b></td>
+    <td valign="top" bgcolor="#D4D4D4"><b>Patient direction</b></td>
+    <td valign="top" bgcolor="#D4D4D4"><b>Screen direction</b></td>
+  </tr>
+  <tr>
+    <td valign="top" rowspan="6"><b>Radiological </b></td>
+    <td valign="top" rowspan="6">&quot;Images are viewed as though looking upward 
+    from the feet of the subject.&quot;<p>&quot;Right is Left&quot;</td>
+    <td valign="top" rowspan="2">Axial</td>
+    <td valign="top" rowspan="2">Superior</td>
+    <td valign="top" bgcolor="#FFFF99">Right</td>
+    <td valign="top" bgcolor="#FFFF99">Left</td>
+  </tr>
+  <tr>
+    <td valign="top">Anterior</td>
+    <td valign="top">Up</td>
+  </tr>
+  <tr>
+    <td valign="top" rowspan="2">Coronal</td>
+    <td valign="top" rowspan="2">Posterior</td>
+    <td valign="top" bgcolor="#FFFF99">Right</td>
+    <td valign="top" bgcolor="#FFFF99">Left</td>
+  </tr>
+  <tr>
+    <td valign="top">Superior</td>
+    <td valign="top">Up</td>
+  </tr>
+  <tr>
+    <td valign="top" rowspan="2">Sagittal<p>&nbsp;</td>
+    <td valign="top" rowspan="2">Left?</td>
+    <td valign="top">Anterior</td>
+    <td valign="top">Right?</td>
+  </tr>
+  <tr>
+    <td valign="top">Superior</td>
+    <td valign="top">Up</td>
+  </tr>
+  <tr>
+    <td valign="top" rowspan="6"><b>Neurological </b></td>
+    <td valign="top" rowspan="6">&quot;Images are viewed as though looking from the 
+    top of the head downward.&quot;<p>&quot;Right is right&quot;</p>
+    <p>(Think brain-surgeon-view.)</td>
+    <td valign="top" rowspan="2">Axial<p>&nbsp;</td>
+    <td valign="top" rowspan="2">Inferior</td>
+    <td valign="top" bgcolor="#FFFF99">Right</td>
+    <td valign="top" bgcolor="#FFFF99">Right</td>
+  </tr>
+  <tr>
+    <td valign="top">Anterior</td>
+    <td valign="top">Up</td>
+  </tr>
+  <tr>
+    <td valign="top" rowspan="2">Coronal</td>
+    <td valign="top" rowspan="2">Anterior</td>
+    <td valign="top" bgcolor="#FFFF99">Right</td>
+    <td valign="top" bgcolor="#FFFF99">Right</td>
+  </tr>
+  <tr>
+    <td valign="top">Superior</td>
+    <td valign="top">Up</td>
+  </tr>
+  <tr>
+    <td valign="top" rowspan="2">Sagittal<p>&nbsp;</td>
+    <td valign="top" rowspan="2">Left?</td>
+    <td valign="top">Anterior</td>
+    <td valign="top">Right?</td>
+  </tr>
+  <tr>
+    <td valign="top">Superior</td>
+    <td valign="top">Up</td>
+  </tr>
+</table>
+<p><b>Notes</b></p>
+<ul>
+  <li><b>Some Fudging on Neuro View:</b> In truth, I haven't actually seen a 
+  viewer that says explicitly that it's showing an official Neurological view. 
+  I'm surmising the Neurological views from the observation that Neurological 
+  adherents seem satisfied to use a Radiological-convention viewer when they 
+  flip the R-L order of their raw data.&nbsp; Certainly software that shows 
+  patient-right on screen-left is generally said to be using the Radiological 
+  convention, whereas showing patient-right on the screen-right is said to be 
+  Neurological convention. (This most-important distinction is highlighted in 
+  yellow above).<br>
+&nbsp;</li>
+  <li><b>View Unrelated to Coordinate Axes: </b>So far as I have observed, the 
+  Radiological vs Neurological <i>view</i> issue has little necessary tie to the 
+  Radiological vs Neurological <i>coordinates</i> issue.&nbsp; It does not seem 
+  to be the case, for example, that a Radiological viewer presents the three 
+  slice views looking consistently <i>towards</i> the Radiological axes L, A, 
+  and&nbsp; S, or consistently <i>away</i> from L, A and S.<br>
+  &nbsp;<br>
+  Of course, a particular viewer might have readouts or labels for coordinates, 
+  and it would be important to know whether it is reporting LAS or RAS numbers, 
+  but those numbers could be reported while looking at either kind of view. (... 
+  which is exactly the case in FreeSurfer's tkmedit -- patient-left is on 
+  screen-right Radiological-style, and there's a Neuro-style RAS readout and RAS 
+  coordinates are used for surfaces.)</li>
+</ul>
+<h3>Interpreting Voxel Order from Viewer -- Difficult</h3>
+<p>Given the various schemes for storing data, and the possibility for voxel 
+order to go awry, it's essential to be able to cross-check the actual stored 
+voxel order unambiguously. Surely you can use one of many viewers to do that?</p>
+<p>Actually, most viewers go to some effort to read a volume's header file, and 
+orient the view in the most desirable fashion for viewing. This leaves you in 
+the dark regarding the actual order of the data in the file, since it's usually 
+not clear what helpful rotation the viewer has applied.</p>
+<p>Here is an example Analyze volume as shown in <b>
+<a href="http://www.cla.sc.edu/psyc/faculty/rorden/" name="ChrisRemail">Chris 
+Rorden</a></b>'s popular <b>
+<a href="http://www.cla.sc.edu/psyc/faculty/rorden/mricro.html">MRIcro MRI 
+Viewer</a></b>. (The data is a
+<a href="http://www.fmrib.ox.ac.uk/~steve/ftp/avg152T1_LR-marked.tar.gz">test 
+volume available</a> from the <a href="http://www.fmrib.ox.ac.uk/fsl/">FSL folks</a>, 
+that is marked for left and right.)</p>
+<p><img border="0" src="mricro_rl.GIF" width="428" height="255"></p>
+<p>MRIcro has done a nice job of orienting the views in desirable way. We see 
+that patient right is on the left of the image, so today we're Radiologists. 
+(MRIcro has options for flipping.)&nbsp; But what does this tell us about the 
+actual voxel order on disk?</p>
+<p>Here's a screenshot of my format-oblivious <a href="../tools/gworc/index.htm">
+Orientation Reality Check</a> viewer that shows the raw data order:</p>
+<p><img border="0" src="gworc_rl.GIF" width="683" height="353"></p>
+<p>We can see that voxels are ordered (R-L, P-A, I-S) (ie: RPI) in the file. We 
+wouldn't want to study the MRI this way, but it does tell us that what we see in 
+any particular smarter viewer is apt to obscure the raw data order.</p>
+<h3>X, Y, Z MRI Array Indexes</h3>
+<p>Returning to the topic of MRI files and arrays of voxels, some people use 
+letters X, Y and Z when talking about voxel order. Here's a description from
+<a href="http://www.fil.ion.bpmf.ac.uk/spm/distrib.html">SPM</a> regarding the 
+voxel order of files:</p>
+<blockquote>
+  <p><i>[...]after spatial normalisation, the images must be in the following 
+  orientation: </i></p>
+  <dl>
+    <dt><i>X increases from Left to Right <br>
+    Y increases from Posterior to Anterior <br>
+    Z increases from Inferior to Superior</i></dt>
+  </dl>
+  <p><i>This is a right handed coordinate system, </i></p>
+</blockquote>
+<p>First, let's realize the &quot;images must be in orientation&quot; translates to 
+&quot;voxels must be in this order&quot;. Now, from preceding discussion, we can 
+confidently expect that most people will refer to this voxel ordering as LPI, 
+with some others referring to it as RAS. But it's also worth understanding what 
+is the role of X, Y, Z in this picture. Here's my current opinion:</p>
+<ul>
+  <li>They convey that the file is like an array: Voxels[X, Y, Z], where X is 
+  the fastest-incrementing (innermost-nested) index, with voxels from Left to 
+  Right etc etc. Ie: X, Y and Z are introduced just so as to have some index 
+  variables, and they could just as well be I, J, K, or N0, N1, N2.<br>
+&nbsp;</li>
+  <li>X, Y, Z many have been chosen based on the idea that of course you are 
+  going to stick these voxels into a 3-D space that's equipped with right-hand 
+  X, Y and Z axes, and here's how to get the voxels into the correct locations. 
+  (But some people are content with left-hand X, Y, Z axes...)</li>
+</ul>
+<h3>MRI File vs In-Memory Array</h3>
+<p>Previous topic notwithstanding, if you were to actually read an MRI file into 
+memory in one big blob and treat it as an array, it would probably be wrong to 
+access it as: Voxels[X, Y, Z]. (Sticking with X being L-R and so on).</p>
+<p>That's because in popular computer languages the first index is the 
+slowest-incrementing index into memory. So instead we'd need to access that blob 
+of memory as Voxels[Z, Y, X]&nbsp; (in C/C++:&nbsp; Voxels[Z][Y][X] )</p>
+<h3>Radiological vs Neurological Voxel Orders</h3>
+<p>The labels &quot;Radiological&quot; and &quot;Neurological&quot; are sometimes applied to 
+particular orderings of voxels in a file. This is quite a surprise to a database 
+analyst, for whom the physical arrangement of bytes in a file has no more to do 
+with what those bytes mean than the issue of whether they are stored clockwise 
+or counter-clockwise on a hard-drive -- so long as there's metadata on hand to 
+inform us what that order is.</p>
+<p>Nonetheless, there has apparently been a history of viewers which slavishly 
+copied bytes out of files and plotted them &quot;verbatim&quot; on screen from left to 
+right, top to bottom, as this is the fastest way to get data from file to 
+screen.</p>
+<p>If voxel data is stored in a file from patient-right to patient-left, 
+anterior to posterior, for example) , then when this is &quot;copied&quot; to the screen 
+it places the patient's right on the left of the screen, and anterior at the 
+top, the Radiological preference.</p>
+<p>For the Neurological folks who want patient right on the right of the screen, 
+one suspects that there was overwhelming temptation to achieve this effect in 
+early slavishly-Radiological viewers by re-ordering the data. (Or maybe the 
+rationale was to be able to load data into matrices in a particular order -- 
+this would also motivate a desire for right-hand-organized data.) </p>
+<p>As a consequence, we have the following terminology used by some:</p>
+<table border="1" cellpadding="3" cellspacing="0" style="border-collapse: collapse" bordercolor="#111111" id="AutoNumber1">
+  <tr>
+    <td valign="top"><b>Storage order in file</b></td>
+    <td valign="top"><b>Slice orientation <br>
+&nbsp;</b></td>
+    <td valign="top"><b>3-Letter <br>
+    &quot;from&quot; Name</b></td>
+    <td valign="top"><b>Known as</b></td>
+  </tr>
+  <tr>
+    <td valign="top">R-L within P-A within I-S </td>
+    <td valign="top">&quot;Axial&quot;</td>
+    <td valign="top">RPI</td>
+    <td valign="top">Radiological</td>
+  </tr>
+  <tr>
+    <td valign="top">L-R within P-A within I-S</td>
+    <td valign="top">&quot;Axial&quot;</td>
+    <td valign="top">LPI</td>
+    <td valign="top">Neurological</td>
+  </tr>
+</table>
+<h3>Talairach Atlas</h3>
+<table border="0" cellpadding="2" cellspacing="0" style="border-collapse: collapse" bordercolor="#111111" width="100%" id="AutoNumber3">
+  <tr>
+    <td valign="top">I took a quick look at how coordinates in the Talairach 
+    atlas are commonly expressed. The
+    <a href="http://ric.uthscsa.edu/projects/talairachdaemon.html">Talairach 
+    Daemon</a> (University of Texas Health Sciences) provides the reference 
+    shown at the right, which seems representative of other Talairach-mentioning 
+    web sites.
+    <p>Here we see RAS axes, using the letters X Y Z.</td>
+    <td valign="top"><img border="0" src="talairachdaemon.gif" width="204" height="200"></td>
+  </tr>
+</table>
+<h3>Caveat: More to the Story</h3>
+<p>For sake of completeness: it should be noted that choices of axes and indices 
+are only the coarsest issues when it comes to orientation, voxel order and 
+position in space. In addition:</p>
+<ul>
+  <li>Often an MRI volume (especially a raw one) is not aligned to some exact 
+  orthogonal direction. This emphasizes that the directions attributed to the 
+  voxel array indices really can't be considered to be along particular spatial 
+  axes. Nonetheless, it's useful to know which set of axes the voxel indices 
+  correspond to most closely, as this helps when applying alignment or rotation 
+  steps.</li>
+  <li>There could be multiple volumes in a file, for example for multiple time 
+  points.</li>
+  <li>When a volume has been aligned to some particular direction and set of 
+  axes, then of concern are:<ul>
+    <li>The location of the origin</li>
+    <li>Whether the origin is centered in the middle of some central voxel, or 
+    on the corners of eight central voxels.</li>
+    <li>Scaling (overall scaling, possible non-linear scaling)</li>
+  </ul>
+  </li>
+</ul>
+<hr>
+<p><em>Go to:</em>&nbsp; <a href="http://www.grahamwideman.com/">
+<img src="../common/gw_logo_08.gif" alt="gw_logo_08.gif (1982 bytes)" border="0" align="top" WIDTH="159" HEIGHT="22">
+</a>&nbsp;</p>
+<p>&nbsp;</p>
+
+</body>
+
+</html>

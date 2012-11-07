@@ -1,0 +1,612 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Part 2: Dataset Basics and Concepts &mdash; PyMVPA 2.1.0 documentation</title>
+    
+    <link rel="stylesheet" href="_static/pymvpa.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '2.1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="PyMVPA 2.1.0 documentation" href="index.html" />
+    <link rel="up" title="Tutorial Introduction to PyMVPA" href="tutorial.html" />
+    <link rel="next" title="Part 3: Mappers – The Swiss Army Knife" href="tutorial_mappers.html" />
+    <link rel="prev" title="Part 1: A Gentle Start" href="tutorial_start.html" />
+  <meta name="keywords" content="mvpa, pymvpa, python, classifier, machine learning, neuroscience">
+  <link REL="icon" HREF="/_images/favicon.png" TYPE="image/png">
+
+  </head>
+  <body>
+<div id="header">
+<div id="hdrsubtitle">Multivariate Pattern Analysis in Python</div>
+</div>
+
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="tutorial_mappers.html" title="Part 3: Mappers – The Swiss Army Knife"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="tutorial_start.html" title="Part 1: A Gentle Start"
+             accesskey="P">previous</a> |</li>
+  <li><a href="index.html">PyMVPA Home</a> |&nbsp;</li>
+  <li><a href="sitemap.html">Sitemap</a> &raquo;</li>
+
+          <li><a href="manual.html" >PyMVPA User Manual</a> &raquo;</li>
+          <li><a href="tutorial.html" accesskey="U">Tutorial Introduction to PyMVPA</a> &raquo;</li> 
+      </ul>
+    </div>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+<!-- HEADNOTES -->
+ <div class='admonition note'>
+
+  To provide the most recent news and documentation <A
+  HREF='http://www.pymvpa.org'>www.pymvpa.org</A> reflects the
+  development 2.0 series (renamed 0.6 series) of PyMVPA.  If you are interested in the
+  documentation of the previous stable 0.4 series of PyMVPA, please
+  visit <A HREF='http://v04.pymvpa.org'>v04.pymvpa.org</A>.</div>
+
+
+  <div class="section" id="part-2-dataset-basics-and-concepts">
+<span id="chap-tutorial-datasets"></span><span id="index-0"></span><h1>Part 2: Dataset Basics and Concepts<a class="headerlink" href="#part-2-dataset-basics-and-concepts" title="Permalink to this headline">¶</a></h1>
+<p>A <a class="reference internal" href="generated/mvpa2.datasets.base.Dataset.html#mvpa2.datasets.base.Dataset" title="mvpa2.datasets.base.Dataset"><tt class="xref py py-obj docutils literal"><span class="pre">Dataset</span></tt></a> is the basic data container in PyMVPA. It
+serves as the primary form of input data storage, but also as container for
+more complex results returned by some algorithm. In this tutorial part we will
+take a look at what a dataset consists of, and how it works.</p>
+<p>In the simplest case, a dataset only contains <em>data</em> that is a matrix of
+numerical values.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">mvpa2.tutorial_suite</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="p">[[</span>  <span class="mi">1</span><span class="p">,</span>  <span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">],</span>
+<span class="gp">... </span>        <span class="p">[</span>  <span class="mi">2</span><span class="p">,</span>  <span class="mi">0</span><span class="p">,</span>  <span class="mi">0</span><span class="p">],</span>
+<span class="gp">... </span>        <span class="p">[</span>  <span class="mi">3</span><span class="p">,</span>  <span class="mi">1</span><span class="p">,</span>  <span class="mi">1</span><span class="p">],</span>
+<span class="gp">... </span>        <span class="p">[</span>  <span class="mi">4</span><span class="p">,</span>  <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ds</span> <span class="o">=</span> <span class="n">Dataset</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ds</span><span class="o">.</span><span class="n">shape</span>
+<span class="go">(4, 3)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">len</span><span class="p">(</span><span class="n">ds</span><span class="p">)</span>
+<span class="go">4</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ds</span><span class="o">.</span><span class="n">nfeatures</span>
+<span class="go">3</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ds</span><span class="o">.</span><span class="n">samples</span>
+<span class="go">array([[ 1,  1, -1],</span>
+<span class="go">       [ 2,  0,  0],</span>
+<span class="go">       [ 3,  1,  1],</span>
+<span class="go">       [ 4,  0, -1]])</span>
+</pre></div>
+</div>
+<p>In the above example, every row vector in the <tt class="docutils literal"><span class="pre">data</span></tt> matrix becomes an
+observation or a <a class="reference internal" href="glossary.html#term-sample"><em class="xref std std-term">sample</em></a> in the dataset, and every column vector
+represents an individual variable or a <a class="reference internal" href="glossary.html#term-feature"><em class="xref std std-term">feature</em></a>. The concepts of samples
+and features are essential for a dataset, hence we take a further, closer look.</p>
+<p>The dataset assumes the first axis of the data to be the samples separating
+dimension. If the dataset is created using a one-dimensional vector it will
+therefore have as many samples as elements in the vector, and only one feature.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">one_d</span> <span class="o">=</span> <span class="p">[</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span> <span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">one_ds</span> <span class="o">=</span> <span class="n">Dataset</span><span class="p">(</span><span class="n">one_d</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">one_ds</span><span class="o">.</span><span class="n">shape</span>
+<span class="go">(4, 1)</span>
+</pre></div>
+</div>
+<p>On the other hand, if a dataset is created from multi-dimensional data, only its
+second axis represents the features</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">m_ds</span> <span class="o">=</span> <span class="n">Dataset</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">((</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">)))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">m_ds</span><span class="o">.</span><span class="n">shape</span>
+<span class="go">(3, 4, 2, 3)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">m_ds</span><span class="o">.</span><span class="n">nfeatures</span>
+<span class="go">4</span>
+</pre></div>
+</div>
+<p>In this case we have a dataset with three samples and four features, where each
+feature is a 2x3 matrix. In case somebody is wondering now, why not simply each
+value in the data array is considered as its own feature (yielding 24 features)
+&#8211; stay tuned, as this is going to be of importance later on.</p>
+<div class="section" id="attributes">
+<h2>Attributes<a class="headerlink" href="#attributes" title="Permalink to this headline">¶</a></h2>
+<p>What we have seen so far does not really warrant the use of a dataset over a
+plain array or a matrix with samples. However, in the MVPA context we often need
+to know more about each samples than just the value of its features.  In the
+previous tutorial part we have already seen that per-sample <a class="reference internal" href="glossary.html#term-target"><em class="xref std std-term">target</em></a>
+values are required for supervised-learning algorithms, and that a dataset
+often has to be split based on the origin of specific groups of samples.  For
+this type of auxiliary information a dataset can also contain collections of
+three types of <a class="reference external" href="http://docs.scipy.org/doc/numpy/glossary.html#term-attribute" title="(in NumPy v1.8.dev-63cd8f3)"><em class="xref std std-term">attribute</em></a>s: <a class="reference internal" href="glossary.html#term-sample-attribute"><em class="xref std std-term">sample attribute</em></a>, <a class="reference internal" href="glossary.html#term-feature-attribute"><em class="xref std std-term">feature attribute</em></a>, and
+<a class="reference internal" href="glossary.html#term-dataset-attribute"><em class="xref std std-term">dataset attribute</em></a>.</p>
+<div class="section" id="for-samples">
+<h3>For Samples<a class="headerlink" href="#for-samples" title="Permalink to this headline">¶</a></h3>
+<p>In a dataset each <a class="reference internal" href="glossary.html#term-sample"><em class="xref std std-term">sample</em></a> can have an arbitrary number of additional
+attributes. They are stored as vectors of the same length as the number of samples
+in a collection, and are accessible via the <tt class="docutils literal"><span class="pre">sa</span></tt> attribute. A collection is
+derived from a standard Python <a class="reference external" href="http://docs.python.org/library/stdtypes.html#dict" title="(in Python v2.7)"><tt class="xref py py-obj docutils literal"><span class="pre">dict</span></tt></a>, and hence adding sample attributes
+works identical to adding elements to a dictionary:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">ds</span><span class="o">.</span><span class="n">sa</span><span class="p">[</span><span class="s">&#39;some_attr&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span> <span class="mf">0.</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">3</span> <span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ds</span><span class="o">.</span><span class="n">sa</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
+<span class="go">[&#39;some_attr&#39;]</span>
+</pre></div>
+</div>
+<p>However, sample attributes are not directly stored as plain data, but for
+various reasons as a so-called <a class="reference internal" href="generated/mvpa2.base.collections.Collectable.html#mvpa2.base.collections.Collectable" title="mvpa2.base.collections.Collectable"><tt class="xref py py-obj docutils literal"><span class="pre">Collectable</span></tt></a> that in
+turn embeds a NumPy array with the actual attribute:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="nb">type</span><span class="p">(</span><span class="n">ds</span><span class="o">.</span><span class="n">sa</span><span class="p">[</span><span class="s">&#39;some_attr&#39;</span><span class="p">])</span>
+<span class="go">&lt;class &#39;mvpa2.base.collections.ArrayCollectable&#39;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ds</span><span class="o">.</span><span class="n">sa</span><span class="p">[</span><span class="s">&#39;some_attr&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span>
+<span class="go">array([ 0.,  1.,  1.,  3.])</span>
+</pre></div>
+</div>
+<p>This &#8220;complication&#8221; is done to be able to extend attributes with additional
+functionality that is often needed and can offer significant speed-up of
+processing. For example, sample attributes carry a list of their unique values.
+This list is only computed once (upon first request) and can subsequently be
+accessed directly without repeated and expensive searches:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">ds</span><span class="o">.</span><span class="n">sa</span><span class="p">[</span><span class="s">&#39;some_attr&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span>
+<span class="go">array([ 0.,  1.,  3.])</span>
+</pre></div>
+</div>
+<p>However, for most interactive uses of PyMVPA this type of access to attributes&#8217;
+<tt class="docutils literal"><span class="pre">.value</span></tt> is relatively cumbersome (too much typing), therefore collections offer direct
+attribute access by name:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">ds</span><span class="o">.</span><span class="n">sa</span><span class="o">.</span><span class="n">some_attr</span>
+<span class="go">array([ 0.,  1.,  1.,  3.])</span>
+</pre></div>
+</div>
+<p>Another purpose of the sample attribute collection is to preserve data
+integrity, by disallowing improper attributes:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">ds</span><span class="o">.</span><span class="n">sa</span><span class="p">[</span><span class="s">&#39;invalid&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">4</span>
+<span class="gt">Traceback (most recent call last):</span>
+  File <span class="nb">&quot;/usr/lib/python2.6/doctest.py&quot;</span>, line <span class="m">1253</span>, in <span class="n">__run</span>
+    <span class="n">compileflags</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="ow">in</span> <span class="n">test</span><span class="o">.</span><span class="n">globs</span>
+  File <span class="nb">&quot;&lt;doctest tutorial_datasets.rst[20]&gt;&quot;</span>, line <span class="m">1</span>, in <span class="n">&lt;module&gt;</span>
+    <span class="n">ds</span><span class="o">.</span><span class="n">sa</span><span class="p">[</span><span class="s">&#39;invalid&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">4</span>
+  File <span class="nb">&quot;/home/test/pymvpa/mvpa2/base/collections.py&quot;</span>, line <span class="m">459</span>, in <span class="n">__setitem__</span>
+    <span class="n">value</span> <span class="o">=</span> <span class="n">ArrayCollectable</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+  File <span class="nb">&quot;/home/test/pymvpa/mvpa2/base/collections.py&quot;</span>, line <span class="m">171</span>, in <span class="n">__init__</span>
+    <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">__class__</span><span class="o">.</span><span class="n">__name__</span><span class="p">)</span>
+<span class="gr">ValueError</span>: <span class="n">ArrayCollectable only takes sequences as value.</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">ds</span><span class="o">.</span><span class="n">sa</span><span class="p">[</span><span class="s">&#39;invalid&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span> <span class="p">]</span>
+<span class="gt">Traceback (most recent call last):</span>
+  File <span class="nb">&quot;/usr/lib/python2.6/doctest.py&quot;</span>, line <span class="m">1253</span>, in <span class="n">__run</span>
+    <span class="n">compileflags</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="ow">in</span> <span class="n">test</span><span class="o">.</span><span class="n">globs</span>
+  File <span class="nb">&quot;&lt;doctest tutorial_datasets.rst[21]&gt;&quot;</span>, line <span class="m">1</span>, in <span class="n">&lt;module&gt;</span>
+    <span class="n">ds</span><span class="o">.</span><span class="n">sa</span><span class="p">[</span><span class="s">&#39;invalid&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span> <span class="p">]</span>
+  File <span class="nb">&quot;/home/test/pymvpa/mvpa2/base/collections.py&quot;</span>, line <span class="m">468</span>, in <span class="n">__setitem__</span>
+    <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="p">)))</span>
+<span class="gr">ValueError: Collectable &#39;invalid&#39; with length [6] does not match the required length [4] of collection &#39;&lt;SampleAttributesCollection</span>: <span class="n">some_attr&gt;&#39;.</span>
+</pre></div>
+</div>
+<p>But other than basic plausibility checks no further constraints on values of
+samples attributes exist. As long as the length of the attribute vector matches
+the number of samples in the dataset, and the attributes values can be stored
+in a NumPy array, any value is allowed. For example, it is perfectly possible
+and supported to store literal attributes. It should also be noted that each
+attribute may have its own individual data type, hence it is possible to have
+literal and numeric attributes in the same dataset.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">ds</span><span class="o">.</span><span class="n">sa</span><span class="p">[</span><span class="s">&#39;literal&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;one&#39;</span><span class="p">,</span> <span class="s">&#39;two&#39;</span><span class="p">,</span> <span class="s">&#39;three&#39;</span><span class="p">,</span> <span class="s">&#39;four&#39;</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">sorted</span><span class="p">(</span><span class="n">ds</span><span class="o">.</span><span class="n">sa</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+<span class="go">[&#39;literal&#39;, &#39;some_attr&#39;]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">attr</span> <span class="ow">in</span> <span class="n">ds</span><span class="o">.</span><span class="n">sa</span><span class="p">:</span>
+<span class="gp">... </span>   <span class="k">print</span> <span class="s">&quot;</span><span class="si">%s</span><span class="s">: </span><span class="si">%s</span><span class="s">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">attr</span><span class="p">,</span> <span class="n">ds</span><span class="o">.</span><span class="n">sa</span><span class="p">[</span><span class="n">attr</span><span class="p">]</span><span class="o">.</span><span class="n">value</span><span class="o">.</span><span class="n">dtype</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+<span class="go">literal: string40</span>
+<span class="go">some_attr: float64</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="for-features">
+<h3>For Features<a class="headerlink" href="#for-features" title="Permalink to this headline">¶</a></h3>
+<p><a class="reference internal" href="glossary.html#term-feature-attribute"><em class="xref std std-term">Feature attribute</em></a>s are almost identical to <a class="reference internal" href="glossary.html#term-sample-attribute"><em class="xref std std-term">sample attribute</em></a>s the <em>only</em> difference is that instead of having one attribute value per
+sample, feature attributes have one value per (guess what? ...) <em>feature</em>.
+Moreover, they are stored in a separate collection in the datasets that is
+called <tt class="docutils literal"><span class="pre">fa</span></tt>:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">ds</span><span class="o">.</span><span class="n">nfeatures</span>
+<span class="go">3</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ds</span><span class="o">.</span><span class="n">fa</span><span class="p">[</span><span class="s">&#39;my_fav&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ds</span><span class="o">.</span><span class="n">fa</span><span class="p">[</span><span class="s">&#39;responsible&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;me&#39;</span><span class="p">,</span> <span class="s">&#39;you&#39;</span><span class="p">,</span> <span class="s">&#39;nobody&#39;</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">sorted</span><span class="p">(</span><span class="n">ds</span><span class="o">.</span><span class="n">fa</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+<span class="go">[&#39;my_fav&#39;, &#39;responsible&#39;]</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="for-the-dataset">
+<h3>For The Dataset<a class="headerlink" href="#for-the-dataset" title="Permalink to this headline">¶</a></h3>
+<p>Finally, there can be also attributes, not per each sample, or each
+feature, but for the dataset as a whole: so called <a class="reference internal" href="glossary.html#term-dataset-attribute"><em class="xref std std-term">dataset
+attribute</em></a>s. Assigning such attributes and accessing them later on work in
+exactly the same way as for the other two types of attributes, except that dataset
+attributes are stored in their own collection which is accessible via the
+<tt class="docutils literal"><span class="pre">a</span></tt> property of the dataset.  However, in contrast to sample and feature
+attribute no constraints on the type or size are imposed &#8211; anything can be
+stored. Let&#8217;s store a list with all files in the current directory, just
+because we can:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">glob</span> <span class="kn">import</span> <span class="n">glob</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ds</span><span class="o">.</span><span class="n">a</span><span class="p">[</span><span class="s">&#39;pointless&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">glob</span><span class="p">(</span><span class="s">&quot;*&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="s">&#39;setup.py&#39;</span> <span class="ow">in</span> <span class="n">ds</span><span class="o">.</span><span class="n">a</span><span class="o">.</span><span class="n">pointless</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="slicing-resampling-feature-selection">
+<h2>Slicing, resampling, feature selection<a class="headerlink" href="#slicing-resampling-feature-selection" title="Permalink to this headline">¶</a></h2>
+<p>At this point we can already construct a dataset from simple arrays and
+enrich it with an arbitrary number of additional attributes. But just
+having a dataset isn&#8217;t enough. From part one of this tutorial we already
+know that we need to be able to select subsets of a dataset for further
+processing, and we also know that this is possible with PyMVPA&#8217;s datasets.
+Now it is time to have a closer look into how it works.</p>
+<p>Slicing a dataset (i.e. selecting specific subsets) is very similar to
+slicing a NumPy array. It actually works <em>almost</em> identical. A dataset
+supports Python&#8217;s <a class="reference external" href="http://docs.python.org/library/functions.html#slice" title="(in Python v2.7)"><tt class="xref py py-obj docutils literal"><span class="pre">slice</span></tt></a> syntax, but also selection by boolean masks, and
+indices. The following three slicing operations
+result in equivalent output datasets, by always selecting every other samples
+in the dataset:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># original</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ds</span><span class="o">.</span><span class="n">samples</span>
+<span class="go">array([[ 1,  1, -1],</span>
+<span class="go">       [ 2,  0,  0],</span>
+<span class="go">       [ 3,  1,  1],</span>
+<span class="go">       [ 4,  0, -1]])</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c"># Python-style slicing</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ds</span><span class="p">[::</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">samples</span>
+<span class="go">array([[ 1,  1, -1],</span>
+<span class="go">       [ 3,  1,  1]])</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c"># Boolean mask array</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mask</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="bp">True</span><span class="p">,</span> <span class="bp">False</span><span class="p">,</span> <span class="bp">True</span><span class="p">,</span> <span class="bp">False</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ds</span><span class="p">[</span><span class="n">mask</span><span class="p">]</span><span class="o">.</span><span class="n">samples</span>
+<span class="go">array([[ 1,  1, -1],</span>
+<span class="go">       [ 3,  1,  1]])</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c"># Slicing by index -- Python indexing start with 0 !!</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ds</span><span class="p">[[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">]]</span><span class="o">.</span><span class="n">samples</span>
+<span class="go">array([[ 1,  1, -1],</span>
+<span class="go">       [ 3,  1,  1]])</span>
+</pre></div>
+</div>
+<div class="admonition-exercise admonition">
+<p class="first admonition-title">Exercise</p>
+<p class="last">Search the <a class="reference external" href="http://docs.scipy.org/doc/">NumPy documentation</a> for the difference between &#8220;basic slicing&#8221;
+and &#8220;advanced indexing&#8221;. Especially the aspect of memory consumption
+applies to dataset slicing as well, and being aware of this fact might
+help to write more efficient analysis scripts. Which of the three slicing
+approaches above is the most memory-efficient?  Which of the three slicing
+approaches above might lead to unexpected side-effects if output dataset
+gets modified?</p>
+</div>
+<p>All three slicing-styles equally applicable to the selection of feature subsets
+within a dataset. Remember, features are represented on the second axis
+of a dataset.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">ds</span><span class="p">[:,</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">]]</span><span class="o">.</span><span class="n">samples</span>
+<span class="go">array([[ 1, -1],</span>
+<span class="go">       [ 0,  0],</span>
+<span class="go">       [ 1,  1],</span>
+<span class="go">       [ 0, -1]])</span>
+</pre></div>
+</div>
+<p>By applying a selection by indices to the second axis, we can easily get
+the last two features of our example dataset. Please note the <tt class="xref py py-obj docutils literal"><span class="pre">:</span></tt> is supplied
+as first axis slicing. This is the Python way to indicate <em>take everything
+along this axis</em>, hence take all samples.</p>
+<p>As you can guess, it is also possible to select subsets of samples and
+features at the same time.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">subds</span> <span class="o">=</span> <span class="n">ds</span><span class="p">[[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">]]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">subds</span><span class="o">.</span><span class="n">samples</span>
+<span class="go">array([[ 1, -1],</span>
+<span class="go">       [ 2,  0]])</span>
+</pre></div>
+</div>
+<p>If you have prior experience with NumPy you might be confused now. What you
+might have expected is this:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">ds</span><span class="o">.</span><span class="n">samples</span><span class="p">[[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">]]</span>
+<span class="go">array([1, 0])</span>
+</pre></div>
+</div>
+<p>The above code applies the same slicing directly to the NumPy array with
+the samples, and the result is fundamentally different. For NumPy arrays
+the style of slicing allows to select specific elements by their indices on
+each axis of an array. For PyMVPA&#8217;s datasets this mode is not very useful,
+instead we typically want to select rows and columns, i.e. samples and
+features given by their indices.</p>
+<div class="admonition-exercise admonition">
+<p class="first admonition-title">Exercise</p>
+<p class="last">Try to select samples [0,1] and features [0,2,3] simultaneously using
+dataset slicing.  Now apply the same slicing to the samples array itself
+(<tt class="docutils literal"><span class="pre">ds.samples</span></tt>) &#8211; make sure that the result doesn&#8217;t surprise you and find
+a pure NumPy way to achieve similar selection.</p>
+</div>
+<p>One last interesting thing to look at, in the context of dataset slicing
+are the attributes. What happens to them when a subset of samples and/or
+features is chosen? Our original dataset had both samples and feature attributes:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">ds</span><span class="o">.</span><span class="n">sa</span><span class="o">.</span><span class="n">some_attr</span>
+<span class="go">[ 0.  1.  1.  3.]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">ds</span><span class="o">.</span><span class="n">fa</span><span class="o">.</span><span class="n">responsible</span>
+<span class="go">[&#39;me&#39; &#39;you&#39; &#39;nobody&#39;]</span>
+</pre></div>
+</div>
+<p>Now let&#8217;s look at what they became in the subset-dataset we previously
+created:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">subds</span><span class="o">.</span><span class="n">sa</span><span class="o">.</span><span class="n">some_attr</span>
+<span class="go">[ 0.  1.]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">subds</span><span class="o">.</span><span class="n">fa</span><span class="o">.</span><span class="n">responsible</span>
+<span class="go">[&#39;me&#39; &#39;nobody&#39;]</span>
+</pre></div>
+</div>
+<p>We see that both attributes are still there and, moreover, also the
+appropriate subsets have been selected.</p>
+</div>
+<div class="section" id="loading-fmri-data">
+<h2>Loading fMRI data<a class="headerlink" href="#loading-fmri-data" title="Permalink to this headline">¶</a></h2>
+<p>Enough of theoretical foreplay &#8211; let&#8217;s look at a concrete example of an
+fMRI dataset. PyMVPA has several helper functions to load data from
+specialized formats, and the one for fMRI data is
+<a class="reference internal" href="generated/mvpa2.datasets.mri.fmri_dataset.html#mvpa2.datasets.mri.fmri_dataset" title="mvpa2.datasets.mri.fmri_dataset"><tt class="xref py py-obj docutils literal"><span class="pre">fmri_dataset()</span></tt></a>. The example dataset we are going to
+look at is a single subject from Haxby et al. (2001) that we already
+loaded in part one of this tutorial. For more convenience, and less typing
+we first specify the path of the directory with the fMRI data.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">path</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">tutorial_data_path</span><span class="p">,</span> <span class="s">&#39;data&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>In the simplest case, we now let <a class="reference internal" href="generated/mvpa2.datasets.mri.fmri_dataset.html#mvpa2.datasets.mri.fmri_dataset" title="mvpa2.datasets.mri.fmri_dataset"><tt class="xref py py-obj docutils literal"><span class="pre">fmri_dataset</span></tt></a> do its job, by just
+pointing it to the fMRI data file. The data is stored as a NIfTI file that has
+all runs of the experiment concatenated into a single file.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">ds</span> <span class="o">=</span> <span class="n">fmri_dataset</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s">&#39;bold.nii.gz&#39;</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">len</span><span class="p">(</span><span class="n">ds</span><span class="p">)</span>
+<span class="go">1452</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ds</span><span class="o">.</span><span class="n">nfeatures</span>
+<span class="go">163840</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ds</span><span class="o">.</span><span class="n">shape</span>
+<span class="go">(1452, 163840)</span>
+</pre></div>
+</div>
+<p>We can notice two things. First, it worked! Second, we get a
+two-dimensional dataset with 1452 samples (these are volumes in the NIfTI
+file), and over 160k features (these are voxels in the volume). The voxels
+are represented as a one-dimensional vector, and it seems that they have
+lost their association with the 3D-voxel-space. However, this is not the
+case, as we will see in the next chapter.  PyMVPA represents
+data in this simple format to make it compatible with a vast range of generic
+algorithms that expect data to be a simple matrix.</p>
+<p>We just loaded all data from that NIfTI file, but usually we would be
+interested in a subset only, i.e. &#8220;brain voxels&#8221;.
+<a class="reference internal" href="generated/mvpa2.datasets.mri.fmri_dataset.html#mvpa2.datasets.mri.fmri_dataset" title="mvpa2.datasets.mri.fmri_dataset"><tt class="xref py py-obj docutils literal"><span class="pre">fmri_dataset</span></tt></a> is capable of performing data masking. We just need to
+specify a mask image. Such mask image is generated in pretty much any fMRI
+analysis pipeline &#8211; may it be a full-brain mask computed during
+skull-stripping, or an activation map from a functional localizer. We are going
+to use the original GLM-based localizer mask of ventral temporal cortex
+from Haxby et al. (2001). We already know that it comprises 577 voxels.
+Let&#8217;s reload the dataset:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">ds</span> <span class="o">=</span> <span class="n">fmri_dataset</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s">&#39;bold.nii.gz&#39;</span><span class="p">),</span>
+<span class="gp">... </span>                  <span class="n">mask</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s">&#39;mask_vt.nii.gz&#39;</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">len</span><span class="p">(</span><span class="n">ds</span><span class="p">)</span>
+<span class="go">1452</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ds</span><span class="o">.</span><span class="n">nfeatures</span>
+<span class="go">577</span>
+</pre></div>
+</div>
+<p>As expected, we get the same number of samples and also only 577 features
+&#8211; voxels corresponding to non-zero elements in the mask image. Now, let&#8217;s
+explore this dataset a little further.</p>
+<p>Besides samples the dataset offers number of attributes that enhance the
+data with information that is present in the NIfTI image header in the file. Each sample has
+information about its volume id in the time series and the actual acquisition
+time (relative to the beginning of the file). Moreover, the original voxel
+index (sometimes referred to as <tt class="docutils literal"><span class="pre">ijk</span></tt>) for each feature is available too.
+Finally, the dataset also contains information about the dimensionality
+of the input volumes, voxel size, and any other NIfTI-specific information
+since it also includes a dump of the full NIfTI image header.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Previously (0.4.x versions and 0.5 development prior March 03, 2010),
+PyMVPA exposed 4D (and 3D with degenerate 1st dimension) data in <tt class="docutils literal"><span class="pre">tkji</span></tt>
+(corresponds to <tt class="docutils literal"><span class="pre">tzyx</span></tt> if volumes were axial slices in
+neurologic convention) order of dimensions.  Now it uses more convenient
+order <tt class="docutils literal"><span class="pre">tijk</span></tt> (corresponding to <tt class="docutils literal"><span class="pre">txyz</span></tt>), which will match the order exposed
+by NiBabel (PyNIfTI and NiftiImage still expose them as <tt class="docutils literal"><span class="pre">tkji</span></tt>).</p>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">ds</span><span class="o">.</span><span class="n">sa</span><span class="o">.</span><span class="n">time_indices</span><span class="p">[:</span><span class="mi">5</span><span class="p">]</span>
+<span class="go">array([0, 1, 2, 3, 4])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ds</span><span class="o">.</span><span class="n">sa</span><span class="o">.</span><span class="n">time_coords</span><span class="p">[:</span><span class="mi">5</span><span class="p">]</span>
+<span class="go">array([  0. ,   2.5,   5. ,   7.5,  10. ])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ds</span><span class="o">.</span><span class="n">fa</span><span class="o">.</span><span class="n">voxel_indices</span><span class="p">[:</span><span class="mi">5</span><span class="p">]</span>
+<span class="go">array([[ 6, 23, 24],</span>
+<span class="go">       [ 7, 18, 25],</span>
+<span class="go">       [ 7, 18, 26],</span>
+<span class="go">       [ 7, 18, 27],</span>
+<span class="go">       [ 7, 19, 25]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ds</span><span class="o">.</span><span class="n">a</span><span class="o">.</span><span class="n">voxel_eldim</span>
+<span class="go">(3.5, 3.75, 3.75)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ds</span><span class="o">.</span><span class="n">a</span><span class="o">.</span><span class="n">voxel_dim</span>
+<span class="go">(40, 64, 64)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="s">&#39;imghdr&#39;</span> <span class="ow">in</span> <span class="n">ds</span><span class="o">.</span><span class="n">a</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+<p>In addition to all this information, the dataset also carries a key
+attribute: the <em>mapper</em>. A mapper is an important concept in PyMVPA, and
+hence worth devoting the whole <a class="reference internal" href="tutorial_mappers.html#chap-tutorial-mappers"><em>next tutorial chapter</em></a> to it.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">ds</span><span class="o">.</span><span class="n">a</span><span class="o">.</span><span class="n">mapper</span>
+<span class="go">&lt;Chain: &lt;Flatten&gt;-&lt;StaticFeatureSelection&gt;&gt;</span>
+</pre></div>
+</div>
+<p>Having all these attributes being part of a dataset is often a useful thing
+to have, but in some cases (e.g. when it comes to efficiency, and/or very
+large datasets) one might want to have a leaner dataset with just the
+information that is really necessary. One way to achieve this, is to strip
+all unwanted attributes. The Dataset class&#8217;
+<a class="reference internal" href="generated/mvpa2.base.dataset.AttrDataset.html#mvpa2.base.dataset.AttrDataset.copy" title="mvpa2.base.dataset.AttrDataset.copy"><tt class="xref py py-meth docutils literal"><span class="pre">copy()</span></tt></a> method can help with that.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">stripped</span> <span class="o">=</span> <span class="n">ds</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">deep</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">sa</span><span class="o">=</span><span class="p">[</span><span class="s">&#39;time_coords&#39;</span><span class="p">],</span> <span class="n">fa</span><span class="o">=</span><span class="p">[],</span> <span class="n">a</span><span class="o">=</span><span class="p">[])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">stripped</span>
+<span class="go">&lt;Dataset: 1452x577@int16, &lt;sa: time_coords&gt;&gt;</span>
+</pre></div>
+</div>
+<p>We can see that all attributes besides <tt class="docutils literal"><span class="pre">time_coords</span></tt> have been filtered out.
+Setting the <tt class="docutils literal"><span class="pre">deep</span></tt> arguments to <tt class="docutils literal"><span class="pre">False</span></tt> causes the copy function to reuse the
+data from the source dataset to generate the new stripped one, without
+duplicating all data in memory &#8211; meaning both datasets now share the sample
+data and any change done to <tt class="docutils literal"><span class="pre">ds</span></tt> will also affect <tt class="docutils literal"><span class="pre">stripped</span></tt>.</p>
+</div>
+<div class="section" id="storage">
+<h2>Storage<a class="headerlink" href="#storage" title="Permalink to this headline">¶</a></h2>
+<p>Some data preprocessing can take a long time.  One would rather prevent
+doing it over and over again, and instead just store the preprocessed data
+into a file for subsequent analyses. PyMVPA offers functionality to store a
+large variety of objects, including datasets, into <a class="reference external" href="http://en.wikipedia.org/wiki/Hierarchical_Data_Format">HDF5</a> files. A variant
+of this format is also used by recent versions of Matlab to store data.</p>
+<p>For HDF5 support PyMVPA depends on the <a class="reference external" href="http://h5py.alfven.org">h5py</a> package. If it is available,
+any dataset can be saved to a file by simply calling
+<a class="reference internal" href="generated/mvpa2.base.dataset.AttrDataset.html#mvpa2.base.dataset.AttrDataset.save" title="mvpa2.base.dataset.AttrDataset.save"><tt class="xref py py-meth docutils literal"><span class="pre">save()</span></tt></a> with the desired filename.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">tempfile</span><span class="o">,</span> <span class="nn">shutil</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c"># create a temporary directory</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tempdir</span> <span class="o">=</span> <span class="n">tempfile</span><span class="o">.</span><span class="n">mkdtemp</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ds</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">tempdir</span><span class="p">,</span> <span class="s">&#39;mydataset.hdf5&#39;</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>HDF5 is a flexible format that also supports, for example, data
+compression. To enable it, you can pass additional arguments to
+<a class="reference internal" href="generated/mvpa2.base.dataset.AttrDataset.html#mvpa2.base.dataset.AttrDataset.save" title="mvpa2.base.dataset.AttrDataset.save"><tt class="xref py py-meth docutils literal"><span class="pre">save()</span></tt></a> that are supported by
+<tt class="xref py py-obj docutils literal"><span class="pre">Group.create_dataset()</span></tt>. Instead of using
+<a class="reference internal" href="generated/mvpa2.base.dataset.AttrDataset.html#mvpa2.base.dataset.AttrDataset.save" title="mvpa2.base.dataset.AttrDataset.save"><tt class="xref py py-meth docutils literal"><span class="pre">save()</span></tt></a> one can also use the <a class="reference internal" href="generated/mvpa2.base.hdf5.h5save.html#mvpa2.base.hdf5.h5save" title="mvpa2.base.hdf5.h5save"><tt class="xref py py-obj docutils literal"><span class="pre">h5save()</span></tt></a>
+function in a similar way. Saving the same dataset with maximum
+gzip-compression looks like this:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">ds</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">tempdir</span><span class="p">,</span> <span class="s">&#39;mydataset.gzipped.hdf5&#39;</span><span class="p">),</span> <span class="n">compression</span><span class="o">=</span><span class="mi">9</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">h5save</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">tempdir</span><span class="p">,</span> <span class="s">&#39;mydataset.gzipped.hdf5&#39;</span><span class="p">),</span> <span class="n">ds</span><span class="p">,</span> <span class="n">compression</span><span class="o">=</span><span class="mi">9</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Loading datasets from a file is easy too. <a class="reference internal" href="generated/mvpa2.base.hdf5.h5load.html#mvpa2.base.hdf5.h5load" title="mvpa2.base.hdf5.h5load"><tt class="xref py py-obj docutils literal"><span class="pre">h5load()</span></tt></a> takes a filename as
+an argument and returns the stored dataset. Compressed data will be handled
+transparently.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">loaded</span> <span class="o">=</span> <span class="n">h5load</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">tempdir</span><span class="p">,</span> <span class="s">&#39;mydataset.hdf5&#39;</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">ds</span><span class="o">.</span><span class="n">samples</span> <span class="o">==</span> <span class="n">loaded</span><span class="o">.</span><span class="n">samples</span><span class="p">)</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c"># cleanup the temporary directory, and everything it includes</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">shutil</span><span class="o">.</span><span class="n">rmtree</span><span class="p">(</span><span class="n">tempdir</span><span class="p">,</span> <span class="n">ignore_errors</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+
+<div id="disqus_thread"></div>
+<script type="text/javascript" src="http://disqus.com/forums/pymvpa/embed.js"></script>
+<noscript><a href="http://disqus.com/forums/pymvpa/?url=ref">View the discussion thread.</a></noscript>
+</div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Part 2: Dataset Basics and Concepts</a><ul>
+<li><a class="reference internal" href="#attributes">Attributes</a><ul>
+<li><a class="reference internal" href="#for-samples">For Samples</a></li>
+<li><a class="reference internal" href="#for-features">For Features</a></li>
+<li><a class="reference internal" href="#for-the-dataset">For The Dataset</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#slicing-resampling-feature-selection">Slicing, resampling, feature selection</a></li>
+<li><a class="reference internal" href="#loading-fmri-data">Loading fMRI data</a></li>
+<li><a class="reference internal" href="#storage">Storage</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="tutorial_start.html"
+                        title="previous chapter">Part 1: A Gentle Start</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="tutorial_mappers.html"
+                        title="next chapter">Part 3: Mappers &#8211; The Swiss Army Knife</a></p>
+
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+<p><a href="http://neuro.debian.net"><img
+  src="_static/neurodebian.png" alt="NeuroDebian" /></a></p>
+<p><a href="http://www.nitrc.org/projects/pymvpa"><img
+  src="_static/nitrc.jpg" alt="NITRC-listed" /></a></p>
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="tutorial_mappers.html" title="Part 3: Mappers – The Swiss Army Knife"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="tutorial_start.html" title="Part 1: A Gentle Start"
+             >previous</a> |</li>
+  <li><a href="index.html">PyMVPA Home</a> |&nbsp;</li>
+  <li><a href="sitemap.html">Sitemap</a> &raquo;</li>
+
+          <li><a href="manual.html" >PyMVPA User Manual</a> &raquo;</li>
+          <li><a href="tutorial.html" >Tutorial Introduction to PyMVPA</a> &raquo;</li> 
+      </ul>
+    </div>
+
+    <div class="footer">
+        &copy; Copyright 2006-2012, PyMVPA Authors.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+ <script type="text/javascript">
+ var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+ document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+ </script>
+ <script type="text/javascript">
+ var pageTracker = _gat._getTracker("UA-5958822-1");
+ pageTracker._trackPageview();
+ </script>
+
+  </body>
+</html>

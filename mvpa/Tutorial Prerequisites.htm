@@ -1,0 +1,315 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Tutorial Prerequisites &mdash; PyMVPA 2.1.0 documentation</title>
+    
+    <link rel="stylesheet" href="_static/pymvpa.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '2.1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="PyMVPA 2.1.0 documentation" href="index.html" />
+    <link rel="up" title="Tutorial Introduction to PyMVPA" href="tutorial.html" />
+    <link rel="next" title="Part 1: A Gentle Start" href="tutorial_start.html" />
+    <link rel="prev" title="Tutorial Introduction to PyMVPA" href="tutorial.html" />
+  <meta name="keywords" content="mvpa, pymvpa, python, classifier, machine learning, neuroscience">
+  <link REL="icon" HREF="/_images/favicon.png" TYPE="image/png">
+
+  </head>
+  <body>
+<div id="header">
+<div id="hdrsubtitle">Multivariate Pattern Analysis in Python</div>
+</div>
+
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="tutorial_start.html" title="Part 1: A Gentle Start"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="tutorial.html" title="Tutorial Introduction to PyMVPA"
+             accesskey="P">previous</a> |</li>
+  <li><a href="index.html">PyMVPA Home</a> |&nbsp;</li>
+  <li><a href="sitemap.html">Sitemap</a> &raquo;</li>
+
+          <li><a href="manual.html" >PyMVPA User Manual</a> &raquo;</li>
+          <li><a href="tutorial.html" accesskey="U">Tutorial Introduction to PyMVPA</a> &raquo;</li> 
+      </ul>
+    </div>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+<!-- HEADNOTES -->
+ <div class='admonition note'>
+
+  To provide the most recent news and documentation <A
+  HREF='http://www.pymvpa.org'>www.pymvpa.org</A> reflects the
+  development 2.0 series (renamed 0.6 series) of PyMVPA.  If you are interested in the
+  documentation of the previous stable 0.4 series of PyMVPA, please
+  visit <A HREF='http://v04.pymvpa.org'>v04.pymvpa.org</A>.</div>
+
+
+  <div class="section" id="tutorial-prerequisites">
+<span id="chap-tutorial-prerequisites"></span><span id="index-0"></span><h1>Tutorial Prerequisites<a class="headerlink" href="#tutorial-prerequisites" title="Permalink to this headline">¶</a></h1>
+<p>The PyMVPA tutorial assumes some basic knowledge about programming in Python.
+For a short self-assessment of your Python skills, please read the
+following questions. If you have an approximate answer to each of them, you
+can safely proceed to the tutorial. Otherwise, it is recommended that you
+take a look at the Python documentation resources listed under <a class="reference internal" href="#recommended-reading-and-viewing">Recommended
+Reading and Viewing</a>.</p>
+<ul class="simple">
+<li>Are you using <em>spaces</em> or <em>tabs</em> for indentation?  Why is that important to
+know?</li>
+<li>What is the difference between <tt class="xref py py-obj docutils literal"><span class="pre">import</span> <span class="pre">numpy</span></tt> and <tt class="xref py py-obj docutils literal"><span class="pre">from</span> <span class="pre">numpy</span> <span class="pre">import</span> <span class="pre">*</span></tt>?</li>
+<li>What is the difference between a Python list and a tuple?</li>
+<li>What is the difference between a Python list and a Numpy <tt class="xref py py-obj docutils literal"><span class="pre">ndarray</span></tt>?</li>
+<li>What is the difference between an <em>iterable</em> and a <em>generator</em> in Python?</li>
+<li>What is a <em>list comprehension</em>?</li>
+<li>What is a <em>callable</em>?</li>
+<li>What are <tt class="xref py py-obj docutils literal"><span class="pre">*args</span></tt> and <tt class="xref py py-obj docutils literal"><span class="pre">**kwargs</span></tt> usually used for?</li>
+<li>When would you use <tt class="xref py py-obj docutils literal"><span class="pre">?</span></tt> or <tt class="xref py py-obj docutils literal"><span class="pre">??</span></tt> in IPython?</li>
+<li>What is the difference between a <em>deep</em> copy and a <em>shallow</em> copy?</li>
+<li>What is a <em>derived class</em>?</li>
+<li>Is it always a problem whenever a Python <em>exception</em> is raised?</li>
+</ul>
+<p>If you could not answer many questions: <strong>Don&#8217;t panic!</strong> Python is known to
+be an easy-to-learn language. If you are already proficient in <em>any</em> other
+programming language, you can expect to be able to write fairly complex
+Python programs after a weekend of training.</p>
+<div class="section" id="what-do-i-need-to-get-python-running">
+<h2>What Do I Need To Get Python Running<a class="headerlink" href="#what-do-i-need-to-get-python-running" title="Permalink to this headline">¶</a></h2>
+<p>PyMVPA code is compatible with Python 2.X series (more precisely &gt;= 2.4).
+Python 3.x is not yet supported. For most stable performance we recommend
+Python 2.6 since that is the version we are using for the development, but,
+once again, anything from 2.5 to 2.7 should be fine.</p>
+<p>Any machine which has Python 2.X available can be used for PyMVPA-based
+processing (see <a class="reference internal" href="download.html#chap-download"><em>Download section</em></a> on how to deploy
+PyMVPA on your system). Any GNU/Linux distribution already comes with Python
+by default. The Python website offers <a class="reference external" href="http://www.python.org/download">installers for Windows and MacOS X</a>.</p>
+<p>However, PyMVPA can make use of many additional software packages to
+enhance its functionality. Therefore it is preferable to use a Python
+distribution that offers are large variety of scientific Python packages.
+For Windows, <a class="reference external" href="http://www.pythonxy.com">Python(x,y)</a> matches these requirements.  For MacOS X, the
+<a class="reference external" href="http://www.macports.org">MacPorts</a> project offers a large variety of Python packages (including
+PyMVPA).</p>
+<p>The ideal environment is, however, the <a class="reference external" href="http://www.debian.org">Debian</a> operating system. Debian
+offers the largest selection of free and open-source software in the world,
+and runs on almost any machine. Moreover, the <a class="reference external" href="http://neuro.debian.net">NeuroDebian</a> project provides
+Debian packages for a number of popular neuroscience software package, such
+as <a class="reference external" href="http://afni.nimh.nih.gov/afni">AFNI</a> and <a class="reference external" href="http://www.fmrib.ox.ac.uk/fsl">FSL</a>.</p>
+<p>For those who just want to quickly try PyMVPA, or do not want to deal with
+installing multiple software package we recommend the <a class="reference external" href="http://neuro.debian.net/vm.html">NeuroDebian Virtual
+Machine</a>. This is a virtual Debian installation that can be ran on Linux,
+Windows, and MacOS X. It includes many Python packages, PyMVPA, and other
+neuroscience software (including <a class="reference external" href="http://afni.nimh.nih.gov/afni">AFNI</a> and <a class="reference external" href="http://www.fmrib.ox.ac.uk/fsl">FSL</a>).</p>
+</div>
+<div class="section" id="recommended-reading-and-viewing">
+<h2>Recommended Reading and Viewing<a class="headerlink" href="#recommended-reading-and-viewing" title="Permalink to this headline">¶</a></h2>
+<p>This section contains a recommended list of useful resources, ranging from
+basic Python programming to efficient scientific computing with Python.</p>
+<div class="section" id="tutorial-introductions-into-general-python-programming">
+<h3>Tutorial Introductions Into General Python Programming<a class="headerlink" href="#tutorial-introductions-into-general-python-programming" title="Permalink to this headline">¶</a></h3>
+<p><a class="reference external" href="http://en.wikibooks.org/wiki/Non-Programmer's_Tutorial_for_Python_2.6">http://en.wikibooks.org/wiki/Non-Programmer&#8217;s_Tutorial_for_Python_2.6</a></p>
+<blockquote>
+<div>Basic from-scratch introduction into Python. This should give you the basics,
+even if you had <em>no</em> prior programming experience.</div></blockquote>
+<p><a class="reference external" href="http://www.ibiblio.org/swaroopch/byteofpython/read/">http://www.ibiblio.org/swaroopch/byteofpython/read/</a></p>
+<blockquote>
+<div><p>From the author:</p>
+<blockquote>
+<div>The aim is that if all you know about computers is how to save text files,
+then you can learn Python from this book. If you have previous programming
+experience, then you can also learn Python from this book.</div></blockquote>
+<p>We recommend reading the PDF version that is a lot better formatted.</p>
+</div></blockquote>
+<p><a class="reference external" href="http://www.diveintopython.net">http://www.diveintopython.net</a></p>
+<blockquote>
+<div>A famous tutorial that served as the entry-point into Python for many people.
+However, it has a relatively steep learning curve, and also covers various
+topics which aren&#8217;t in the focus of scientific computing.</div></blockquote>
+<p><a class="reference external" href="http://docs.python.org/tutorial/">http://docs.python.org/tutorial/</a></p>
+<blockquote>
+<div>Written by the creator of Python itself, this is a more comprehensive, but
+also more compressed tutorial that can serve as a reference. Recommended
+as resource for people with basic programming experience in <em>some</em> language.</div></blockquote>
+</div>
+<div class="section" id="scientific-computing-in-python">
+<h3>Scientific Computing In Python<a class="headerlink" href="#scientific-computing-in-python" title="Permalink to this headline">¶</a></h3>
+<p><a class="reference external" href="http://www.python.org">Python</a> itself is &#8220;just&#8221; a generic programming language.  To employ Python
+for scientific computing, where a common analysis deals with vast amounts of
+numerical data, more specialized tools are needed &#8211; and are provided by
+the <a class="reference external" href="http://numpy.scipy.org">NumPy</a> package.  PyMVPA makes extensive use of
+NumPy data structures and functions, therefore we recommend you to get
+familiar with it.</p>
+<p><a class="reference external" href="http://www.scipy.org/Tentative_NumPy_Tutorial">http://www.scipy.org/Tentative_NumPy_Tutorial</a></p>
+<blockquote>
+<div>Useful for a first glimpse at NumPy &#8211; the basis for scientific computing in
+Python.</div></blockquote>
+<p><a class="reference external" href="http://mathesaurus.sourceforge.net/">http://mathesaurus.sourceforge.net/</a></p>
+<blockquote>
+<div>Valuable resource for people coming from other languages and environments,
+such as Matlab.  This pages offers cheat sheets with the equivalents of
+commands and expressions in various languages, including Matlab, R and
+Python.</div></blockquote>
+<p><a class="reference external" href="http://www.tramy.us/numpybook.pdf">http://www.tramy.us/numpybook.pdf</a></p>
+<blockquote>
+<div>This is <em>the</em> comprehensive reference manual of the NumPy package. It gives
+answers to questions, yet to be asked.</div></blockquote>
+</div>
+<div class="section" id="interactive-python-shell">
+<h3>Interactive Python Shell<a class="headerlink" href="#interactive-python-shell" title="Permalink to this headline">¶</a></h3>
+<p>To make interactive use of Python more enjoyable and productive, we suggest
+to explore an enhanced interactive environment for Python &#8211; <a class="reference external" href="http://ipython.org">IPython</a>.</p>
+<p><a class="reference external" href="http://fperez.org/papers/ipython07_pe-gr_cise.pdf">http://fperez.org/papers/ipython07_pe-gr_cise.pdf</a></p>
+<blockquote>
+<div>An article from the author of IPython in the Computing in Science and Engineering
+journal, describing goals and basic features of IPython.</div></blockquote>
+<p><a class="reference external" href="http://showmedo.com/videotutorials/series?name=CnluURUTV">http://showmedo.com/videotutorials/series?name=CnluURUTV</a></p>
+<blockquote>
+<div>Video tutorials from Jeff Rush walking you through basic and advanced
+features of IPython.  While doing that he also exposes basic constructs of
+Python, so you might like to watch this video whenever you already have
+basic programming experience with any programming language.</div></blockquote>
+<p><a class="reference external" href="http://ipython.org/documentation.html">http://ipython.org/documentation.html</a></p>
+<blockquote>
+<div>IPython documentation page which references additional materials, such as
+the main IPython documentation which extensively covers features of IPython.</div></blockquote>
+</div>
+<div class="section" id="multivariate-analysis-of-neuroimaging-data">
+<h3>Multivariate Analysis of Neuroimaging Data<a class="headerlink" href="#multivariate-analysis-of-neuroimaging-data" title="Permalink to this headline">¶</a></h3>
+<p>There is a constantly growing number of interesting articles related to the
+field &#8211; visit <a class="reference internal" href="references.html#chap-references"><em>References</em></a> for an extended but not exhaustive list
+of related publications.  For a quick introduction into the topic read
+<a class="reference internal" href="references.html#pmb09"><em>Pereira et. al. 2009</em></a>.  For the generic reference on machine
+learning methods we would recommend a great text book <a class="reference internal" href="references.html#htf09"><em>The Elements of
+Statistical Learning: Data Mining, Inference, and Prediction</em></a> by
+<a class="reference external" href="http://www-stat.stanford.edu/~hastie/">Trevor Hastie</a>, <a class="reference external" href="http://www-stat.stanford.edu/~tibs/">Robert Tibshirani</a>, and <a class="reference external" href="http://www-stat.stanford.edu/~jhf/">Jerome Friedman</a> , PDF of which
+was generously made available <a class="reference external" href="http://www-stat.stanford.edu/~tibs/ElemStatLearn/">online</a> free of charge.  For an overview of
+recent advances in computational approaches for modeling and decoding of
+stimulus and cognitive spaces we recommend video recordings from <a class="reference external" href="http://haxbylab.dartmouth.edu/meetings/ncworkshop11.html">Neural
+Computation 2011 Workshop at Dartmouth College</a>.</p>
+</div>
+</div>
+</div>
+
+
+
+<div id="disqus_thread"></div>
+<script type="text/javascript" src="http://disqus.com/forums/pymvpa/embed.js"></script>
+<noscript><a href="http://disqus.com/forums/pymvpa/?url=ref">View the discussion thread.</a></noscript>
+</div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Tutorial Prerequisites</a><ul>
+<li><a class="reference internal" href="#what-do-i-need-to-get-python-running">What Do I Need To Get Python Running</a></li>
+<li><a class="reference internal" href="#recommended-reading-and-viewing">Recommended Reading and Viewing</a><ul>
+<li><a class="reference internal" href="#tutorial-introductions-into-general-python-programming">Tutorial Introductions Into General Python Programming</a></li>
+<li><a class="reference internal" href="#scientific-computing-in-python">Scientific Computing In Python</a></li>
+<li><a class="reference internal" href="#interactive-python-shell">Interactive Python Shell</a></li>
+<li><a class="reference internal" href="#multivariate-analysis-of-neuroimaging-data">Multivariate Analysis of Neuroimaging Data</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="tutorial.html"
+                        title="previous chapter">Tutorial Introduction to PyMVPA</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="tutorial_start.html"
+                        title="next chapter">Part 1: A Gentle Start</a></p>
+
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+<p><a href="http://neuro.debian.net"><img
+  src="_static/neurodebian.png" alt="NeuroDebian" /></a></p>
+<p><a href="http://www.nitrc.org/projects/pymvpa"><img
+  src="_static/nitrc.jpg" alt="NITRC-listed" /></a></p>
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="tutorial_start.html" title="Part 1: A Gentle Start"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="tutorial.html" title="Tutorial Introduction to PyMVPA"
+             >previous</a> |</li>
+  <li><a href="index.html">PyMVPA Home</a> |&nbsp;</li>
+  <li><a href="sitemap.html">Sitemap</a> &raquo;</li>
+
+          <li><a href="manual.html" >PyMVPA User Manual</a> &raquo;</li>
+          <li><a href="tutorial.html" >Tutorial Introduction to PyMVPA</a> &raquo;</li> 
+      </ul>
+    </div>
+
+    <div class="footer">
+        &copy; Copyright 2006-2012, PyMVPA Authors.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+ <script type="text/javascript">
+ var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+ document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+ </script>
+ <script type="text/javascript">
+ var pageTracker = _gat._getTracker("UA-5958822-1");
+ pageTracker._trackPageview();
+ </script>
+
+  </body>
+</html>

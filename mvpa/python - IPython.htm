@@ -1,0 +1,1085 @@
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    
+    <title>python - IPython doesn&#39;t find the Shell.IPShell class - Stack Overflow</title>
+    <link rel="shortcut icon" href="http://cdn.sstatic.net/stackoverflow/img/favicon.ico">
+    <link rel="apple-touch-icon" href="http://cdn.sstatic.net/stackoverflow/img/apple-touch-icon.png">
+    <link rel="search" type="application/opensearchdescription+xml" title="Stack Overflow" href="/opensearch.xml">
+
+    
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script type="text/javascript" src="http://cdn.sstatic.net/js/stub.js?v=aa8b9e2e0673"></script>
+    <link rel="stylesheet" type="text/css" href="http://cdn.sstatic.net/stackoverflow/all.css?v=2dd53f4bb112">
+    
+    <meta name="relativepagescore" content="160376">
+    <link rel="canonical" href="http://stackoverflow.com/questions/4262938/ipython-doesnt-find-the-shell-ipshell-class">
+    <link rel="alternate" type="application/atom+xml" title="Feed for question 'IPython doesn&#39;t find the Shell.IPShell class'" href="/feeds/question/4262938">
+    <script type="text/javascript">
+        
+        StackExchange.ready(function () {
+            
+            StackExchange.question.init({showAnswerHelp:true,totalCommentCount:5,shownCommentCount:5,highlightColor:'#F4A83D',backgroundColor:'#FFF',questionId:4262938});
+
+            styleCode();
+
+                StackExchange.realtime.subscribeToQuestion('1', '4262938');
+            
+                
+        });
+    </script>
+
+
+
+
+    <script type="text/javascript">
+        StackExchange.init({"stackAuthUrl":"https://stackauth.com","serverTime":1347655966,"styleCode":true,"enableUserHovercards":true,"site":{"name":"Stack Overflow","description":"Q\u0026A for professional and enthusiast programmers","isNoticesTabEnabled":true,"enableSocialMediaInSharePopup":true,"recaptchaPublicKey":"6LdchgIAAAAAAJwGpIzRQSOFaO0pU6s44Xt8aTwc"},"user":{"isAnonymous":true,"fkey":"ad5d6beda68b6d6cf598ce3cef349b5a","notificationsUnviewedCount":0,"inboxUnviewedCount":-1}});
+        StackExchange.using.setCacheBreakers({"js/prettify-full.js":"d1cd9a23171c","js/moderator.js":"79cf1c340a4d","js/full-anon.js":"526ecec84205","js/full.js":"e0ebef9acda6","js/wmd.js":"203c0f709d69","js/third-party/jquery.autocomplete.min.js":"e5f01e97f7c3","js/mobile.js":"6eb68240242f","js/help.js":"fc9fb0517db2","js/tageditor.js":"c1ba807b32aa","js/tageditornew.js":"bd66fabe1c71","js/inline-tag-editing.js":"be882e188985","js/revisions.js":"8c6bcd93b7fe","js/probes.js":"beb933322ff0","js/review.js":"349cc310fd64"});
+        
+    </script>
+</head>
+<body class="question-page">
+    <noscript><div id="noscript-padding"></div></noscript>
+    <div id="notify-container"></div>
+    <div id="overlay-header"></div>
+    <div id="custom-header"></div>
+
+    <div class="container">
+        <div id="header">
+            <div id="portalLink">
+                <a class="genu" href="http://stackexchange.com" onclick="StackExchange.ready(function(){genuwine.click();});return false;">Stack Exchange</a>
+            </div>
+            <div id="topbar">
+                <div id="hlinks">
+                    
+
+
+
+
+
+
+
+
+
+<span id="hlinks-user">
+
+</span>
+<span id="hlinks-nav">
+                   <a href="/users/login?returnurl=%2fquestions%2f4262938%2fipython-doesnt-find-the-shell-ipshell-class">log in</a>
+
+ <span class="lsep">|</span>
+                    <a href="http://careers.stackoverflow.com">careers</a>
+
+ <span class="lsep">|</span>
+
+</span>
+<span id="hlinks-custom">
+        <a href="http://chat.stackoverflow.com">chat</a>
+
+ <span class="lsep">|</span>
+            <a href="http://meta.stackoverflow.com">meta</a>
+
+ <span class="lsep">|</span>
+        <a href="/about">about</a>
+
+ <span class="lsep">|</span>
+    <a href="/faq">faq</a>
+
+</span>
+                </div>
+                <div id="hsearch">
+                    <form id="search" action="/search" method="get" autocomplete="off">
+                    <div>
+                        <input autocomplete="off" name="q" class="textbox" placeholder="search" tabindex="1" type="text" maxlength="140" size="28" value="">
+                    </div>
+                    </form>
+                </div>
+            </div>
+            <br class="cbt">
+            <div id="hlogo">
+                <a href="/" >Stack Overflow</a>
+            </div>
+            <div id="hmenus">
+                <div class="nav mainnavs">
+                    <ul>
+                        <li class="youarehere"><a id="nav-questions" href="/questions">Questions</a></li>
+                        <li><a id="nav-tags" href="/tags">Tags</a></li>
+                        <li><a id="nav-users" href="/users">Users</a></li>
+                        <li><a id="nav-badges" href="/badges">Badges</a></li>
+                        <li><a id="nav-unanswered" href="/unanswered">Unanswered</a></li>
+                    </ul>
+                </div>
+                <div class="nav askquestion">
+                    <ul>
+                        <li>
+                            <a id="nav-askquestion"  href="/questions/ask">Ask Question</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        
+
+
+
+        <div id="content">
+            
+
+<div itemscope itemtype="http://schema.org/Article">
+<link itemprop="image" href="http://cdn.sstatic.net/stackoverflow/img/apple-touch-icon.png">
+<div id="question-header">
+    <h1 itemprop="name"><a href="/questions/4262938/ipython-doesnt-find-the-shell-ipshell-class" class="question-hyperlink">IPython doesn&#39;t find the Shell.IPShell class</a></h1>
+</div>
+<div id="mainbar">
+
+
+
+<div class="question" id="question" data-questionid="4262938" >
+    
+    <div class="everyonelovesstackoverflow" id="adzerk1">
+    </div>
+
+    
+    <table>
+    <tr>
+    <td class="votecell">
+        
+
+<div class="vote">
+    <input type="hidden" value="4262938">
+    <a class="vote-up-off" title="This question shows research effort; it is useful and clear (click again to undo)">up vote</a>
+    <span class="vote-count-post">5</span>
+    <a class="vote-down-off" title="This question does not show any research effort; it is unclear or not useful (click again to undo)">down vote</a>
+    
+    <a class="star-off" href="#" title="This is a favorite question (click again to undo)">favorite</a>
+    <div class="favoritecount"><b>3</b></div>   
+
+ 
+</div>
+
+    </td>
+    
+<td class="postcell">
+<div>          
+    <div class="post-text" itemprop="description">
+        <p>After installing Django, I followed <a href="http://docs.djangoproject.com/en/dev/intro/tutorial01/">the tutorial</a> Playing with the API. When I run the following command.</p>
+
+<pre><code>python manage.py shell
+</code></pre>
+
+<p>I got this error message.</p>
+
+<pre>
+  File "/Library/Python/2.6/site-packages/django/core/management/commands/shell.py", 
+  line 29, in handle_noargs
+    shell = IPython.Shell.IPShell(argv=[])
+  AttributeError: 'module' object has no attribute 'Shell'
+</pre>
+
+<p>I checked that I have Shell.py module, and IPShell class inside it. </p>
+
+<p>/Library/Python/2.6/site-packages/IPython/Shell.py</p>
+
+<pre><code>class IPShell:
+    """Create an IPython instance."""
+</code></pre>
+
+<p>What's wrong with this? My IPython/Python/OS is as follows.</p>
+
+<ul>
+<li>Mac OS X 10.6.5</li>
+<li>Python 2.6.1</li>
+<li>IPython version 0.10.1</li>
+</ul>
+
+<h2>ADDED</h2>
+
+<pre>
+>>> import IPython
+>>> IPython.Shell
+Traceback (most recent call last):
+  File "", line 1, in 
+AttributeError: 'module' object has no attribute 'Shell'
+>>> print IPython.__file__
+/Library/Python/2.6/site-packages/IPython/__init__.py
+</pre>
+
+<h2>SOLVED</h2>
+
+<p>With ma3 and Ignacio's help, I could solve this issue.</p>
+
+<ol>
+<li>Remove site-package/IPython and site-package/ipython*.egg</li>
+<li>sudo easy_install ipython to fresh install the IPython</li>
+<li><p>Apply the patch to the django's shell.py as Ignacio linked. </p>
+
+<pre><code>    try:
+        shell = IPython.InteractiveShell()
+    except AttributeError:
+        # IPython &lt; 0.11
+        # Explicitly pass an empty list as arguments, because otherwise IPython
+        # would use sys.argv from this script.
+        shell = IPython.Shell.IPShell(argv=[])
+    shell.mainloop()
+</code></pre></li>
+</ol>
+
+    </div>            
+    <div class="post-taglist">
+        <a href="/questions/tagged/python" class="post-tag" title="show questions tagged 'python'" rel="tag">python</a> <a href="/questions/tagged/django" class="post-tag" title="show questions tagged 'django'" rel="tag">django</a> <a href="/questions/tagged/ipython" class="post-tag" title="show questions tagged 'ipython'" rel="tag">ipython</a> 
+    </div>
+    <table class="fw">
+    <tr>
+    <td class="vt">
+
+
+
+
+
+
+
+
+
+<div class="post-menu"><a href="/q/4262938" title="short permalink to this question" class="short-link" id="link-post-4262938">share</a><span class="lsep">|</span><a href="/posts/4262938/edit" class="suggest-edit-post" title="">improve this question</a></div>
+    </td>
+    <td align="right" class="post-signature">
+
+
+    <div class="user-info ">
+        <div class="user-action-time">
+                            edited
+                             <a href="/posts/4262938/revisions" title="show all edits to this post"><span title="2010-11-24 03:20:24Z" class="relativetime">Nov 24 '10 at 3:20</span></a>
+
+        </div>
+        <div class="user-gravatar32">
+            
+        </div>
+        <div class="user-details">
+            <br>
+            
+        </div>
+    </div>
+    </td>
+    <td class="post-signature owner">
+    
+
+    <div class="user-info ">
+        <div class="user-action-time">
+                                    asked
+ <span title="2010-11-24 02:17:36Z" class="relativetime">Nov 24 '10 at 2:17</span>
+        </div>
+        <div class="user-gravatar32">
+            <a href="/users/260127/prosseek"><div class=""><img src="http://www.gravatar.com/avatar/74758c702067a3490094451e475e28c5?s=32&amp;d=identicon&amp;r=PG" alt="" width="32" height="32"></div></a>
+        </div>
+        <div class="user-details">
+            <a href="/users/260127/prosseek">prosseek</a><br>
+            <span class="reputation-score" title="reputation score" dir="ltr">9,681</span><span title="3 gold badges"><span class="badge1"></span><span class="badgecount">3</span></span><span title="43 silver badges"><span class="badge2"></span><span class="badgecount">43</span></span><span title="174 bronze badges"><span class="badge3"></span><span class="badgecount">174</span></span>
+        </div>
+    </div>
+
+        <br class="cbt">
+        <div class="accept-rate accept-answer-link" title="this user has accepted an answer for 572 of 633 eligible questions">90% accept rate</div>
+    </td>
+    </tr>
+    </table>
+</div>
+</td>    </tr>
+
+
+<tr>
+<td class="votecell"></td>
+<td>
+    <div id="comments-4262938" class="comments">
+        <table>
+        <tbody>
+                    
+    <tr id="comment-4620207" class="comment">
+        <td></td>
+        <td class="comment-text"><div><span class="comment-copy">How did you install Python? That&#39;s not the standard directory python is installed in.</span> &ndash;&nbsp;<a href="/users/452174/fugacity" title="1734 reputation" class="comment-user">fugacity</a> <span class="comment-date" dir="ltr"><span title="2010-11-24 02:44:00Z" class="relativetime-clean">Nov 24 '10 at 2:44</span></span></div></td>
+    </tr>
+            
+    <tr id="comment-4620219" class="comment">
+        <td class="comment-actions"><table><tbody><tr>
+<td class="comment-score">
+<span title="number of 'useful comment' votes received" class="cool">1</span>
+</td>
+<td>
+&nbsp;
+</td></tr>
+</tbody></table></td>
+        <td class="comment-text"><div><span class="comment-copy">@ma3 : I didn&#39;t install Python, with Mac, Python is pre-installed.</span> &ndash;&nbsp;<a href="/users/260127/prosseek" title="9681 reputation" class="comment-user owner">prosseek</a> <span class="comment-date" dir="ltr"><span title="2010-11-24 02:45:36Z" class="relativetime-clean">Nov 24 '10 at 2:45</span></span></div></td>
+    </tr>
+            
+    <tr id="comment-4620269" class="comment">
+        <td></td>
+        <td class="comment-text"><div><span class="comment-copy">Ok, you&#39;re using the OS&#39;s python 2.6. How did you install IPython? I have OSX 10.6.5, Python 2.6, IPython 0.10.1, and my <code>__init__.py</code> file is very different from yours. Yours looks like it might be from an IPython 0.11 branch.</span> &ndash;&nbsp;<a href="/users/452174/fugacity" title="1734 reputation" class="comment-user">fugacity</a> <span class="comment-date" dir="ltr"><span title="2010-11-24 02:53:10Z" class="relativetime-clean">Nov 24 '10 at 2:53</span></span><span class="edited-yes" title="this comment was edited 2 times"></span></div></td>
+    </tr>
+            
+    <tr id="comment-4620287" class="comment">
+        <td></td>
+        <td class="comment-text"><div><span class="comment-copy">@ma3 : Well, just download the source, and run &#39;python setup.py install&#39;.</span> &ndash;&nbsp;<a href="/users/260127/prosseek" title="9681 reputation" class="comment-user owner">prosseek</a> <span class="comment-date" dir="ltr"><span title="2010-11-24 02:56:23Z" class="relativetime-clean">Nov 24 '10 at 2:56</span></span></div></td>
+    </tr>
+            
+    <tr id="comment-4620303" class="comment">
+        <td></td>
+        <td class="comment-text"><div><span class="comment-copy">The source for 0.10.1? or for the 0.11 branch that&#39;s still in development and isn&#39;t complete yet? Why not simply <code>easy_install ipython</code>? That will get you 0.10.1, the most current stable version.</span> &ndash;&nbsp;<a href="/users/452174/fugacity" title="1734 reputation" class="comment-user">fugacity</a> <span class="comment-date" dir="ltr"><span title="2010-11-24 03:00:17Z" class="relativetime-clean">Nov 24 '10 at 3:00</span></span></div></td>
+    </tr>
+
+        </tbody>
+    
+        </table>
+    </div>
+    
+    
+    <div class="was-this-helpful">
+        feedback
+    </div>
+    
+</td>
+</tr>            </table>    
+</div>
+
+
+    
+
+
+<div id="answers">
+
+    <a name="tab-top"></a>
+    <div id="answers-header">
+        <div class="subheader answers-subheader">
+            <h2>3 Answers</h2>
+            <div id="tabs">
+                <a href="/questions/4262938/ipython-doesnt-find-the-shell-ipshell-class?answertab=active#tab-top" title="Answers with the latest activity first">active</a>
+<a href="/questions/4262938/ipython-doesnt-find-the-shell-ipshell-class?answertab=oldest#tab-top" title="Answers in the order they were provided">oldest</a>
+<a class="youarehere" href="/questions/4262938/ipython-doesnt-find-the-shell-ipshell-class?answertab=votes#tab-top" title="Answers with the highest score first">votes</a>
+
+            </div>
+        </div>    
+    </div>    
+
+
+
+
+
+  
+    <a name="4263081"></a>
+    <div id="answer-4263081" class="answer accepted-answer"  data-answerid="4263081">
+        <table>
+        <tr>
+        <td class="votecell">
+            
+
+<div class="vote">
+    <input type="hidden" value="4263081">
+    <a class="vote-up-off" title="This answer is useful (click again to undo)">up vote</a>
+    <span class="vote-count-post">6</span>
+    <a class="vote-down-off" title="This answer is not useful (click again to undo)">down vote</a>
+    
+
+            <span class="vote-accepted-on" title="The question owner accepted this as the best answer Nov 24 &#39;10 at 3:20">accepted</span>
+ 
+</div>
+
+        </td>
+        
+
+
+<td class="answercell">
+    <div class="post-text"><p>A <a href="https://github.com/ipython/ipython/blob/8ce576641c4d1d244944fcb4c6b244efde4aa1df/IPython/__init__.py" rel="nofollow">change</a> was made to IPython back in August 19, 2009 that removed this name, and Django hasn't caught up yet. So, Django bug.</p>
+
+<p><strong>EDIT:</strong></p>
+
+<p>And <a href="http://code.djangoproject.com/ticket/12735" rel="nofollow">here it is</a>.</p>
+</div>
+    <table class="fw">
+    <tr>
+    <td class="vt">
+
+
+
+
+
+
+
+
+
+<div class="post-menu"><a href="/a/4263081" title="short permalink to this answer" class="short-link" id="link-post-4263081">share</a><span class="lsep">|</span><a href="/posts/4263081/edit" class="suggest-edit-post" title="">improve this answer</a></div>                    </td>
+            
+
+
+    <td align="right" class="post-signature">   
+       
+
+    
+
+    <div class="user-info user-hover">
+        <div class="user-action-time">
+                                    answered
+ <span title="2010-11-24 02:54:40Z" class="relativetime">Nov 24 '10 at 2:54</span>
+        </div>
+        <div class="user-gravatar32">
+            <a href="/users/20862/ignacio-vazquez-abrams"><div class=""><img src="http://www.gravatar.com/avatar/2343ae368d3241278581ce6c87f62a25?s=32&amp;d=identicon&amp;r=PG" alt="" width="32" height="32"></div></a>
+        </div>
+        <div class="user-details">
+            <a href="/users/20862/ignacio-vazquez-abrams">Ignacio Vazquez-Abrams</a><br>
+            <span class="reputation-score" title="reputation score 195770" dir="ltr">196k</span><span title="13 gold badges"><span class="badge1"></span><span class="badgecount">13</span></span><span title="192 silver badges"><span class="badge2"></span><span class="badgecount">192</span></span><span title="359 bronze badges"><span class="badge3"></span><span class="badgecount">359</span></span>
+        </div>
+    </div>
+
+    </td>
+    </tr>
+    </table>
+</td>        </tr>
+
+
+<tr>
+<td class="votecell"></td>
+<td>
+    <div id="comments-4263081" class="comments">
+        <table>
+        <tbody>
+                    
+    <tr id="comment-4620300" class="comment">
+        <td></td>
+        <td class="comment-text"><div><span class="comment-copy">However, I got the same error with python REPL. as I added in the question. So, Am I &#39;not&#39; supposed to run IPython.Shell directly?</span> &ndash;&nbsp;<a href="/users/260127/prosseek" title="9681 reputation" class="comment-user owner">prosseek</a> <span class="comment-date" dir="ltr"><span title="2010-11-24 02:59:37Z" class="relativetime-clean">Nov 24 '10 at 2:59</span></span><span class="edited-yes" title="this comment was edited"></span></div></td>
+    </tr>
+            
+    <tr id="comment-4620301" class="comment">
+        <td></td>
+        <td class="comment-text"><div><span class="comment-copy">Correct. The name no longer exists. Apply one of the fixes in the bug report to your Django source.</span> &ndash;&nbsp;<a href="/users/20862/ignacio-vazquez-abrams" title="195770 reputation" class="comment-user">Ignacio Vazquez-Abrams</a> <span class="comment-date" dir="ltr"><span title="2010-11-24 03:00:03Z" class="relativetime-clean">Nov 24 '10 at 3:00</span></span><span class="edited-yes" title="this comment was edited"></span></div></td>
+    </tr>
+            
+    <tr id="comment-4620318" class="comment">
+        <td></td>
+        <td class="comment-text"><div><span class="comment-copy">+1 for the Django bug link.</span> &ndash;&nbsp;<a href="/users/452174/fugacity" title="1734 reputation" class="comment-user">fugacity</a> <span class="comment-date" dir="ltr"><span title="2010-11-24 03:03:22Z" class="relativetime-clean">Nov 24 '10 at 3:03</span></span></div></td>
+    </tr>
+
+        </tbody>
+    
+        </table>
+    </div>
+    
+    
+    <div class="was-this-helpful">
+        feedback
+    </div>
+    
+</td>
+</tr>            </table>
+</div>
+
+    <div class="everyonelovesstackoverflow" id="adzerk3">
+    </div>
+
+    
+
+  
+    <a name="6962924"></a>
+    <div id="answer-6962924" class="answer"  data-answerid="6962924">
+        <table>
+        <tr>
+        <td class="votecell">
+            
+
+<div class="vote">
+    <input type="hidden" value="6962924">
+    <a class="vote-up-off" title="This answer is useful (click again to undo)">up vote</a>
+    <span class="vote-count-post">2</span>
+    <a class="vote-down-off" title="This answer is not useful (click again to undo)">down vote</a>
+    
+
+ 
+</div>
+
+        </td>
+        
+
+
+<td class="answercell">
+    <div class="post-text"><p>Here is an official commit from django-extensions repo at GitHub:</p>
+
+<p><a href="https://github.com/django-extensions/django-extensions/commit/5bd6448df48131fd3f32dda00f74148fc0cc3d88" rel="nofollow">Django-Extensions GitHub repo</a></p>
+
+<p>You can install it by doing this:</p>
+
+<pre><code>$ git clone git://github.com/django-extensions/django-extensions.git
+$ cd django-extensions
+$ python setup.py install 
+</code></pre>
+</div>
+    <table class="fw">
+    <tr>
+    <td class="vt">
+
+
+
+
+
+
+
+
+
+<div class="post-menu"><a href="/a/6962924" title="short permalink to this answer" class="short-link" id="link-post-6962924">share</a><span class="lsep">|</span><a href="/posts/6962924/edit" class="suggest-edit-post" title="">improve this answer</a></div>                    </td>
+    <td align="right" class="post-signature">
+
+
+    <div class="user-info ">
+        <div class="user-action-time">
+                            edited
+                             <a href="/posts/6962924/revisions" title="show all edits to this post"><span title="2011-08-05 21:51:24Z" class="relativetime">Aug 5 '11 at 21:51</span></a>
+
+        </div>
+        <div class="user-gravatar32">
+            
+        </div>
+        <div class="user-details">
+            <br>
+            
+        </div>
+    </div>
+    </td>
+            
+
+
+    <td align="right" class="post-signature">   
+       
+
+    
+
+    <div class="user-info ">
+        <div class="user-action-time">
+                                    answered
+ <span title="2011-08-05 21:40:33Z" class="relativetime">Aug 5 '11 at 21:40</span>
+        </div>
+        <div class="user-gravatar32">
+            <a href="/users/485844/miki725"><div class=""><img src="http://www.gravatar.com/avatar/94e8e6d4f0459c0db646ea8a84ace2b5?s=32&amp;d=identicon&amp;r=PG" alt="" width="32" height="32"></div></a>
+        </div>
+        <div class="user-details">
+            <a href="/users/485844/miki725">miki725</a><br>
+            <span class="reputation-score" title="reputation score" dir="ltr">1,343</span><span title="1 gold badge"><span class="badge1"></span><span class="badgecount">1</span></span><span title="6 silver badges"><span class="badge2"></span><span class="badgecount">6</span></span><span title="16 bronze badges"><span class="badge3"></span><span class="badgecount">16</span></span>
+        </div>
+    </div>
+
+    </td>
+    </tr>
+    </table>
+</td>        </tr>
+
+
+<tr>
+<td class="votecell"></td>
+<td>
+    <div id="comments-6962924" class="comments dno">
+        <table>
+        <tbody>
+        
+            <tr><td></td><td></td></tr>
+        
+        </tbody>
+    
+        </table>
+    </div>
+    
+    
+    <div class="was-this-helpful">
+        feedback
+    </div>
+    
+</td>
+</tr>            </table>
+</div>
+
+
+  
+    <a name="5830122"></a>
+    <div id="answer-5830122" class="answer"  data-answerid="5830122">
+        <table>
+        <tr>
+        <td class="votecell">
+            
+
+<div class="vote">
+    <input type="hidden" value="5830122">
+    <a class="vote-up-off" title="This answer is useful (click again to undo)">up vote</a>
+    <span class="vote-count-post">1</span>
+    <a class="vote-down-off" title="This answer is not useful (click again to undo)">down vote</a>
+    
+
+ 
+</div>
+
+        </td>
+        
+
+
+<td class="answercell">
+    <div class="post-text"><p>For IPython 0.11.dev is fix that:</p>
+
+<pre><code>from IPython.frontend.terminal.ipapp import IPythonApp
+app = IPythonApp(argv=[])
+app.start()
+</code></pre>
+</div>
+    <table class="fw">
+    <tr>
+    <td class="vt">
+
+
+
+
+
+
+
+
+
+<div class="post-menu"><a href="/a/5830122" title="short permalink to this answer" class="short-link" id="link-post-5830122">share</a><span class="lsep">|</span><a href="/posts/5830122/edit" class="suggest-edit-post" title="">improve this answer</a></div>                    </td>
+            
+
+
+    <td align="right" class="post-signature">   
+       
+
+    
+
+    <div class="user-info ">
+        <div class="user-action-time">
+                                    answered
+ <span title="2011-04-29 09:03:43Z" class="relativetime">Apr 29 '11 at 9:03</span>
+        </div>
+        <div class="user-gravatar32">
+            <a href="/users/730748/peter"><div class=""><img src="http://www.gravatar.com/avatar/85425d478deaf1090028049b8e4139e8?s=32&amp;d=identicon&amp;r=PG" alt="" width="32" height="32"></div></a>
+        </div>
+        <div class="user-details">
+            <a href="/users/730748/peter">Peter</a><br>
+            <span class="reputation-score" title="reputation score" dir="ltr">11</span><span title="1 bronze badge"><span class="badge3"></span><span class="badgecount">1</span></span>
+        </div>
+    </div>
+
+    </td>
+    </tr>
+    </table>
+</td>        </tr>
+
+
+<tr>
+<td class="votecell"></td>
+<td>
+    <div id="comments-5830122" class="comments dno">
+        <table>
+        <tbody>
+        
+            <tr><td></td><td></td></tr>
+        
+        </tbody>
+    
+        </table>
+    </div>
+    
+    
+    <div class="was-this-helpful">
+        feedback
+    </div>
+    
+</td>
+</tr>            </table>
+</div>
+    <a name='new-answer'></a>
+    <form id="post-form" action="/questions/4262938/answer/submit" method="post"  class="post-form">
+        <h2 class="space">Your Answer</h2>
+
+
+
+
+<script type="text/javascript">
+    StackExchange.ready(function() {
+        initTagRenderer("".split(" "), "".split(" "));
+         
+        prepareEditor({
+            heartbeatType: 'answer',
+            bindNavPrevention: true,
+            postfix: "",
+            onDemand: true,
+            discardSelector: ".discard-answer"
+            ,immediatelyShowMarkdownHelp:true
+        });
+        
+
+    });  
+</script>
+
+
+<div id="post-editor" class="post-editor">  
+
+    
+    <div class="wmd-container">
+        <div id="wmd-button-bar" class="wmd-button-bar"></div>
+        <textarea id="wmd-input" class="wmd-input" name="post-text" cols="92" rows="15" tabindex="101"></textarea>
+    </div>
+
+    <div class="fl" style="margin-top: 8px; height:24px;">&nbsp;</div>
+    <div id="draft-saved" class="draft-saved community-option fl" style="margin-top: 8px; height:24px; display:none;">draft saved</div>
+
+    <div id="draft-discarded" class="draft-discarded community-option fl" style="margin-top: 8px; height:24px; display:none;">draft discarded</div>
+
+
+
+    <div id="wmd-preview" class="wmd-preview"></div>
+    <div></div>
+    <div class="edit-block">
+        <input id="fkey" name="fkey" type="hidden" value="ad5d6beda68b6d6cf598ce3cef349b5a">
+        <input id="author" name="author" type="text">
+    </div>
+</div>            <div class="form-item">
+        <table>
+        <tr>
+            <td class="vm open-id-login">
+                <a id="login-link" style="font-size: 200%; margin-left: 30px;" href="/users/login?returnurl=%2fquestions%2f4262938%2fipython-doesnt-find-the-shell-ipshell-class">log in</a>
+                <script type="text/javascript">
+                    StackExchange.ready(function () {
+                        StackExchange.helpers.onClickDraftSave('#login-link');
+                    });
+                </script>
+            </td>
+            <td class="orcell">
+                <div class="orword">or</div>
+                <div class="orline"></div>
+            </td>
+            <td class="vm">
+                <div>
+                    <label for="display-name">Name</label>
+                    <input id="display-name" name="display-name" type="text" size="30" maxlength="30" value="" tabindex="105">
+                </div>
+                <div>
+                    <label for="m-address">Email</label>
+                    <input id="m-address" name="m-address" type="text" size="40" maxlength="100" value="" tabindex="106">
+                    <span class="edit-field-overlay">required, but never shown</span>
+                </div>
+                <div>
+                    <label for="home-page">Home Page</label>
+                    <input id="home-page" name="home-page" type="text" size="40" maxlength="200" value="" tabindex="107">
+                </div>
+            </td>
+        </tr>
+        </table>
+    </div>
+           
+            <div class="form-submit cbt">
+            <input id="submit-button" type="submit" value="Post Your Answer" tabindex="110">
+            <a href="#" class="discard-answer dno">discard</a>
+    <p class="privacy-policy-agreement">
+        By posting your answer, you agree to the 
+        <a href="http://stackexchange.com/legal/privacy-policy" target="_blank">privacy policy</a> and 
+        <a href="http://stackexchange.com/legal/terms-of-service" target="_blank">terms of service</a>.
+    </p>
+        </div>
+    </form>
+
+
+
+        <h2 class="bottom-notice">
+                Not the answer you're looking for? 
+            Browse other questions tagged <a href="/questions/tagged/python" class="post-tag" title="show questions tagged 'python'" rel="tag">python</a> <a href="/questions/tagged/django" class="post-tag" title="show questions tagged 'django'" rel="tag">django</a> <a href="/questions/tagged/ipython" class="post-tag" title="show questions tagged 'ipython'" rel="tag">ipython</a> 
+                or <a href="/questions/ask">ask your own question</a>.
+        </h2>
+</div>
+</div>
+<div id="sidebar">
+
+
+
+     <script type="text/javascript">
+        window.showNewUser = true;
+
+            
+                (function(){
+                    var cs = window.sessionStorage && window.sessionStorage['tNewsletter'];
+                    var m = /:\/\/([^\/]*)/.exec(document.referrer);
+                    var h = {'www.reddit.com':1,'news.ycombinator.com':1};
+                    if(window.sessionStorage && (cs || (m && m.length == 2 && h[m[1]]))){
+                        showNewUser = false;
+                        StackExchange.ready(function(){
+                            StackExchange.newsletterAd.loader(m[1], cs);
+                        });
+                    }
+                    if (window.localStorage && showNewUser){
+                        var c = parseInt(localStorage['nuCounter'],10); 
+                        c = isNaN(c) ? 1 : c+1;
+                        window.localStorage['nuCounter'] = c; 
+                        showNewUser = c < 10;
+                    }
+                })()
+            
+     </script>
+    <div class="module newuser newuser-greeting" id="newuser-box" style="display:none;">
+        <h4>Hello World!</h4>
+        <div>
+            <p>This is a collaboratively edited question and answer site for <b>professional and enthusiast programmers</b>. It's 100% free, no registration required.</p>
+            <p class="ar"><a href="/about?mnu=1">about &raquo;</a>&nbsp;&nbsp;&nbsp;<a href="/faq?mnu=1">faq &raquo;</a>
+            </p>
+        </div>
+    </div>
+     <script type="text/javascript">
+        if (showNewUser) {
+            document.getElementById('newuser-box').style.display = '';
+        }
+     </script>
+        <div class="module question-stats">
+        <p class="label-key">tagged</p>
+        <div class="tagged"><a href="/questions/tagged/python" class="post-tag" title="show questions tagged 'python'" rel="tag">python</a>&nbsp;<span class="item-multiplier"><span class="item-multiplier-x">&times;</span>&nbsp;<span class="item-multiplier-count">131333</span></span><br>
+<a href="/questions/tagged/django" class="post-tag" title="show questions tagged 'django'" rel="tag">django</a>&nbsp;<span class="item-multiplier"><span class="item-multiplier-x">&times;</span>&nbsp;<span class="item-multiplier-count">38542</span></span><br>
+<a href="/questions/tagged/ipython" class="post-tag" title="show questions tagged 'ipython'" rel="tag">ipython</a>&nbsp;<span class="item-multiplier"><span class="item-multiplier-x">&times;</span>&nbsp;<span class="item-multiplier-count">460</span></span><br>
+</div>
+        <table id="qinfo">
+            <tr>
+                <td><p class="label-key">asked</p></td>
+                <td style="padding-left:10px"><p class="label-key" title="2010-11-24 02:17:36Z"><b>1 year ago</b></p></td>
+            </tr>
+            <tr>
+                <td><p class="label-key">viewed</p></td>
+
+                <td style="padding-left:10px">
+                    <p class="label-key">
+                        <b>1501 times</b>
+                    </p>
+                </td>
+            </tr>
+            <tr>
+                <td><p class="label-key">active</p></td>
+                <td style="padding-left:10px"><p class="label-key"><b><a href="?lastactivity" class="lastactivity-link" title="2011-08-05 21:51:24Z">1 year ago</a></b></p></td>
+            </tr>
+        </table>
+    </div>
+        
+    
+        <script type="text/javascript">
+            var scriptSrc = "http://engine.adzerk.net/z/8277/adzerk1_2_4_43,adzerk2_2_17_45,adzerk3_2_4_44?keywords=python,django,ipython";
+            if (document.referrer) {
+                if (/\?/.test(scriptSrc))
+                    scriptSrc += "&";
+                else
+                    scriptSrc += "?";
+                scriptSrc += "xReferrer=" + document.referrer;
+            }
+            StackExchange.ready(function(){var z = document.createElement("script"); z.type = "text/javascript"; z.async = "true"; z.src = scriptSrc; var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(z, s);});
+        </script>
+    
+    <div class="everyonelovesstackoverflow" id="adzerk2">
+    </div>
+
+    
+    <div id="hireme">
+        <script type="text/javascript">
+            var careers_adurl="http://careers.stackoverflow.com/gethired/js",careers_cssurl="http://cdn.sstatic.net/careers/gethired/sidebar.min.css",careers_leaderboardcssurl="http://cdn.sstatic.net/careers/gethired/ninja.min.css",careers_companycssurl="http://cdn.sstatic.net/careers/gethired/company",careers_adselector="div.hireme, div#hireme";StackExchange.ready(function(){$.ajax({url:"http://cdn.sstatic.net/careers/gethired/loader.min.js",dataType:"script",cache:!0})})
+        </script>
+    </div>
+
+      
+    
+    <div class="module sidebar-linked">
+        <h4 id="h-linked">Linked</h4>
+        <div class="linked" data-tracker="lq=1">
+            <div class="spacer">
+<a href="/questions/2109075/ipython-doesnt-work-in-django-shell" class="question-hyperlink">IPython doesn&#39;t work in Django shell</a>
+</div>
+
+        </div>
+    </div>
+    <div class="module sidebar-related">
+        <h4 id="h-related">Related</h4>
+        <div class="related" data-tracker="rq=1">
+            <div class="spacer">
+<a href="/questions/1069961/using-profiles-in-ipython-and-django" class="question-hyperlink">using profiles in iPython and Django</a>
+</div>
+<div class="spacer">
+<a href="/questions/1143833/how-do-you-add-a-model-method-to-an-existing-class-within-an-interactive-session" class="question-hyperlink">How do you add a model method to an existing class within an interactive session (in iPython)?</a>
+</div>
+<div class="spacer">
+<a href="/questions/1322569/ipython-common-problems" class="question-hyperlink">Ipython common problems</a>
+</div>
+<div class="spacer">
+<a href="/questions/1336980/running-doctests-through-ipython-and-pseudo-consoles" class="question-hyperlink">Running doctests through iPython and pseudo-consoles</a>
+</div>
+<div class="spacer">
+<a href="/questions/2586218/good-way-to-edit-the-previous-defined-class-in-ipython" class="question-hyperlink">Good way to edit the previous defined class in ipython</a>
+</div>
+<div class="spacer">
+<a href="/questions/3259104/ipython-broken-shell-terminal-after-realoading-django" class="question-hyperlink">iPython - &ldquo;broken&rdquo; shell/terminal after realoading Django</a>
+</div>
+<div class="spacer">
+<a href="/questions/3307431/django-manage-py-doesnt-work-with-ipython" class="question-hyperlink">Django manage.py doesn&#39;t work with IPython</a>
+</div>
+<div class="spacer">
+<a href="/questions/5316304/tell-ipython-to-keep-temp-files" class="question-hyperlink">Tell ipython to keep temp files</a>
+</div>
+<div class="spacer">
+<a href="/questions/5931173/ipython-looks-into-a-virtualenv-of-a-different-python-verion-for-some-reason" class="question-hyperlink">ipython looks into a virtualenv of a different python verion for some reason</a>
+</div>
+<div class="spacer">
+<a href="/questions/7214799/can-i-stop-execution-of-current-module-in-ipython-without-leaving-ipython" class="question-hyperlink">Can I stop execution of current module in ipython without leaving ipython</a>
+</div>
+<div class="spacer">
+<a href="/questions/7561920/migrating-django-auto-model-loading-to-ipython-11-how-to-execute-code-after" class="question-hyperlink">Migrating django auto model loading to iPython .11+ - how to execute code after script loads?</a>
+</div>
+<div class="spacer">
+<a href="/questions/8107261/ipython-paste-over-ssh-connection" class="question-hyperlink">ipython: %paste over ssh connection</a>
+</div>
+<div class="spacer">
+<a href="/questions/8242105/how-to-start-django-shell-with-ipython-in-qtconsole-mode" class="question-hyperlink">how to start django shell with ipython in qtconsole mode?</a>
+</div>
+<div class="spacer">
+<a href="/questions/8673057/equivalent-ipython-code-in-12-series" class="question-hyperlink">Equivalent IPython code in .12 series</a>
+</div>
+<div class="spacer">
+<a href="/questions/8740589/starting-ipython" class="question-hyperlink">starting ipython</a>
+</div>
+<div class="spacer">
+<a href="/questions/9059435/ipython-0-12-error" class="question-hyperlink">IPython 0.12 Error</a>
+</div>
+<div class="spacer">
+<a href="/questions/9288497/what-is-the-ipython-prompt-number-for" class="question-hyperlink">What is the IPython prompt number for?</a>
+</div>
+<div class="spacer">
+<a href="/questions/9348086/ipython-profiler" class="question-hyperlink">ipython profiler</a>
+</div>
+<div class="spacer">
+<a href="/questions/10064720/running-profile-startup-files-in-an-embedded-ipythoninstance" class="question-hyperlink">Running profile startup files in an embedded IPython	instance</a>
+</div>
+<div class="spacer">
+<a href="/questions/10914819/django-runserver-inside-ipdb-ipython" class="question-hyperlink">Django runserver inside ipdb/ipython</a>
+</div>
+<div class="spacer">
+<a href="/questions/11354830/ipython-reload-ipython-config-py" class="question-hyperlink">ipython reload ipython_config.py</a>
+</div>
+<div class="spacer">
+<a href="/questions/11426045/how-to-upgrade-ipython-from-0-12-to-0-13" class="question-hyperlink">How to upgrade ipython from 0.12 to 0.13?</a>
+</div>
+<div class="spacer">
+<a href="/questions/11833654/log-ipython-output" class="question-hyperlink">Log IPython output?</a>
+</div>
+<div class="spacer">
+<a href="/questions/11862327/how-to-embed-qt-console-with-ipython" class="question-hyperlink">how to embed qt-console with Ipython</a>
+</div>
+<div class="spacer">
+<a href="/questions/12085483/how-can-i-reload-a-class-definition-in-ipython" class="question-hyperlink">How can I reload a class definition in ipython</a>
+</div>
+
+        </div>
+    </div>
+</div>
+
+<div id="feed-link">
+    <div id="feed-link-text"><a href="/feeds/question/4262938" title="feed of this question and its answers"><span class="feed-icon"></span>question feed</a></div>
+</div>
+<script type="text/javascript">
+StackExchange.ready(function(){$.get('/posts/4262938/ivc/8b54');});
+</script>
+<noscript>
+    <div><img src="/posts/4262938/ivc/8b54" class="dno" alt="" width="0" height="0"></div>
+</noscript><div style="display:none" id="prettify-lang">default</div></div>
+        </div>
+    </div>
+    <div id="footer">
+        <div class="footerwrap">
+            <div id="footer-menu">
+                <a href="/about">about</a> |
+                <a href="/faq">faq</a> |
+                <a href="http://blog.stackexchange.com?blb=1">blog</a> |
+                    <a href="http://chat.stackoverflow.com">chat</a> |
+                <a href="http://data.stackexchange.com">data</a> |
+                <a href="http://stackexchange.com/legal">legal</a> |
+                <a href="http://stackexchange.com/legal/privacy-policy">privacy policy</a> |
+                <a href="http://stackexchange.com/about/hiring">jobs</a> |
+                <a href="http://engine.adzerk.net/redirect/0/2776/2751/0/4de3c60f719c4dfcb1a57531c7050090/0">advertising info</a> |
+
+                <a onclick="StackExchange.switchMobile('on', '/questions/4262938/ipython-doesnt-find-the-shell-ipshell-class')">mobile</a> |
+
+                <b><a href="/help">contact us</a></b>
+                  | <b><a href="http://meta.stackoverflow.com">feedback</a></b>
+                <div id="footer-sites">
+                    
+                        <span style="color:#FE7A15;font-size:140%">&#9632;</span>&nbsp;<a href="http://stackoverflow.com">stackoverflow.com</a>&nbsp; 
+                        <span style="color:#FE7A15;font-size:140%">&#9632;</span>&nbsp;<a href="http://stackapps.com">api/apps</a>&nbsp; 
+                        <span style="color:#FE7A15;font-size:140%">&#9632;</span>&nbsp;<a href="http://careers.stackoverflow.com">careers</a>&nbsp; 
+                        <span style="color:#E8272C;font-size:140%">&#9632;</span>&nbsp;<a href="http://serverfault.com">serverfault.com</a>&nbsp; 
+                        <span style="color:#00AFEF;font-size:140%">&#9632;</span>&nbsp;<a href="http://superuser.com">superuser.com</a>&nbsp; 
+                        <span style="color:#969696;font-size:140%">&#9632;</span>&nbsp;<a href="http://meta.stackoverflow.com">meta</a>&nbsp; 
+                        <span style="color:#46937D;font-size:140%">&#9632;</span>&nbsp;<a href="http://area51.stackexchange.com">area&nbsp;51</a>&nbsp; 
+                        <span style="color:#C0D0DC;font-size:140%">&#9632;</span>&nbsp;<a href="http://webapps.stackexchange.com">webapps</a>&nbsp; 
+                        <span style="color:#000000;font-size:140%">&#9632;</span>&nbsp;<a href="http://gaming.stackexchange.com">gaming</a>&nbsp; 
+                        <span style="color:#dd4814;font-size:140%">&#9632;</span>&nbsp;<a href="http://askubuntu.com">ubuntu</a>&nbsp; 
+                        <span style="color:#9ce4fe;font-size:140%">&#9632;</span>&nbsp;<a href="http://webmasters.stackexchange.com">webmasters</a>&nbsp; 
+                        <span style="color:#cf4d3f;font-size:140%">&#9632;</span>&nbsp;<a href="http://cooking.stackexchange.com">cooking</a>&nbsp; 
+                        <span style="color:#f4f28d;font-size:140%">&#9632;</span>&nbsp;<a href="http://gamedev.stackexchange.com">game development</a>&nbsp; 
+                        <span style="color:#0f3559;font-size:140%">&#9632;</span>&nbsp;<a href="http://math.stackexchange.com">math</a>&nbsp; 
+                        <span style="color:#f2f2f2;font-size:140%">&#9632;</span>&nbsp;<a href="http://photo.stackexchange.com">photography</a>&nbsp; 
+                        <span style="color:#037187;font-size:140%">&#9632;</span>&nbsp;<a href="http://stats.stackexchange.com">stats</a>&nbsp; 
+                        <span style="color:#f1e7cc;font-size:140%">&#9632;</span>&nbsp;<a href="http://tex.stackexchange.com">tex</a>&nbsp; 
+                        <span style="color:#e1cdae;font-size:140%">&#9632;</span>&nbsp;<a href="http://english.stackexchange.com">english</a>&nbsp; 
+                        <span style="color:#a2d9f6;font-size:140%">&#9632;</span>&nbsp;<a href="http://cstheory.stackexchange.com">theoretical cs</a>&nbsp; 
+                        <span style="color:#1b3e6c;font-size:140%">&#9632;</span>&nbsp;<a href="http://programmers.stackexchange.com">programmers</a>&nbsp; 
+                        <span style="color:#293a5d;font-size:140%">&#9632;</span>&nbsp;<a href="http://unix.stackexchange.com">unix</a>&nbsp;
+                        <span style="color:#bec0cb;font-size:140%">&#9632;</span>&nbsp;<a href="http://apple.stackexchange.com">apple</a>&nbsp;
+                        <span style="color:#939185;font-size:140%">&#9632;</span>&nbsp;<a href="http://wordpress.stackexchange.com">wordpress</a>&nbsp;
+                        <span style="color:#ebf5f5;font-size:140%">&#9632;</span>&nbsp;<a href="http://physics.stackexchange.com">physics</a>&nbsp;
+                        <span style="color:#4176ab;font-size:140%">&#9632;</span>&nbsp;<a href="http://diy.stackexchange.com">home&nbsp;improvement</a>&nbsp;
+                        <span style="color:#d1d8d7;font-size:140%">&#9632;</span>&nbsp;<a href="http://gis.stackexchange.com">gis</a>&nbsp;
+                        <span style="color:#e5e2d3;font-size:140%">&#9632;</span>&nbsp;<a href="http://electronics.stackexchange.com">electrical&nbsp;engineering</a>&nbsp;
+                        <span style="color:#a4c639;font-size:140%">&#9632;</span>&nbsp;<a href="http://android.stackexchange.com">android</a>&nbsp;
+                        <span style="color:#2e4e60;font-size:140%">&#9632;</span>&nbsp;<a href="http://security.stackexchange.com">security</a>&nbsp;
+                        <span style="color:#45bcb5;font-size:140%">&#9632;</span>&nbsp;<a href="http://bicycles.stackexchange.com">bicycles</a>&nbsp;
+                        <span style="color:#00adee;font-size:140%">&#9632;</span>&nbsp;<a href="http://dba.stackexchange.com">dba</a>&nbsp;
+                        <span style="color:#2edaf0;font-size:140%">&#9632;</span>&nbsp;<a href="http://drupal.stackexchange.com">drupal</a>&nbsp;
+                        <span style="color:#213951;font-size:140%">&#9632;</span>&nbsp;<a href="http://sharepoint.stackexchange.com">sharepoint</a>&nbsp;
+                        <span style="color:#73abb3;font-size:140%">&#9632;</span>&nbsp;<a href="http://scifi.stackexchange.com">scifi &amp; fantasy</a>&nbsp;
+                        <span style="color:#23629F;font-size:140%">&#9632;</span>&nbsp;<a href="http://ux.stackexchange.com">user experience</a>&nbsp;
+                        <span style="color:#faff72;font-size:140%">&#9632;</span>&nbsp;<a href="http://skeptics.stackexchange.com">skeptics</a>&nbsp;
+                        <span style="color:#623121;font-size:140%">&#9632;</span>&nbsp;<a href="http://rpg.stackexchange.com">rpg</a>&nbsp;
+                        <span style="color:#e4be88;font-size:140%">&#9632;</span>&nbsp;<a href="http://judaism.stackexchange.com">judaism</a>&nbsp;
+                        <span style="color:#ffecb1;font-size:140%">&#9632;</span>&nbsp;<a href="http://mathematica.stackexchange.com">mathematica</a>&nbsp;
+                </div>
+            </div>
+            <div id="footer-flair">
+                <a class="peer1" href="http://www.peer1.com/stackoverflow"></a>  
+	            <a href="http://creativecommons.org/licenses/by-sa/3.0/" class="cc-wiki-link"></a>
+                <div id="svnrev">rev 2012.9.14.4074</div>
+                        </div>
+            <div id="copyright">
+                site design / logo &copy; 2012 stack exchange inc; 
+                user contributions licensed under <a href="http://creativecommons.org/licenses/by-sa/3.0/" rel="license">cc-wiki</a> with <a href="http://blog.stackoverflow.com/2009/06/attribution-required/" rel="license">attribution required</a>
+            </div>
+            
+
+        </div>
+    </div>
+    
+    <noscript>
+        <div id="noscript-warning">Stack Overflow works best with JavaScript enabled<img src="http://pixel.quantserve.com/pixel/p-c1rF4kxgLUzNc.gif" alt="" class="dno"></div>
+    </noscript>
+    <script type="text/javascript">var _gaq=_gaq||[];_gaq.push(['_setAccount','UA-5620270-1']);
+        _gaq.push(['_setCustomVar', 1, 'tags', '|python|django|ipython|']); 
+_gaq.push(['_trackPageview']);
+    var _qevents = _qevents || [];
+    (function(){
+        var s=document.getElementsByTagName('script')[0];
+        var ga=document.createElement('script');
+        ga.type='text/javascript';
+        ga.async=true;
+        ga.src='http://www.google-analytics.com/ga.js';
+        s.parentNode.insertBefore(ga,s);
+        var sc=document.createElement('script');
+        sc.type='text/javascript';
+        sc.async=true;
+        sc.src='http://edge.quantserve.com/quant.js'; 
+        s.parentNode.insertBefore(sc,s);
+    })();
+    </script>
+    <script type="text/javascript">
+        _qevents.push({ qacct: "p-c1rF4kxgLUzNc" });
+    </script>    
+    
+</body>
+</html>

@@ -1,0 +1,962 @@
+<html xmlns:v="urn:schemas-microsoft-com:vml"
+xmlns:o="urn:schemas-microsoft-com:office:office"
+xmlns:w="urn:schemas-microsoft-com:office:word"
+xmlns="http://www.w3.org/TR/REC-html40">
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+<meta name=ProgId content=Word.Document>
+<meta name=Generator content="Microsoft Word 9">
+<meta name=Originator content="Microsoft Word 9">
+<link rel=File-List href="./DirectionCosines_files/filelist.xml">
+<link rel=Edit-Time-Data href="./DirectionCosines_files/editdata.mso">
+<link rel=OLE-Object-Data href="./DirectionCosines_files/oledata.mso">
+<!--[if !mso]>
+<style>
+v\:* {behavior:url(#default#VML);}
+o\:* {behavior:url(#default#VML);}
+w\:* {behavior:url(#default#VML);}
+.shape {behavior:url(#default#VML);}
+</style>
+<![endif]-->
+<title>Using Direction Cosines</title>
+<!--[if gte mso 9]><xml>
+ <o:DocumentProperties>
+  <o:Author>Chris Bishop</o:Author>
+  <o:LastAuthor>Chris Bishop</o:LastAuthor>
+  <o:Revision>2</o:Revision>
+  <o:TotalTime>1</o:TotalTime>
+  <o:Created>2002-05-16T20:52:00Z</o:Created>
+  <o:LastSaved>2002-05-16T20:52:00Z</o:LastSaved>
+  <o:Pages>5</o:Pages>
+  <o:Words>865</o:Words>
+  <o:Characters>4936</o:Characters>
+  <o:Lines>41</o:Lines>
+  <o:Paragraphs>9</o:Paragraphs>
+  <o:CharactersWithSpaces>6061</o:CharactersWithSpaces>
+  <o:Version>9.2720</o:Version>
+ </o:DocumentProperties>
+</xml><![endif]-->
+<style>
+<!--
+ /* Style Definitions */
+p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{mso-style-parent:"";
+	margin:0in;
+	margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	font-size:12.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:"Times New Roman";}
+h1
+	{mso-style-next:Normal;
+	margin-top:12.0pt;
+	margin-right:0in;
+	margin-bottom:3.0pt;
+	margin-left:0in;
+	mso-pagination:widow-orphan;
+	page-break-after:avoid;
+	mso-outline-level:1;
+	font-size:16.0pt;
+	font-family:Arial;
+	mso-font-kerning:16.0pt;}
+h2
+	{mso-style-next:Normal;
+	margin-top:12.0pt;
+	margin-right:0in;
+	margin-bottom:3.0pt;
+	margin-left:0in;
+	mso-pagination:widow-orphan;
+	page-break-after:avoid;
+	mso-outline-level:2;
+	font-size:14.0pt;
+	font-family:Arial;
+	font-style:italic;}
+@page Section1
+	{size:8.5in 11.0in;
+	margin:1.0in 1.25in 1.0in 1.25in;
+	mso-header-margin:.5in;
+	mso-footer-margin:.5in;
+	mso-paper-source:0;}
+div.Section1
+	{page:Section1;}
+-->
+</style>
+</head>
+
+<body lang=EN-US style='tab-interval:.5in'>
+
+<div class=Section1>
+
+<h1 align=center style='text-align:center'>Using Direction Cosines</h1>
+
+<p class=MsoNormal><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=MsoNormal><span style='mso-tab-count:1'>            </span>Direction
+cosines are given short shrift in our schools.<span style="mso-spacerun: yes"> 
+</span>One thing I learned incidentally during my PhD was to always avoid sines
+and cosines whenever possible and instead use direction cosines.<span
+style="mso-spacerun: yes">  </span>In planar geometry, sines and cosines are
+just fine; but in solid geometry, they are next to impossible to use.</p>
+
+<p class=MsoNormal><span style='mso-tab-count:1'>            </span>The
+direction cosines of a vector are merely the cosines of the angles that the
+vector makes with the x, y, and z axes, respectively.<span style="mso-spacerun:
+yes">  </span>We label these angles <sub><!--[if gte vml 1]><v:shapetype id="_x0000_t75"
+ coordsize="21600,21600" o:spt="75" o:preferrelative="t" path="m@4@5l@4@11@9@11@9@5xe"
+ filled="f" stroked="f">
+ <v:stroke joinstyle="miter"/>
+ <v:formulas>
+  <v:f eqn="if lineDrawn pixelLineWidth 0"/>
+  <v:f eqn="sum @0 1 0"/>
+  <v:f eqn="sum 0 0 @1"/>
+  <v:f eqn="prod @2 1 2"/>
+  <v:f eqn="prod @3 21600 pixelWidth"/>
+  <v:f eqn="prod @3 21600 pixelHeight"/>
+  <v:f eqn="sum @0 0 1"/>
+  <v:f eqn="prod @6 1 2"/>
+  <v:f eqn="prod @7 21600 pixelWidth"/>
+  <v:f eqn="sum @8 21600 0"/>
+  <v:f eqn="prod @7 21600 pixelHeight"/>
+  <v:f eqn="sum @10 21600 0"/>
+ </v:formulas>
+ <v:path o:extrusionok="f" gradientshapeok="t" o:connecttype="rect"/>
+ <o:lock v:ext="edit" aspectratio="t"/>
+</v:shapetype><v:shape id="_x0000_i1025" type="#_x0000_t75" style='width:11.25pt;
+ height:11.25pt' o:ole="">
+ <v:imagedata src="./DirectionCosines_files/image001.wmz" o:title=""/>
+</v:shape><![endif]--><![if !vml]><img width=15 height=15
+src="./DirectionCosines_files/image002.gif" v:shapes="_x0000_i1025"><![endif]></sub><!--[if gte mso 9]><xml>
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1025"
+  DrawAspect="Content" ObjectID="_1083062297">
+ </o:OLEObject>
+</xml><![endif]--><span style="mso-spacerun: yes"> </span>(angle with the x
+axis), <sub><!--[if gte vml 1]><v:shape id="_x0000_i1026" type="#_x0000_t75"
+ style='width:12pt;height:15.75pt' o:ole="">
+ <v:imagedata src="./DirectionCosines_files/image003.wmz" o:title=""/>
+</v:shape><![endif]--><![if !vml]><img width=16 height=21
+src="./DirectionCosines_files/image004.gif" v:shapes="_x0000_i1026"><![endif]></sub><!--[if gte mso 9]><xml>
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1026"
+  DrawAspect="Content" ObjectID="_1083062298">
+ </o:OLEObject>
+</xml><![endif]--><span style="mso-spacerun: yes"> </span>(angle with the y
+axis), and <sub><!--[if gte vml 1]><v:shape id="_x0000_i1027" type="#_x0000_t75"
+ style='width:9.75pt;height:12.75pt' o:ole="">
+ <v:imagedata src="./DirectionCosines_files/image005.wmz" o:title=""/>
+</v:shape><![endif]--><![if !vml]><img width=13 height=17
+src="./DirectionCosines_files/image006.gif" v:shapes="_x0000_i1027"><![endif]></sub><!--[if gte mso 9]><xml>
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1027"
+  DrawAspect="Content" ObjectID="_1083062299">
+ </o:OLEObject>
+</xml><![endif]--><span style="mso-spacerun: yes"> </span>(angle with the z
+axis); and we define</p>
+
+<p class=MsoNormal><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=MsoNormal><span style='mso-tab-count:1'>            </span><sub><!--[if gte vml 1]><v:shape
+ id="_x0000_i1028" type="#_x0000_t75" style='width:45pt;height:14.25pt' o:ole="">
+ <v:imagedata src="./DirectionCosines_files/image007.wmz" o:title=""/>
+</v:shape><![endif]--><![if !vml]><img width=60 height=19
+src="./DirectionCosines_files/image008.gif" v:shapes="_x0000_i1028"><![endif]></sub><!--[if gte mso 9]><xml>
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1028"
+  DrawAspect="Content" ObjectID="_1083062300">
+ </o:OLEObject>
+</xml><![endif]--></p>
+
+<p class=MsoNormal><span style='mso-tab-count:1'>            </span><sub><!--[if gte vml 1]><v:shape
+ id="_x0000_i1029" type="#_x0000_t75" style='width:51pt;height:15.75pt' o:ole="">
+ <v:imagedata src="./DirectionCosines_files/image009.wmz" o:title=""/>
+</v:shape><![endif]--><![if !vml]><img width=68 height=21
+src="./DirectionCosines_files/image010.gif" v:shapes="_x0000_i1029"><![endif]></sub><!--[if gte mso 9]><xml>
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1029"
+  DrawAspect="Content" ObjectID="_1083062301">
+ </o:OLEObject>
+</xml><![endif]--></p>
+
+<p class=MsoNormal><span style='mso-tab-count:1'>            </span><sub><!--[if gte vml 1]><v:shape
+ id="_x0000_i1030" type="#_x0000_t75" style='width:47.25pt;height:12.75pt'
+ o:ole="">
+ <v:imagedata src="./DirectionCosines_files/image011.wmz" o:title=""/>
+</v:shape><![endif]--><![if !vml]><img width=63 height=17
+src="./DirectionCosines_files/image012.gif" v:shapes="_x0000_i1030"><![endif]></sub><!--[if gte mso 9]><xml>
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1030"
+  DrawAspect="Content" ObjectID="_1083062302">
+ </o:OLEObject>
+</xml><![endif]--></p>
+
+<p class=MsoNormal><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=MsoNormal>The cosines of the angles can be found by taking dot
+products.<span style="mso-spacerun: yes">  </span>Thus, if we have a unit
+vector given by <sub><!--[if gte vml 1]><v:shape id="_x0000_i1031" type="#_x0000_t75"
+ style='width:21.75pt;height:56.25pt' o:ole="">
+ <v:imagedata src="./DirectionCosines_files/image013.wmz" o:title=""/>
+</v:shape><![endif]--><![if !vml]><img width=29 height=75
+src="./DirectionCosines_files/image014.gif" v:shapes="_x0000_i1031"><![endif]></sub><!--[if gte mso 9]><xml>
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1031"
+  DrawAspect="Content" ObjectID="_1083062303">
+ </o:OLEObject>
+</xml><![endif]-->, the direction cosines are</p>
+
+<p class=MsoNormal><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=MsoNormal><span style='mso-tab-count:1'>            </span><sub><!--[if gte vml 1]><v:shape
+ id="_x0000_i1032" type="#_x0000_t75" style='width:122.25pt;height:56.25pt'
+ o:ole="">
+ <v:imagedata src="./DirectionCosines_files/image015.wmz" o:title=""/>
+</v:shape><![endif]--><![if !vml]><img width=163 height=75
+src="./DirectionCosines_files/image016.gif" v:shapes="_x0000_i1032"><![endif]></sub><!--[if gte mso 9]><xml>
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1032"
+  DrawAspect="Content" ObjectID="_1083062304">
+ </o:OLEObject>
+</xml><![endif]--></p>
+
+<p class=MsoNormal><span style='mso-tab-count:1'>            </span><sub><!--[if gte vml 1]><v:shape
+ id="_x0000_i1033" type="#_x0000_t75" style='width:129pt;height:56.25pt' o:ole="">
+ <v:imagedata src="./DirectionCosines_files/image017.wmz" o:title=""/>
+</v:shape><![endif]--><![if !vml]><img width=172 height=75
+src="./DirectionCosines_files/image018.gif" v:shapes="_x0000_i1033"><![endif]></sub><!--[if gte mso 9]><xml>
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1033"
+  DrawAspect="Content" ObjectID="_1083062305">
+ </o:OLEObject>
+</xml><![endif]--></p>
+
+<p class=MsoNormal><span style='mso-tab-count:1'>            </span><sub><!--[if gte vml 1]><v:shape
+ id="_x0000_i1034" type="#_x0000_t75" style='width:123pt;height:56.25pt' o:ole="">
+ <v:imagedata src="./DirectionCosines_files/image019.wmz" o:title=""/>
+</v:shape><![endif]--><![if !vml]><img width=164 height=75
+src="./DirectionCosines_files/image020.gif" v:shapes="_x0000_i1034"><![endif]></sub><!--[if gte mso 9]><xml>
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1034"
+  DrawAspect="Content" ObjectID="_1083062306">
+ </o:OLEObject>
+</xml><![endif]--></p>
+
+<p class=MsoNormal><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=MsoNormal>Since the vector is a unit vector, it also follows that</p>
+
+<p class=MsoNormal><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=MsoNormal><span style='mso-tab-count:1'>            </span><sub><!--[if gte vml 1]><v:shape
+ id="_x0000_i1049" type="#_x0000_t75" style='width:80.25pt;height:15.75pt'
+ o:ole="">
+ <v:imagedata src="./DirectionCosines_files/image021.wmz" o:title=""/>
+</v:shape><![endif]--><![if !vml]><img width=107 height=21
+src="./DirectionCosines_files/image022.gif" v:shapes="_x0000_i1049"><![endif]></sub><!--[if gte mso 9]><xml>
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1049"
+  DrawAspect="Content" ObjectID="_1083062308">
+ </o:OLEObject>
+</xml><![endif]--></p>
+
+<p class=MsoNormal><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<h2>Definition of a Line</h2>
+
+<p class=MsoNormal><span style='mso-tab-count:1'>            </span>A vector is
+usually interpreted as passing through a coordinate system’s origin.<span
+style="mso-spacerun: yes">  </span>It provides direction information but not
+location information.<span style="mso-spacerun: yes">  </span>We can define a
+line parametrically by starting with a vector <sub><!--[if gte vml 1]><v:shape
+ id="_x0000_i1050" type="#_x0000_t75" style='width:38.25pt;height:17.25pt'
+ o:ole="">
+ <v:imagedata src="./DirectionCosines_files/image023.wmz" o:title=""/>
+</v:shape><![endif]--><![if !vml]><img width=51 height=23
+src="./DirectionCosines_files/image024.gif" v:shapes="_x0000_i1050"><![endif]></sub><!--[if gte mso 9]><xml>
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1050"
+  DrawAspect="Content" ObjectID="_1083062309">
+ </o:OLEObject>
+</xml><![endif]-->and adding an initial position <sub><!--[if gte vml 1]><v:shape
+ id="_x0000_i1051" type="#_x0000_t75" style='width:54pt;height:18pt' o:ole="">
+ <v:imagedata src="./DirectionCosines_files/image025.wmz" o:title=""/>
+</v:shape><![endif]--><![if !vml]><img width=72 height=24
+src="./DirectionCosines_files/image026.gif" v:shapes="_x0000_i1051"><![endif]></sub><!--[if gte mso 9]><xml>
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1051"
+  DrawAspect="Content" ObjectID="_1083062310">
+ </o:OLEObject>
+</xml><![endif]-->.</p>
+
+<p class=MsoNormal><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=MsoNormal><span style='mso-tab-count:1'>            </span><sub><!--[if gte vml 1]><v:shape
+ id="_x0000_i1052" type="#_x0000_t75" style='width:53.25pt;height:18pt' o:ole="">
+ <v:imagedata src="./DirectionCosines_files/image027.wmz" o:title=""/>
+</v:shape><![endif]--><![if !vml]><img width=71 height=24
+src="./DirectionCosines_files/image028.gif" v:shapes="_x0000_i1052"><![endif]></sub><!--[if gte mso 9]><xml>
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1052"
+  DrawAspect="Content" ObjectID="_1083062311">
+ </o:OLEObject>
+</xml><![endif]--></p>
+
+<p class=MsoNormal><span style='mso-tab-count:1'>            </span><sub><!--[if gte vml 1]><v:shape
+ id="_x0000_i1053" type="#_x0000_t75" style='width:60pt;height:18pt' o:ole="">
+ <v:imagedata src="./DirectionCosines_files/image029.wmz" o:title=""/>
+</v:shape><![endif]--><![if !vml]><img width=80 height=24
+src="./DirectionCosines_files/image030.gif" v:shapes="_x0000_i1053"><![endif]></sub><!--[if gte mso 9]><xml>
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1053"
+  DrawAspect="Content" ObjectID="_1083062312">
+ </o:OLEObject>
+</xml><![endif]--></p>
+
+<p class=MsoNormal><span style='mso-tab-count:1'>            </span><sub><!--[if gte vml 1]><v:shape
+ id="_x0000_i1054" type="#_x0000_t75" style='width:54.75pt;height:18pt' o:ole="">
+ <v:imagedata src="./DirectionCosines_files/image031.wmz" o:title=""/>
+</v:shape><![endif]--><![if !vml]><img width=73 height=24
+src="./DirectionCosines_files/image032.gif" v:shapes="_x0000_i1054"><![endif]></sub><!--[if gte mso 9]><xml>
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1054"
+  DrawAspect="Content" ObjectID="_1083062313">
+ </o:OLEObject>
+</xml><![endif]--></p>
+
+<p class=MsoNormal><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<h2>Definition of a Plane</h2>
+
+<p class=MsoNormal><span style='mso-tab-count:1'>            </span>The
+orientation of a plane is defined by means of the direction of a perpendicular
+vector <sub><!--[if gte vml 1]><v:shape id="_x0000_i1055" type="#_x0000_t75"
+ style='width:38.25pt;height:17.25pt' o:ole="">
+ <v:imagedata src="./DirectionCosines_files/image023.wmz" o:title=""/>
+</v:shape><![endif]--><![if !vml]><img width=51 height=23
+src="./DirectionCosines_files/image033.gif" v:shapes="_x0000_i1055"><![endif]></sub><!--[if gte mso 9]><xml>
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1055"
+  DrawAspect="Content" ObjectID="_1083062314">
+ </o:OLEObject>
+</xml><![endif]-->.<span style="mso-spacerun: yes">  </span>The position of the
+plane is added by means of some initial conditions <sub><!--[if gte vml 1]><v:shape
+ id="_x0000_i1056" type="#_x0000_t75" style='width:54pt;height:18pt' o:ole="">
+ <v:imagedata src="./DirectionCosines_files/image025.wmz" o:title=""/>
+</v:shape><![endif]--><![if !vml]><img width=72 height=24
+src="./DirectionCosines_files/image034.gif" v:shapes="_x0000_i1056"><![endif]></sub><!--[if gte mso 9]><xml>
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1056"
+  DrawAspect="Content" ObjectID="_1083062315">
+ </o:OLEObject>
+</xml><![endif]-->.<span style="mso-spacerun: yes">  </span>Thus, a plane is
+given by the equation</p>
+
+<p class=MsoNormal><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=MsoNormal><span style='mso-tab-count:1'>            </span><sub><!--[if gte vml 1]><v:shape
+ id="_x0000_i1057" type="#_x0000_t75" style='width:144.75pt;height:18pt' o:ole="">
+ <v:imagedata src="./DirectionCosines_files/image035.wmz" o:title=""/>
+</v:shape><![endif]--><![if !vml]><img width=193 height=24
+src="./DirectionCosines_files/image036.gif" v:shapes="_x0000_i1057"><![endif]></sub><!--[if gte mso 9]><xml>
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1057"
+  DrawAspect="Content" ObjectID="_1083062316">
+ </o:OLEObject>
+</xml><![endif]--></p>
+
+<p class=MsoNormal><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=MsoNormal>Usually, the right side of the equation is brought to the
+left-hand side to obtain</p>
+
+<p class=MsoNormal><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=MsoNormal><span style='mso-tab-count:1'>            </span><sub><!--[if gte vml 1]><v:shape
+ id="_x0000_i1058" type="#_x0000_t75" style='width:171pt;height:18pt' o:ole="">
+ <v:imagedata src="./DirectionCosines_files/image037.wmz" o:title=""/>
+</v:shape><![endif]--><![if !vml]><img width=228 height=24
+src="./DirectionCosines_files/image038.gif" v:shapes="_x0000_i1058"><![endif]></sub><!--[if gte mso 9]><xml>
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1058"
+  DrawAspect="Content" ObjectID="_1083062317">
+ </o:OLEObject>
+</xml><![endif]--></p>
+
+<p class=MsoNormal><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=MsoNormal>or more commonly</p>
+
+<p class=MsoNormal><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=MsoNormal><span style='mso-tab-count:1'>            </span><sub><!--[if gte vml 1]><v:shape
+ id="_x0000_i1059" type="#_x0000_t75" style='width:105.75pt;height:15.75pt'
+ o:ole="">
+ <v:imagedata src="./DirectionCosines_files/image039.wmz" o:title=""/>
+</v:shape><![endif]--><![if !vml]><img width=141 height=21
+src="./DirectionCosines_files/image040.gif" v:shapes="_x0000_i1059"><![endif]></sub><!--[if gte mso 9]><xml>
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1059"
+  DrawAspect="Content" ObjectID="_1083062318">
+ </o:OLEObject>
+</xml><![endif]--></p>
+
+<p class=MsoNormal><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<h2>Equation of a Plane Passing Through Three Points</h2>
+
+<p class=MsoNormal><span style='mso-tab-count:1'>            </span>Given three
+points in space, it is easy to compute the equation of the plane passing
+through them.<span style="mso-spacerun: yes">  </span>Let us define the three
+points by means of three vectors, <sub><!--[if gte vml 1]><v:shape id="_x0000_i1060"
+ type="#_x0000_t75" style='width:14.25pt;height:18.75pt' o:ole="">
+ <v:imagedata src="./DirectionCosines_files/image041.wmz" o:title=""/>
+</v:shape><![endif]--><![if !vml]><img width=19 height=25
+src="./DirectionCosines_files/image042.gif" v:shapes="_x0000_i1060"><![endif]></sub><!--[if gte mso 9]><xml>
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1060"
+  DrawAspect="Content" ObjectID="_1083062319">
+ </o:OLEObject>
+</xml><![endif]-->,<sub><!--[if gte vml 1]><v:shape id="_x0000_i1061" type="#_x0000_t75"
+ style='width:15pt;height:18.75pt' o:ole="">
+ <v:imagedata src="./DirectionCosines_files/image043.wmz" o:title=""/>
+</v:shape><![endif]--><![if !vml]><img width=20 height=25
+src="./DirectionCosines_files/image044.gif" v:shapes="_x0000_i1061"><![endif]></sub><!--[if gte mso 9]><xml>
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1061"
+  DrawAspect="Content" ObjectID="_1083062320">
+ </o:OLEObject>
+</xml><![endif]-->, and <sub><!--[if gte vml 1]><v:shape id="_x0000_i1062"
+ type="#_x0000_t75" style='width:15pt;height:20.25pt' o:ole="">
+ <v:imagedata src="./DirectionCosines_files/image045.wmz" o:title=""/>
+</v:shape><![endif]--><![if !vml]><img width=20 height=27
+src="./DirectionCosines_files/image046.gif" v:shapes="_x0000_i1062"><![endif]></sub><!--[if gte mso 9]><xml>
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1062"
+  DrawAspect="Content" ObjectID="_1083062321">
+ </o:OLEObject>
+</xml><![endif]-->.<span style="mso-spacerun: yes">  </span>Let us choose the
+third vector as a reference.<span style="mso-spacerun: yes">  </span>Then, two
+vectors that lie in the plane are</p>
+
+<p class=MsoNormal><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=MsoNormal><span style='mso-tab-count:1'>            </span><sub><!--[if gte vml 1]><v:shape
+ id="_x0000_i1063" type="#_x0000_t75" style='width:60pt;height:20.25pt' o:ole="">
+ <v:imagedata src="./DirectionCosines_files/image047.wmz" o:title=""/>
+</v:shape><![endif]--><![if !vml]><img width=80 height=27
+src="./DirectionCosines_files/image048.gif" v:shapes="_x0000_i1063"><![endif]></sub><!--[if gte mso 9]><xml>
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1063"
+  DrawAspect="Content" ObjectID="_1083062322">
+ </o:OLEObject>
+</xml><![endif]--></p>
+
+<p class=MsoNormal><span style='mso-tab-count:1'>            </span><sub><!--[if gte vml 1]><v:shape
+ id="_x0000_i1064" type="#_x0000_t75" style='width:63pt;height:20.25pt' o:ole="">
+ <v:imagedata src="./DirectionCosines_files/image049.wmz" o:title=""/>
+</v:shape><![endif]--><![if !vml]><img width=84 height=27
+src="./DirectionCosines_files/image050.gif" v:shapes="_x0000_i1064"><![endif]></sub><!--[if gte mso 9]><xml>
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1064"
+  DrawAspect="Content" ObjectID="_1083062323">
+ </o:OLEObject>
+</xml><![endif]--></p>
+
+<p class=MsoNormal><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=MsoNormal>The normalized cross product of these two vectors yield the
+perpendicular to the plane:</p>
+
+<p class=MsoNormal><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=MsoNormal><span style='mso-tab-count:1'>            </span><sub><!--[if gte vml 1]><v:shape
+ id="_x0000_i1065" type="#_x0000_t75" style='width:75pt;height:56.25pt' o:ole="">
+ <v:imagedata src="./DirectionCosines_files/image051.wmz" o:title=""/>
+</v:shape><![endif]--><![if !vml]><img width=100 height=75
+src="./DirectionCosines_files/image052.gif" v:shapes="_x0000_i1065"><![endif]></sub><!--[if gte mso 9]><xml>
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1065"
+  DrawAspect="Content" ObjectID="_1083062324">
+ </o:OLEObject>
+</xml><![endif]--></p>
+
+<p class=MsoNormal><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=MsoNormal>Now we have the perpendicular to the plane, and we can
+continue with <i>Definition of a Plane</i> using any of the three points as an
+initial condition for the plane’s location.</p>
+
+<p class=MsoNormal><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<h2>Equation of a Line Perpendicular to a Plane and Passing Through a Point</h2>
+
+<p class=MsoNormal><span style='mso-tab-count:1'>            </span>Given the
+equation of the plane</p>
+
+<p class=MsoNormal><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=MsoNormal><span style='mso-tab-count:1'>            </span><sub><!--[if gte vml 1]><v:shape
+ id="_x0000_i1066" type="#_x0000_t75" style='width:105.75pt;height:15.75pt'
+ o:ole="">
+ <v:imagedata src="./DirectionCosines_files/image039.wmz" o:title=""/>
+</v:shape><![endif]--><![if !vml]><img width=141 height=21
+src="./DirectionCosines_files/image053.gif" v:shapes="_x0000_i1066"><![endif]></sub><!--[if gte mso 9]><xml>
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1066"
+  DrawAspect="Content" ObjectID="_1083062325">
+ </o:OLEObject>
+</xml><![endif]--></p>
+
+<p class=MsoNormal><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=MsoNormal>we recall that <sub><!--[if gte vml 1]><v:shape id="_x0000_i1067"
+ type="#_x0000_t75" style='width:96.75pt;height:35.25pt' o:ole="">
+ <v:imagedata src="./DirectionCosines_files/image054.wmz" o:title=""/>
+</v:shape><![endif]--><![if !vml]><img width=129 height=47
+src="./DirectionCosines_files/image055.gif" v:shapes="_x0000_i1067"><![endif]></sub><!--[if gte mso 9]><xml>
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1067"
+  DrawAspect="Content" ObjectID="_1083062326">
+ </o:OLEObject>
+</xml><![endif]-->, <sub><!--[if gte vml 1]><v:shape id="_x0000_i1068" type="#_x0000_t75"
+ style='width:102pt;height:35.25pt' o:ole="">
+ <v:imagedata src="./DirectionCosines_files/image056.wmz" o:title=""/>
+</v:shape><![endif]--><![if !vml]><img width=136 height=47
+src="./DirectionCosines_files/image057.gif" v:shapes="_x0000_i1068"><![endif]></sub><!--[if gte mso 9]><xml>
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1068"
+  DrawAspect="Content" ObjectID="_1083062327">
+ </o:OLEObject>
+</xml><![endif]-->, and <sub><!--[if gte vml 1]><v:shape id="_x0000_i1069"
+ type="#_x0000_t75" style='width:99pt;height:35.25pt' o:ole="">
+ <v:imagedata src="./DirectionCosines_files/image058.wmz" o:title=""/>
+</v:shape><![endif]--><![if !vml]><img width=132 height=47
+src="./DirectionCosines_files/image059.gif" v:shapes="_x0000_i1069"><![endif]></sub><!--[if gte mso 9]><xml>
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1069"
+  DrawAspect="Content" ObjectID="_1083062328">
+ </o:OLEObject>
+</xml><![endif]-->, which are the direction cosines of a vector perpendicular
+to the plane.<span style="mso-spacerun: yes">  </span>(Note that we had to
+normalize the coefficients so that <sub><!--[if gte vml 1]><v:shape id="_x0000_i1070"
+ type="#_x0000_t75" style='width:80.25pt;height:15.75pt' o:ole="">
+ <v:imagedata src="./DirectionCosines_files/image060.wmz" o:title=""/>
+</v:shape><![endif]--><![if !vml]><img width=107 height=21
+src="./DirectionCosines_files/image061.gif" v:shapes="_x0000_i1070"><![endif]></sub><!--[if gte mso 9]><xml>
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1070"
+  DrawAspect="Content" ObjectID="_1083062330">
+ </o:OLEObject>
+</xml><![endif]-->.)<span style="mso-spacerun: yes">  </span>Thus, if we know
+that the line also passes through <sub><!--[if gte vml 1]><v:shape id="_x0000_i1071"
+ type="#_x0000_t75" style='width:54pt;height:18pt' o:ole="">
+ <v:imagedata src="./DirectionCosines_files/image025.wmz" o:title=""/>
+</v:shape><![endif]--><![if !vml]><img width=72 height=24
+src="./DirectionCosines_files/image062.gif" v:shapes="_x0000_i1071"><![endif]></sub><!--[if gte mso 9]><xml>
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1071"
+  DrawAspect="Content" ObjectID="_1083062331">
+ </o:OLEObject>
+</xml><![endif]-->, we can proceed to <i>Definition of a Line</i> to obtain the
+parametric representation of the line:</p>
+
+<p class=MsoNormal><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=MsoNormal><span style='mso-tab-count:1'>            </span><sub><!--[if gte vml 1]><v:shape
+ id="_x0000_i1072" type="#_x0000_t75" style='width:53.25pt;height:18pt' o:ole="">
+ <v:imagedata src="./DirectionCosines_files/image027.wmz" o:title=""/>
+</v:shape><![endif]--><![if !vml]><img width=71 height=24
+src="./DirectionCosines_files/image063.gif" v:shapes="_x0000_i1072"><![endif]></sub><!--[if gte mso 9]><xml>
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1072"
+  DrawAspect="Content" ObjectID="_1083062332">
+ </o:OLEObject>
+</xml><![endif]--></p>
+
+<p class=MsoNormal><span style='mso-tab-count:1'>            </span><sub><!--[if gte vml 1]><v:shape
+ id="_x0000_i1073" type="#_x0000_t75" style='width:60pt;height:18pt' o:ole="">
+ <v:imagedata src="./DirectionCosines_files/image029.wmz" o:title=""/>
+</v:shape><![endif]--><![if !vml]><img width=80 height=24
+src="./DirectionCosines_files/image064.gif" v:shapes="_x0000_i1073"><![endif]></sub><!--[if gte mso 9]><xml>
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1073"
+  DrawAspect="Content" ObjectID="_1083062333">
+ </o:OLEObject>
+</xml><![endif]--></p>
+
+<p class=MsoNormal><span style='mso-tab-count:1'>            </span><sub><!--[if gte vml 1]><v:shape
+ id="_x0000_i1074" type="#_x0000_t75" style='width:54.75pt;height:18pt' o:ole="">
+ <v:imagedata src="./DirectionCosines_files/image031.wmz" o:title=""/>
+</v:shape><![endif]--><![if !vml]><img width=73 height=24
+src="./DirectionCosines_files/image065.gif" v:shapes="_x0000_i1074"><![endif]></sub><!--[if gte mso 9]><xml>
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1074"
+  DrawAspect="Content" ObjectID="_1083062334">
+ </o:OLEObject>
+</xml><![endif]--></p>
+
+<p class=MsoNormal><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<h2>Shortest Distance from a Point to a Line</h2>
+
+<p class=MsoNormal><span style='mso-tab-count:1'>            </span>First, we
+define the point in space as <sub><!--[if gte vml 1]><v:shape id="_x0000_i1075"
+ type="#_x0000_t75" style='width:54pt;height:18pt' o:ole="">
+ <v:imagedata src="./DirectionCosines_files/image025.wmz" o:title=""/>
+</v:shape><![endif]--><![if !vml]><img width=72 height=24
+src="./DirectionCosines_files/image066.gif" v:shapes="_x0000_i1075"><![endif]></sub><!--[if gte mso 9]><xml>
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1075"
+  DrawAspect="Content" ObjectID="_1083062335">
+ </o:OLEObject>
+</xml><![endif]-->, the line as having direction cosines <sub><!--[if gte vml 1]><v:shape
+ id="_x0000_i1076" type="#_x0000_t75" style='width:38.25pt;height:17.25pt'
+ o:ole="">
+ <v:imagedata src="./DirectionCosines_files/image023.wmz" o:title=""/>
+</v:shape><![endif]--><![if !vml]><img width=51 height=23
+src="./DirectionCosines_files/image067.gif" v:shapes="_x0000_i1076"><![endif]></sub><!--[if gte mso 9]><xml>
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1076"
+  DrawAspect="Content" ObjectID="_1083062336">
+ </o:OLEObject>
+</xml><![endif]-->, and a point on the line as <sub><!--[if gte vml 1]><v:shape
+ id="_x0000_i1077" type="#_x0000_t75" style='width:51pt;height:18pt' o:ole="">
+ <v:imagedata src="./DirectionCosines_files/image068.wmz" o:title=""/>
+</v:shape><![endif]--><![if !vml]><img width=68 height=24
+src="./DirectionCosines_files/image069.gif" v:shapes="_x0000_i1077"><![endif]></sub><!--[if gte mso 9]><xml>
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1077"
+  DrawAspect="Content" ObjectID="_1083062337">
+ </o:OLEObject>
+</xml><![endif]-->.<span style="mso-spacerun: yes">  </span>A vector from the
+point on the line to the point in space is</p>
+
+<p class=MsoNormal><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=MsoNormal><span style='mso-tab-count:1'>            </span><sub><!--[if gte vml 1]><v:shape
+ id="_x0000_i1078" type="#_x0000_t75" style='width:78.75pt;height:56.25pt'
+ o:ole="">
+ <v:imagedata src="./DirectionCosines_files/image070.wmz" o:title=""/>
+</v:shape><![endif]--><![if !vml]><img width=105 height=75
+src="./DirectionCosines_files/image071.gif" v:shapes="_x0000_i1078"><![endif]></sub><!--[if gte mso 9]><xml>
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1078"
+  DrawAspect="Content" ObjectID="_1083062338">
+ </o:OLEObject>
+</xml><![endif]--></p>
+
+<p class=MsoNormal><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=MsoNormal>The distance between the point and line can be found with
+the aid of the cross product of direction cosines and <sub><!--[if gte vml 1]><v:shape
+ id="_x0000_i1079" type="#_x0000_t75" style='width:9pt;height:17.25pt' o:ole="">
+ <v:imagedata src="./DirectionCosines_files/image072.wmz" o:title=""/>
+</v:shape><![endif]--><![if !vml]><img width=12 height=23
+src="./DirectionCosines_files/image073.gif" v:shapes="_x0000_i1079"><![endif]></sub><!--[if gte mso 9]><xml>
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1079"
+  DrawAspect="Content" ObjectID="_1083062339">
+ </o:OLEObject>
+</xml><![endif]-->.</p>
+
+<p class=MsoNormal><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=MsoNormal><span style='mso-tab-count:1'>            </span><sub><!--[if gte vml 1]><v:shape
+ id="_x0000_i1080" type="#_x0000_t75" style='width:162.75pt;height:60pt' o:ole="">
+ <v:imagedata src="./DirectionCosines_files/image074.wmz" o:title=""/>
+</v:shape><![endif]--><![if !vml]><img width=217 height=80
+src="./DirectionCosines_files/image075.gif" v:shapes="_x0000_i1080"><![endif]></sub><!--[if gte mso 9]><xml>
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1080"
+  DrawAspect="Content" ObjectID="_1083062340">
+ </o:OLEObject>
+</xml><![endif]--></p>
+
+<p class=MsoNormal><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=MsoNormal><span style='mso-tab-count:1'>            </span><sub><!--[if gte vml 1]><v:shape
+ id="_x0000_i1081" type="#_x0000_t75" style='width:84pt;height:45.75pt' o:ole="">
+ <v:imagedata src="./DirectionCosines_files/image076.wmz" o:title=""/>
+</v:shape><![endif]--><![if !vml]><img width=112 height=61
+src="./DirectionCosines_files/image077.gif" v:shapes="_x0000_i1081"><![endif]></sub><!--[if gte mso 9]><xml>
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1081"
+  DrawAspect="Content" ObjectID="_1083062341">
+ </o:OLEObject>
+</xml><![endif]--></p>
+
+<p class=MsoNormal><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=MsoNormal>This technique works because the line forms one side of a
+triangle, <sub><!--[if gte vml 1]><v:shape id="_x0000_i1082" type="#_x0000_t75"
+ style='width:9pt;height:17.25pt' o:ole="">
+ <v:imagedata src="./DirectionCosines_files/image072.wmz" o:title=""/>
+</v:shape><![endif]--><![if !vml]><img width=12 height=23
+src="./DirectionCosines_files/image078.gif" v:shapes="_x0000_i1082"><![endif]></sub><!--[if gte mso 9]><xml>
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1082"
+  DrawAspect="Content" ObjectID="_1083062342">
+ </o:OLEObject>
+</xml><![endif]--><span style="mso-spacerun: yes"> </span>describes the
+hypotenuse, and we want to know the length of the third side.<span
+style="mso-spacerun: yes">  </span>The included angle of the line and <sub><!--[if gte vml 1]><v:shape
+ id="_x0000_i1083" type="#_x0000_t75" style='width:9pt;height:17.25pt' o:ole="">
+ <v:imagedata src="./DirectionCosines_files/image072.wmz" o:title=""/>
+</v:shape><![endif]--><![if !vml]><img width=12 height=23
+src="./DirectionCosines_files/image079.gif" v:shapes="_x0000_i1083"><![endif]></sub><!--[if gte mso 9]><xml>
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1083"
+  DrawAspect="Content" ObjectID="_1083062343">
+ </o:OLEObject>
+</xml><![endif]--><span style="mso-spacerun: yes"> </span>has a sine given by
+the cross product.<span style="mso-spacerun: yes">  </span>Multiplying by the
+length of the hypotenuse yields the distance.</p>
+
+<p class=MsoNormal><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<h2>Shortest Distance from a Point to a Plane</h2>
+
+<p class=MsoNormal><span style='mso-tab-count:1'>            </span>The
+shortest distance from a point <sub><!--[if gte vml 1]><v:shape id="_x0000_i1084"
+ type="#_x0000_t75" style='width:54pt;height:18pt' o:ole="">
+ <v:imagedata src="./DirectionCosines_files/image025.wmz" o:title=""/>
+</v:shape><![endif]--><![if !vml]><img width=72 height=24
+src="./DirectionCosines_files/image080.gif" v:shapes="_x0000_i1084"><![endif]></sub><!--[if gte mso 9]><xml>
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1084"
+  DrawAspect="Content" ObjectID="_1083062344">
+ </o:OLEObject>
+</xml><![endif]--><span style="mso-spacerun: yes"> </span>to a plane will be
+along a vector that is perpendicular to the plane.<span style="mso-spacerun:
+yes">  </span>Given the equation of the plane</p>
+
+<p class=MsoNormal><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=MsoNormal><span style='mso-tab-count:1'>            </span><sub><!--[if gte vml 1]><v:shape
+ id="_x0000_i1085" type="#_x0000_t75" style='width:105.75pt;height:15.75pt'
+ o:ole="">
+ <v:imagedata src="./DirectionCosines_files/image039.wmz" o:title=""/>
+</v:shape><![endif]--><![if !vml]><img width=141 height=21
+src="./DirectionCosines_files/image081.gif" v:shapes="_x0000_i1085"><![endif]></sub><!--[if gte mso 9]><xml>
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1085"
+  DrawAspect="Content" ObjectID="_1083062345">
+ </o:OLEObject>
+</xml><![endif]--></p>
+
+<p class=MsoNormal><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=MsoNormal>we recall that <sub><!--[if gte vml 1]><v:shape id="_x0000_i1086"
+ type="#_x0000_t75" style='width:96.75pt;height:35.25pt' o:ole="">
+ <v:imagedata src="./DirectionCosines_files/image054.wmz" o:title=""/>
+</v:shape><![endif]--><![if !vml]><img width=129 height=47
+src="./DirectionCosines_files/image082.gif" v:shapes="_x0000_i1086"><![endif]></sub><!--[if gte mso 9]><xml>
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1086"
+  DrawAspect="Content" ObjectID="_1083062346">
+ </o:OLEObject>
+</xml><![endif]-->, <sub><!--[if gte vml 1]><v:shape id="_x0000_i1087" type="#_x0000_t75"
+ style='width:102pt;height:35.25pt' o:ole="">
+ <v:imagedata src="./DirectionCosines_files/image056.wmz" o:title=""/>
+</v:shape><![endif]--><![if !vml]><img width=136 height=47
+src="./DirectionCosines_files/image083.gif" v:shapes="_x0000_i1087"><![endif]></sub><!--[if gte mso 9]><xml>
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1087"
+  DrawAspect="Content" ObjectID="_1083062347">
+ </o:OLEObject>
+</xml><![endif]-->, and <sub><!--[if gte vml 1]><v:shape id="_x0000_i1088"
+ type="#_x0000_t75" style='width:99pt;height:35.25pt' o:ole="">
+ <v:imagedata src="./DirectionCosines_files/image058.wmz" o:title=""/>
+</v:shape><![endif]--><![if !vml]><img width=132 height=47
+src="./DirectionCosines_files/image084.gif" v:shapes="_x0000_i1088"><![endif]></sub><!--[if gte mso 9]><xml>
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1088"
+  DrawAspect="Content" ObjectID="_1083062348">
+ </o:OLEObject>
+</xml><![endif]--><span style="mso-spacerun: yes"> </span>are the direction
+cosines of a vector perpendicular to the plane.<span style="mso-spacerun:
+yes">  </span>(Note that we had to normalize the coefficients so that <sub><!--[if gte vml 1]><v:shape
+ id="_x0000_i1089" type="#_x0000_t75" style='width:80.25pt;height:15.75pt'
+ o:ole="">
+ <v:imagedata src="./DirectionCosines_files/image060.wmz" o:title=""/>
+</v:shape><![endif]--><![if !vml]><img width=107 height=21
+src="./DirectionCosines_files/image085.gif" v:shapes="_x0000_i1089"><![endif]></sub><!--[if gte mso 9]><xml>
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1089"
+  DrawAspect="Content" ObjectID="_1083062349">
+ </o:OLEObject>
+</xml><![endif]-->.)<span style="mso-spacerun: yes">  </span>We choose the
+point as the reference for the vector.<span style="mso-spacerun: yes"> 
+</span>The line that passes through the point and is perpendicular to the plane
+is</p>
+
+<p class=MsoNormal><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=MsoNormal><span style='mso-tab-count:1'>            </span><sub><!--[if gte vml 1]><v:shape
+ id="_x0000_i1090" type="#_x0000_t75" style='width:53.25pt;height:18pt' o:ole="">
+ <v:imagedata src="./DirectionCosines_files/image086.wmz" o:title=""/>
+</v:shape><![endif]--><![if !vml]><img width=71 height=24
+src="./DirectionCosines_files/image087.gif" v:shapes="_x0000_i1090"><![endif]></sub><!--[if gte mso 9]><xml>
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1090"
+  DrawAspect="Content" ObjectID="_1083062350">
+ </o:OLEObject>
+</xml><![endif]--></p>
+
+<p class=MsoNormal><span style='mso-tab-count:1'>            </span><sub><!--[if gte vml 1]><v:shape
+ id="_x0000_i1091" type="#_x0000_t75" style='width:60pt;height:18pt' o:ole="">
+ <v:imagedata src="./DirectionCosines_files/image088.wmz" o:title=""/>
+</v:shape><![endif]--><![if !vml]><img width=80 height=24
+src="./DirectionCosines_files/image089.gif" v:shapes="_x0000_i1091"><![endif]></sub><!--[if gte mso 9]><xml>
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1091"
+  DrawAspect="Content" ObjectID="_1083062351">
+ </o:OLEObject>
+</xml><![endif]--></p>
+
+<p class=MsoNormal><span style='mso-tab-count:1'>            </span><sub><!--[if gte vml 1]><v:shape
+ id="_x0000_i1092" type="#_x0000_t75" style='width:54.75pt;height:18pt' o:ole="">
+ <v:imagedata src="./DirectionCosines_files/image090.wmz" o:title=""/>
+</v:shape><![endif]--><![if !vml]><img width=73 height=24
+src="./DirectionCosines_files/image091.gif" v:shapes="_x0000_i1092"><![endif]></sub><!--[if gte mso 9]><xml>
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1092"
+  DrawAspect="Content" ObjectID="_1083062352">
+ </o:OLEObject>
+</xml><![endif]--></p>
+
+<p class=MsoNormal><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=MsoNormal>Distance along this line is measured by</p>
+
+<p class=MsoNormal><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=MsoNormal><span style='mso-tab-count:1'>            </span><sub><!--[if gte vml 1]><v:shape
+ id="_x0000_i1093" type="#_x0000_t75" style='width:51.75pt;height:18pt' o:ole="">
+ <v:imagedata src="./DirectionCosines_files/image092.wmz" o:title=""/>
+</v:shape><![endif]--><![if !vml]><img width=69 height=24
+src="./DirectionCosines_files/image093.gif" v:shapes="_x0000_i1093"><![endif]></sub><!--[if gte mso 9]><xml>
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1093"
+  DrawAspect="Content" ObjectID="_1083062354">
+ </o:OLEObject>
+</xml><![endif]--></p>
+
+<p class=MsoNormal><span style='mso-tab-count:1'>            </span><sub><!--[if gte vml 1]><v:shape
+ id="_x0000_i1094" type="#_x0000_t75" style='width:60pt;height:18pt' o:ole="">
+ <v:imagedata src="./DirectionCosines_files/image094.wmz" o:title=""/>
+</v:shape><![endif]--><![if !vml]><img width=80 height=24
+src="./DirectionCosines_files/image095.gif" v:shapes="_x0000_i1094"><![endif]></sub><!--[if gte mso 9]><xml>
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1094"
+  DrawAspect="Content" ObjectID="_1083062355">
+ </o:OLEObject>
+</xml><![endif]--></p>
+
+<p class=MsoNormal><span style='mso-tab-count:1'>            </span><sub><!--[if gte vml 1]><v:shape
+ id="_x0000_i1095" type="#_x0000_t75" style='width:54.75pt;height:18pt' o:ole="">
+ <v:imagedata src="./DirectionCosines_files/image096.wmz" o:title=""/>
+</v:shape><![endif]--><![if !vml]><img width=73 height=24
+src="./DirectionCosines_files/image097.gif" v:shapes="_x0000_i1095"><![endif]></sub><!--[if gte mso 9]><xml>
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1095"
+  DrawAspect="Content" ObjectID="_1083062356">
+ </o:OLEObject>
+</xml><![endif]--></p>
+
+<p class=MsoNormal><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=MsoNormal>or </p>
+
+<p class=MsoNormal><span style='mso-tab-count:1'>            </span><sub><!--[if gte vml 1]><v:shape
+ id="_x0000_i1096" type="#_x0000_t75" style='width:278.25pt;height:24pt' o:ole="">
+ <v:imagedata src="./DirectionCosines_files/image098.wmz" o:title=""/>
+</v:shape><![endif]--><![if !vml]><img width=371 height=32
+src="./DirectionCosines_files/image099.gif" v:shapes="_x0000_i1096"><![endif]></sub><!--[if gte mso 9]><xml>
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1096"
+  DrawAspect="Content" ObjectID="_1083062357">
+ </o:OLEObject>
+</xml><![endif]--></p>
+
+<p class=MsoNormal><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=MsoNormal>Thus, we have only to find <i>t</i> when the line intercepts
+the plane.<span style="mso-spacerun: yes">  </span><i>t</i> can be positive or
+negative depending on whether the vector points toward or away from the
+plane.<span style="mso-spacerun: yes">  </span>We usually choose the sign so
+that distance is positive.</p>
+
+<p class=MsoNormal><span style='mso-tab-count:1'>            </span>The line
+and plane intercept when</p>
+
+<p class=MsoNormal><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=MsoNormal><span style='mso-tab-count:1'>            </span><sub><!--[if gte vml 1]><v:shape
+ id="_x0000_i1097" type="#_x0000_t75" style='width:219.75pt;height:18pt' o:ole="">
+ <v:imagedata src="./DirectionCosines_files/image100.wmz" o:title=""/>
+</v:shape><![endif]--><![if !vml]><img width=293 height=24
+src="./DirectionCosines_files/image101.gif" v:shapes="_x0000_i1097"><![endif]></sub><!--[if gte mso 9]><xml>
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1097"
+  DrawAspect="Content" ObjectID="_1083062358">
+ </o:OLEObject>
+</xml><![endif]--></p>
+
+<p class=MsoNormal><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=MsoNormal>Solving for <i>t</i> yields</p>
+
+<p class=MsoNormal><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=MsoNormal><span style='mso-tab-count:1'>            </span><sub><!--[if gte vml 1]><v:shape
+ id="_x0000_i1098" type="#_x0000_t75" style='width:129.75pt;height:32.25pt'
+ o:ole="">
+ <v:imagedata src="./DirectionCosines_files/image102.wmz" o:title=""/>
+</v:shape><![endif]--><![if !vml]><img width=173 height=43
+src="./DirectionCosines_files/image103.gif" v:shapes="_x0000_i1098"><![endif]></sub><!--[if gte mso 9]><xml>
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1098"
+  DrawAspect="Content" ObjectID="_1083062359">
+ </o:OLEObject>
+</xml><![endif]--></p>
+
+<p class=MsoNormal><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=MsoNormal>or</p>
+
+<p class=MsoNormal><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=MsoNormal><span style='mso-tab-count:1'>            </span><sub><!--[if gte vml 1]><v:shape
+ id="_x0000_i1099" type="#_x0000_t75" style='width:294pt;height:36.75pt' o:ole="">
+ <v:imagedata src="./DirectionCosines_files/image104.wmz" o:title=""/>
+</v:shape><![endif]--><![if !vml]><img width=392 height=49
+src="./DirectionCosines_files/image105.gif" v:shapes="_x0000_i1099"><![endif]></sub><!--[if gte mso 9]><xml>
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1099"
+  DrawAspect="Content" ObjectID="_1083062360">
+ </o:OLEObject>
+</xml><![endif]--></p>
+
+<p class=MsoNormal><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=MsoNormal>Thus, the distance from the point to the plane is</p>
+
+<p class=MsoNormal><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=MsoNormal><span style='mso-tab-count:1'>            </span><sub><!--[if gte vml 1]><v:shape
+ id="_x0000_i1100" type="#_x0000_t75" style='width:131.25pt;height:36pt' o:ole="">
+ <v:imagedata src="./DirectionCosines_files/image106.wmz" o:title=""/>
+</v:shape><![endif]--><![if !vml]><img width=175 height=48
+src="./DirectionCosines_files/image107.gif" v:shapes="_x0000_i1100"><![endif]></sub><!--[if gte mso 9]><xml>
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1100"
+  DrawAspect="Content" ObjectID="_1083062361">
+ </o:OLEObject>
+</xml><![endif]--></p>
+
+<p class=MsoNormal><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<h2>Rotation of a Coordinate System</h2>
+
+<p class=MsoNormal><span style='mso-tab-count:1'>            </span>Given one
+coordinate system, <sub><!--[if gte vml 1]><v:shape id="_x0000_i1101" type="#_x0000_t75"
+ style='width:47.25pt;height:17.25pt' o:ole="">
+ <v:imagedata src="./DirectionCosines_files/image108.wmz" o:title=""/>
+</v:shape><![endif]--><![if !vml]><img width=63 height=23
+src="./DirectionCosines_files/image109.gif" v:shapes="_x0000_i1101"><![endif]></sub><!--[if gte mso 9]><xml>
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1101"
+  DrawAspect="Content" ObjectID="_1083062362">
+ </o:OLEObject>
+</xml><![endif]-->, a new system can be devised by rotating the old
+system.<span style="mso-spacerun: yes">  </span>One way to do this is through
+quaternions.<span style="mso-spacerun: yes">  </span>Here, we use direction
+cosines.<span style="mso-spacerun: yes">  </span>We assume that we know the
+direction cosines of each of the axes in the new system relative to the old
+system.<span style="mso-spacerun: yes">  </span>The direction cosines of the
+new x axis are <sub><!--[if gte vml 1]><v:shape id="_x0000_i1102" type="#_x0000_t75"
+ style='width:54pt;height:18pt' o:ole="">
+ <v:imagedata src="./DirectionCosines_files/image110.wmz" o:title=""/>
+</v:shape><![endif]--><![if !vml]><img width=72 height=24
+src="./DirectionCosines_files/image111.gif" v:shapes="_x0000_i1102"><![endif]></sub><!--[if gte mso 9]><xml>
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1102"
+  DrawAspect="Content" ObjectID="_1083062363">
+ </o:OLEObject>
+</xml><![endif]-->.<span style="mso-spacerun: yes">  </span>Similar notation
+exists for the other axes.<span style="mso-spacerun: yes">  </span>The new
+coordinates can be described in terms of the old coordinates as</p>
+
+<p class=MsoNormal><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=MsoNormal><span style='mso-tab-count:1'>            </span><sub><!--[if gte vml 1]><v:shape
+ id="_x0000_i1103" type="#_x0000_t75" style='width:129pt;height:56.25pt' o:ole="">
+ <v:imagedata src="./DirectionCosines_files/image112.wmz" o:title=""/>
+</v:shape><![endif]--><![if !vml]><img width=172 height=75
+src="./DirectionCosines_files/image113.gif" v:shapes="_x0000_i1103"><![endif]></sub><!--[if gte mso 9]><xml>
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1103"
+  DrawAspect="Content" ObjectID="_1083062364">
+ </o:OLEObject>
+</xml><![endif]--></p>
+
+<p class=MsoNormal><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=MsoNormal>The old coordinates can be described in terms of the new
+coordinates as</p>
+
+<p class=MsoNormal><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=MsoNormal><span style='mso-tab-count:1'>            </span><sub><!--[if gte vml 1]><v:shape
+ id="_x0000_i1104" type="#_x0000_t75" style='width:249pt;height:59.25pt' o:ole="">
+ <v:imagedata src="./DirectionCosines_files/image114.wmz" o:title=""/>
+</v:shape><![endif]--><![if !vml]><img width=332 height=79
+src="./DirectionCosines_files/image115.gif" v:shapes="_x0000_i1104"><![endif]></sub><!--[if gte mso 9]><xml>
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1104"
+  DrawAspect="Content" ObjectID="_1083062365">
+ </o:OLEObject>
+</xml><![endif]--></p>
+
+<p class=MsoNormal><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+</div>
+
+</body>
+
+</html>
